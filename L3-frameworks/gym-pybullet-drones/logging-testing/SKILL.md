@@ -5,7 +5,7 @@ description: >
 layer: L3
 domain: [drones]
 source-project: gym-pybullet-drones
-depends-on: [pybullet-simulation-engine]
+depends-on: [pybullet-simulation-engine, K-Dense-AI/matplotlib]
 tags: [logging, testing, pytest, visualization]
 ---
 

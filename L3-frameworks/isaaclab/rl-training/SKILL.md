@@ -5,7 +5,7 @@ description: >
 layer: L3
 domain: [robotics, general-rl]
 source-project: IsaacLab
-depends-on: [isaaclab-environment-design, rl-theory-analyzer]
+depends-on: [isaaclab-environment-design, rl-theory-analyzer, K-Dense-AI/stable-baselines3]
 tags: [training, ppo, rsl-rl, multi-gpu]
 ---
 

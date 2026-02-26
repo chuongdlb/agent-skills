@@ -5,7 +5,7 @@ description: >
 layer: L3
 domain: [drones, general-rl]
 source-project: gym-pybullet-drones
-depends-on: [gpd-rl-environments, pybullet-simulation-engine]
+depends-on: [gpd-rl-environments, pybullet-simulation-engine, K-Dense-AI/stable-baselines3]
 tags: [training, ppo, sb3, evaluation]
 ---
 

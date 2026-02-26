@@ -588,7 +588,8 @@
       ],
       "source-project": "gym-pybullet-drones",
       "depends-on": [
-        "pybullet-simulation-engine"
+        "pybullet-simulation-engine",
+        "K-Dense-AI/matplotlib"
       ],
       "tags": [
         "logging",
@@ -635,7 +636,8 @@
       "source-project": "gym-pybullet-drones",
       "depends-on": [
         "gpd-rl-environments",
-        "pybullet-simulation-engine"
+        "pybullet-simulation-engine",
+        "K-Dense-AI/stable-baselines3"
       ],
       "tags": [
         "training",
@@ -786,7 +788,8 @@
       "source-project": "IsaacLab",
       "depends-on": [
         "isaaclab-environment-design",
-        "rl-theory-analyzer"
+        "rl-theory-analyzer",
+        "K-Dense-AI/stable-baselines3"
       ],
       "tags": [
         "training",

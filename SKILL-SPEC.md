@@ -65,6 +65,20 @@ Recommended domain tags (use consistently):
 - Cross-layer dependencies (e.g., L3 → L0) are allowed for theory references
 - `meta` skills may depend on any layer
 
+### External Skill References
+
+For prerequisites from external skill repositories, use the `org/skill-name` format:
+
+```yaml
+depends-on: [local-skill-name, K-Dense-AI/stable-baselines3]
+```
+
+| Prefix | Repository | Location |
+|--------|-----------|----------|
+| `K-Dense-AI/` | [claude-scientific-skills](https://github.com/K-Dense-AI/claude-scientific-skills) | `~/.claude/skills/` (installed) |
+
+External references are validated separately from local skill names. Only add external references where there is a **specific, direct prerequisite** — the external skill teaches a library or concept that this skill directly uses.
+
 ## Directory Convention
 
 ```
