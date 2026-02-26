@@ -5,7 +5,7 @@ description: >
 layer: L2
 domain: [general-rl]
 source-project: rl-tools-framework
-depends-on: [rltools-build]
+depends-on: [rltools-build, gymnasium-core-api]
 tags: [python, bindings, gymnasium, pytorch]
 ---
 

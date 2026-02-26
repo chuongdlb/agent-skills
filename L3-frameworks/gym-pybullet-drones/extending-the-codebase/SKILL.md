@@ -5,7 +5,7 @@ description: >
 layer: L3
 domain: [drones]
 source-project: gym-pybullet-drones
-depends-on: [pybullet-simulation-engine, gpd-rl-environments]
+depends-on: [pybullet-simulation-engine, gpd-rl-environments, gymnasium-custom-environments]
 tags: [extending, templates, registration]
 ---
 

@@ -1,6 +1,6 @@
 # Agent Skills Repository
 
-A consolidated collection of **40 agent skills** organized in a 4-layer architecture + meta category, following patterns used by top RL/AI labs (Nvidia Isaac, DeepMind Acme, OpenAI Gym, Meta Habitat, Berkeley RLlib).
+A consolidated collection of **46 agent skills** organized in a 4-layer architecture + meta category, following patterns used by top RL/AI labs (Nvidia Isaac, DeepMind Acme, OpenAI Gym, Meta Habitat, Berkeley RLlib).
 
 **Key design principle**: Organize by **abstraction layer** (not domain), with domain as cross-cutting metadata tags.
 
@@ -28,9 +28,9 @@ A consolidated collection of **40 agent skills** organized in a 4-layer architec
 │  └────────────┬─────────────┘  └──────────────┬───────────────────┘    │
 │               │                                │                        │
 ├───────────────┼────────────────────────────────┼────────────────────────┤
-│  L2-platforms (19 skills)      │                │                        │
-│  Simulation engines & platforms│                │                        │
-│  ┌────────────┴────────┐  ┌───┴──────────┐  ┌─┴──────────────────┐    │
+│  L2-platforms (25 skills)    │                  │                        │
+│  Simulation engines & platforms                 │                        │
+│  ┌────────────┴────────┐  ┌─┴────────────┐  ┌─┴──────────────────┐    │
 │  │ isaacsim/ (8)       │  │ pybullet/ (1)│  │ rl-tools/ (10)     │    │
 │  │ simulation-core     │  │ simulation-  │  │ build              │    │
 │  │ asset-pipeline      │  │ engine       │  │ neural-network     │    │
@@ -42,6 +42,12 @@ A consolidated collection of **40 agent skills** organized in a 4-layer architec
 │  │ extensions          │  │              │  │ experiment-tracking│    │
 │  │                     │  │              │  │ web-visualization  │    │
 │  └─────────────────────┘  └──────────────┘  └────────────────────┘    │
+│                                                                         │
+│  ┌──────────────────────────────────────────────┐                      │
+│  │ gymnasium/ (6)                                │                      │
+│  │ core-api, spaces, wrappers, vector-envs,      │                      │
+│  │ environments, custom-environments             │                      │
+│  └──────────────────────────────────────────────┘                      │
 │                                                                         │
 ├─────────────────────────────────────────────────────────────────────────┤
 │  L1-core (1 skill)                                                      │
@@ -67,15 +73,16 @@ A consolidated collection of **40 agent skills** organized in a 4-layer architec
 | meta | 3 | Orchestration & methodology (cross-layer) |
 | L0-theory | 3 | Foundational RL/math knowledge |
 | L1-core | 1 | Core tools & reusable infrastructure |
-| L2-platforms | 19 | Simulation engines & platforms (IsaacSim, PyBullet, RL-Tools) |
+| L2-platforms | 25 | Simulation engines & platforms (IsaacSim, Gymnasium, PyBullet, RL-Tools) |
 | L3-frameworks | 14 | Domain frameworks (IsaacLab, gym-pybullet-drones) |
-| **Total** | **40** | |
+| **Total** | **46** | |
 
 ## Skill Count by Source Project
 
 | Source Project | Count | Layers |
 |----------------|-------|--------|
 | Book-Mathematical-Foundation-of-RL | 7 | meta, L0, L1 |
+| Gymnasium | 6 | L2 |
 | IsaacSim | 8 | L2 |
 | IsaacLab | 8 | L3 |
 | gym-pybullet-drones | 7 | L2 (1), L3 (6) |
@@ -101,6 +108,16 @@ A consolidated collection of **40 agent skills** organized in a 4-layer architec
 | Skill | Description |
 |-------|-------------|
 | [rl-implementer](L1-core/rl-implementer/SKILL.md) | Python RL implementations (tabular through DQN) |
+
+### L2-platforms/gymnasium
+| Skill | Description |
+|-------|-------------|
+| [core-api](L2-platforms/gymnasium/core-api/SKILL.md) | Env base class, step/reset contract, registration |
+| [spaces](L2-platforms/gymnasium/spaces/SKILL.md) | Box, Discrete, Dict, Tuple, composite spaces |
+| [wrappers](L2-platforms/gymnasium/wrappers/SKILL.md) | Observation, action, reward, rendering wrappers |
+| [vector-envs](L2-platforms/gymnasium/vector-envs/SKILL.md) | SyncVectorEnv, AsyncVectorEnv, batched semantics |
+| [environments](L2-platforms/gymnasium/environments/SKILL.md) | Classic Control, Box2D, Toy Text, MuJoCo |
+| [custom-environments](L2-platforms/gymnasium/custom-environments/SKILL.md) | Env subclass, FuncEnv, registration, packaging |
 
 ### L2-platforms/isaacsim
 | Skill | Description |
@@ -166,4 +183,4 @@ See [SKILL-SPEC.md](SKILL-SPEC.md) for the frontmatter specification.
 
 ## Machine-Readable Index
 
-[registry.json](registry.json) contains all 40 skills with paths, layers, domains, dependencies, and tags.
+[registry.json](registry.json) contains all 46 skills with paths, layers, domains, dependencies, and tags.

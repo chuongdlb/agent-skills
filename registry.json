@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "total_skills": 40,
+  "total_skills": 46,
   "skills": [
     {
       "name": "rl-algorithm-designer",
@@ -80,6 +80,144 @@
       ],
       "description": "Implements RL algorithms with correct mathematical grounding, translating from theoretical framework to working Python code with grid worlds, learning rate schedules, and DQN.",
       "reference-files": []
+    },
+    {
+      "name": "gymnasium-core-api",
+      "path": "L2-platforms/gymnasium/core-api",
+      "layer": "L2",
+      "domain": [
+        "general-rl"
+      ],
+      "source-project": "Gymnasium",
+      "depends-on": [],
+      "tags": [
+        "gymnasium",
+        "env",
+        "wrapper",
+        "registration",
+        "rl-loop"
+      ],
+      "description": "Core Gymnasium RL environment interface \u2014 Env base class, step/reset contract, Wrapper hierarchy, registration system, and standard RL loop patterns.",
+      "reference-files": [
+        "L2-platforms/gymnasium/core-api/registration-reference.md"
+      ]
+    },
+    {
+      "name": "gymnasium-spaces",
+      "path": "L2-platforms/gymnasium/spaces",
+      "layer": "L2",
+      "domain": [
+        "general-rl"
+      ],
+      "source-project": "Gymnasium",
+      "depends-on": [
+        "gymnasium-core-api"
+      ],
+      "tags": [
+        "spaces",
+        "box",
+        "discrete",
+        "dict",
+        "flatten"
+      ],
+      "description": "Gymnasium space types for defining observation and action domains \u2014 Box, Discrete, Dict, Tuple, and composite spaces with sampling, containment, and flatten utilities.",
+      "reference-files": [
+        "L2-platforms/gymnasium/spaces/spaces-catalog.md"
+      ]
+    },
+    {
+      "name": "gymnasium-wrappers",
+      "path": "L2-platforms/gymnasium/wrappers",
+      "layer": "L2",
+      "domain": [
+        "general-rl"
+      ],
+      "source-project": "Gymnasium",
+      "depends-on": [
+        "gymnasium-core-api",
+        "gymnasium-spaces"
+      ],
+      "tags": [
+        "wrappers",
+        "preprocessing",
+        "normalization",
+        "frame-stack",
+        "video"
+      ],
+      "description": "Built-in Gymnasium wrappers for observation, action, reward, rendering, and common transformations \u2014 composable environment modifiers for preprocessing and monitoring.",
+      "reference-files": [
+        "L2-platforms/gymnasium/wrappers/wrappers-catalog.md"
+      ]
+    },
+    {
+      "name": "gymnasium-vector-envs",
+      "path": "L2-platforms/gymnasium/vector-envs",
+      "layer": "L2",
+      "domain": [
+        "general-rl"
+      ],
+      "source-project": "Gymnasium",
+      "depends-on": [
+        "gymnasium-core-api",
+        "gymnasium-spaces"
+      ],
+      "tags": [
+        "vectorization",
+        "parallel",
+        "batched",
+        "async",
+        "sync"
+      ],
+      "description": "Gymnasium vector environment API \u2014 SyncVectorEnv, AsyncVectorEnv, batched step/reset semantics, autoreset modes, and vector wrappers for parallel RL.",
+      "reference-files": []
+    },
+    {
+      "name": "gymnasium-environments",
+      "path": "L2-platforms/gymnasium/environments",
+      "layer": "L2",
+      "domain": [
+        "general-rl"
+      ],
+      "source-project": "Gymnasium",
+      "depends-on": [
+        "gymnasium-core-api",
+        "gymnasium-spaces"
+      ],
+      "tags": [
+        "environments",
+        "cartpole",
+        "mujoco",
+        "atari",
+        "classic-control"
+      ],
+      "description": "Built-in Gymnasium environments \u2014 Classic Control, Box2D, Toy Text, MuJoCo, and functional/JAX variants with IDs, spaces, and dependency requirements.",
+      "reference-files": [
+        "L2-platforms/gymnasium/environments/environment-catalog.md"
+      ]
+    },
+    {
+      "name": "gymnasium-custom-environments",
+      "path": "L2-platforms/gymnasium/custom-environments",
+      "layer": "L2",
+      "domain": [
+        "general-rl"
+      ],
+      "source-project": "Gymnasium",
+      "depends-on": [
+        "gymnasium-core-api",
+        "gymnasium-spaces"
+      ],
+      "tags": [
+        "custom-env",
+        "registration",
+        "funcenv",
+        "packaging",
+        "templates"
+      ],
+      "description": "Building custom Gymnasium environments \u2014 Env subclass pattern, render modes, FuncEnv stateless interface, registration, packaging, and env_checker validation.",
+      "reference-files": [
+        "L2-platforms/gymnasium/custom-environments/custom-env-template.md"
+      ]
     },
     {
       "name": "isaacsim-asset-pipeline",
@@ -284,7 +422,9 @@
         "simulation"
       ],
       "source-project": "gym-pybullet-drones",
-      "depends-on": [],
+      "depends-on": [
+        "gymnasium-core-api"
+      ],
       "tags": [
         "pybullet",
         "physics",
@@ -439,7 +579,8 @@
       ],
       "source-project": "rl-tools-framework",
       "depends-on": [
-        "rltools-build"
+        "rltools-build",
+        "gymnasium-core-api"
       ],
       "tags": [
         "python",
@@ -544,7 +685,8 @@
       "source-project": "gym-pybullet-drones",
       "depends-on": [
         "pybullet-simulation-engine",
-        "gpd-rl-environments"
+        "gpd-rl-environments",
+        "gymnasium-custom-environments"
       ],
       "tags": [
         "extending",
@@ -612,7 +754,9 @@
       ],
       "source-project": "gym-pybullet-drones",
       "depends-on": [
-        "pybullet-simulation-engine"
+        "pybullet-simulation-engine",
+        "gymnasium-core-api",
+        "gymnasium-spaces"
       ],
       "tags": [
         "rl-environment",
@@ -712,7 +856,8 @@
       "depends-on": [
         "isaacsim-simulation-core",
         "isaaclab-configclass-and-utilities",
-        "rl-theory-analyzer"
+        "rl-theory-analyzer",
+        "gymnasium-core-api"
       ],
       "tags": [
         "environment",
@@ -789,7 +934,8 @@
       "depends-on": [
         "isaaclab-environment-design",
         "rl-theory-analyzer",
-        "K-Dense-AI/stable-baselines3"
+        "K-Dense-AI/stable-baselines3",
+        "gymnasium-wrappers"
       ],
       "tags": [
         "training",

@@ -5,7 +5,7 @@ description: >
 layer: L3
 domain: [robotics, manipulation, locomotion, general-rl]
 source-project: IsaacLab
-depends-on: [isaacsim-simulation-core, isaaclab-configclass-and-utilities, rl-theory-analyzer]
+depends-on: [isaacsim-simulation-core, isaaclab-configclass-and-utilities, rl-theory-analyzer, gymnasium-core-api]
 tags: [environment, gymnasium, configclass, marl]
 ---
 

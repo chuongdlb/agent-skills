@@ -5,7 +5,7 @@ description: >
 layer: L2
 domain: [drones, simulation]
 source-project: gym-pybullet-drones
-depends-on: []
+depends-on: [gymnasium-core-api]
 tags: [pybullet, physics, aviary, quadrotor]
 ---
 

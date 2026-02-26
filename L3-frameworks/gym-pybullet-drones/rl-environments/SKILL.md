@@ -5,7 +5,7 @@ description: >
 layer: L3
 domain: [drones, general-rl]
 source-project: gym-pybullet-drones
-depends-on: [pybullet-simulation-engine]
+depends-on: [pybullet-simulation-engine, gymnasium-core-api, gymnasium-spaces]
 tags: [rl-environment, gymnasium, hover, multi-agent]
 ---
 
