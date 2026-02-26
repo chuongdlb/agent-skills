@@ -1,0 +1,913 @@
+{
+  "version": "1.0",
+  "total_skills": 40,
+  "skills": [
+    {
+      "name": "rl-algorithm-designer",
+      "path": "L0-theory/rl-algorithm-designer",
+      "layer": "L0",
+      "domain": [
+        "general-rl"
+      ],
+      "source-project": "Book-Mathematical-Foundation-of-RL",
+      "depends-on": [
+        "rl-theory-analyzer",
+        "rl-convergence-prover"
+      ],
+      "tags": [
+        "algorithm-design",
+        "patterns",
+        "theory"
+      ],
+      "description": "Designs new RL algorithms by composing known design patterns, generating update rules from first principles, and ensuring mathematical soundness.",
+      "reference-files": []
+    },
+    {
+      "name": "rl-convergence-prover",
+      "path": "L0-theory/rl-convergence-prover",
+      "layer": "L0",
+      "domain": [
+        "general-rl"
+      ],
+      "source-project": "Book-Mathematical-Foundation-of-RL",
+      "depends-on": [
+        "rl-theory-analyzer"
+      ],
+      "tags": [
+        "convergence",
+        "proof",
+        "stochastic-approximation",
+        "theory"
+      ],
+      "description": "Proves or disproves convergence of RL algorithms using contraction mapping, Dvoretzky, Extended Dvoretzky, and Robbins-Monro theorems.",
+      "reference-files": []
+    },
+    {
+      "name": "rl-theory-analyzer",
+      "path": "L0-theory/rl-theory-analyzer",
+      "layer": "L0",
+      "domain": [
+        "general-rl"
+      ],
+      "source-project": "Book-Mathematical-Foundation-of-RL",
+      "depends-on": [],
+      "tags": [
+        "theory",
+        "analysis",
+        "bellman",
+        "stochastic-approximation"
+      ],
+      "description": "Analyzes RL algorithms mathematically \u2014 derives update rules, proves convergence, identifies failure modes, and classifies algorithms along standard taxonomic dimensions.",
+      "reference-files": []
+    },
+    {
+      "name": "rl-implementer",
+      "path": "L1-core/rl-implementer",
+      "layer": "L1",
+      "domain": [
+        "general-rl"
+      ],
+      "source-project": "Book-Mathematical-Foundation-of-RL",
+      "depends-on": [
+        "rl-theory-analyzer"
+      ],
+      "tags": [
+        "implementation",
+        "python",
+        "tabular",
+        "dqn",
+        "grid-world"
+      ],
+      "description": "Implements RL algorithms with correct mathematical grounding, translating from theoretical framework to working Python code with grid worlds, learning rate schedules, and DQN.",
+      "reference-files": []
+    },
+    {
+      "name": "isaacsim-asset-pipeline",
+      "path": "L2-platforms/isaacsim/asset-pipeline",
+      "layer": "L2",
+      "domain": [
+        "robotics",
+        "simulation"
+      ],
+      "source-project": "IsaacSim",
+      "depends-on": [
+        "isaacsim-simulation-core"
+      ],
+      "tags": [
+        "urdf",
+        "mjcf",
+        "usd",
+        "assets",
+        "import-export"
+      ],
+      "description": "Imports, exports, and validates robot and scene assets in Isaac Sim \u2014 URDF/MJCF import, USD-to-URDF export, heightmap terrain generation, and asset conversion.",
+      "reference-files": [
+        "L2-platforms/isaacsim/asset-pipeline/import-export-reference.md"
+      ]
+    },
+    {
+      "name": "isaacsim-build-and-test",
+      "path": "L2-platforms/isaacsim/build-and-test",
+      "layer": "L2",
+      "domain": [
+        "robotics",
+        "simulation"
+      ],
+      "source-project": "IsaacSim",
+      "depends-on": [
+        "isaacsim-simulation-core"
+      ],
+      "tags": [
+        "build",
+        "testing",
+        "premake",
+        "ci-cd"
+      ],
+      "description": "Builds, configures, and tests the Isaac Sim repository \u2014 Premake5/Lua build system, Packman dependencies, pip packages, extension tests, CI/CD.",
+      "reference-files": [
+        "L2-platforms/isaacsim/build-and-test/build-system-reference.md",
+        "L2-platforms/isaacsim/build-and-test/test-configuration.md"
+      ]
+    },
+    {
+      "name": "isaacsim-extensions",
+      "path": "L2-platforms/isaacsim/extensions",
+      "layer": "L2",
+      "domain": [
+        "robotics",
+        "simulation"
+      ],
+      "source-project": "IsaacSim",
+      "depends-on": [
+        "isaacsim-simulation-core",
+        "isaacsim-build-and-test"
+      ],
+      "tags": [
+        "extensions",
+        "omnigraph",
+        "kit",
+        "plugins"
+      ],
+      "description": "Creates and modifies Omniverse Kit extensions for Isaac Sim \u2014 extension.toml manifests, Python module scaffolding, OmniGraph nodes, C++ plugins.",
+      "reference-files": [
+        "L2-platforms/isaacsim/extensions/extension-template.md",
+        "L2-platforms/isaacsim/extensions/extension-toml-reference.md"
+      ]
+    },
+    {
+      "name": "isaacsim-robotics",
+      "path": "L2-platforms/isaacsim/robotics",
+      "layer": "L2",
+      "domain": [
+        "robotics",
+        "manipulation",
+        "locomotion"
+      ],
+      "source-project": "IsaacSim",
+      "depends-on": [
+        "isaacsim-simulation-core",
+        "isaacsim-asset-pipeline"
+      ],
+      "tags": [
+        "robots",
+        "manipulators",
+        "motion-planning",
+        "controllers"
+      ],
+      "description": "Develops robot configurations, manipulators, wheeled robots, grippers, motion planning, and control systems in Isaac Sim.",
+      "reference-files": [
+        "L2-platforms/isaacsim/robotics/controllers-and-tasks.md",
+        "L2-platforms/isaacsim/robotics/robot-types.md"
+      ]
+    },
+    {
+      "name": "isaacsim-ros2-integration",
+      "path": "L2-platforms/isaacsim/ros2-integration",
+      "layer": "L2",
+      "domain": [
+        "robotics"
+      ],
+      "source-project": "IsaacSim",
+      "depends-on": [
+        "isaacsim-simulation-core",
+        "isaacsim-sensor-development"
+      ],
+      "tags": [
+        "ros2",
+        "omnigraph",
+        "bridge",
+        "topics"
+      ],
+      "description": "Integrates Isaac Sim with ROS 2 via OmniGraph-based bridge \u2014 topic pub/sub, camera/lidar/IMU streaming, clock sync, TF broadcasting.",
+      "reference-files": [
+        "L2-platforms/isaacsim/ros2-integration/ros2-patterns.md"
+      ]
+    },
+    {
+      "name": "isaacsim-sensor-development",
+      "path": "L2-platforms/isaacsim/sensor-development",
+      "layer": "L2",
+      "domain": [
+        "robotics",
+        "simulation"
+      ],
+      "source-project": "IsaacSim",
+      "depends-on": [
+        "isaacsim-simulation-core"
+      ],
+      "tags": [
+        "sensors",
+        "cameras",
+        "lidar",
+        "radar",
+        "annotators"
+      ],
+      "description": "Creates and configures sensors in Isaac Sim \u2014 cameras, physics-based sensors, PhysX lidar, RTX lidar/radar, annotator pipelines, and lens distortion.",
+      "reference-files": [
+        "L2-platforms/isaacsim/sensor-development/sensor-types-reference.md"
+      ]
+    },
+    {
+      "name": "isaacsim-simulation-core",
+      "path": "L2-platforms/isaacsim/simulation-core",
+      "layer": "L2",
+      "domain": [
+        "robotics",
+        "simulation"
+      ],
+      "source-project": "IsaacSim",
+      "depends-on": [],
+      "tags": [
+        "simulation",
+        "physics",
+        "usd",
+        "world",
+        "prim-wrappers"
+      ],
+      "description": "Core Isaac Sim simulation API including World, SimulationContext, Scene, PhysicsContext singletons, prim wrappers, backend selection, and the experimental Core API.",
+      "reference-files": [
+        "L2-platforms/isaacsim/simulation-core/class-hierarchy.md",
+        "L2-platforms/isaacsim/simulation-core/lifecycle-patterns.md"
+      ]
+    },
+    {
+      "name": "isaacsim-synthetic-data",
+      "path": "L2-platforms/isaacsim/synthetic-data",
+      "layer": "L2",
+      "domain": [
+        "robotics",
+        "simulation",
+        "ml-training"
+      ],
+      "source-project": "IsaacSim",
+      "depends-on": [
+        "isaacsim-simulation-core",
+        "isaacsim-sensor-development"
+      ],
+      "tags": [
+        "synthetic-data",
+        "domain-randomization",
+        "replicator",
+        "sdg"
+      ],
+      "description": "Generates synthetic training data using Replicator \u2014 domain randomization, behavior scripting, SDG workflows, custom writers and annotators.",
+      "reference-files": [
+        "L2-platforms/isaacsim/synthetic-data/sdg-workflows.md"
+      ]
+    },
+    {
+      "name": "pybullet-simulation-engine",
+      "path": "L2-platforms/pybullet/simulation-engine",
+      "layer": "L2",
+      "domain": [
+        "drones",
+        "simulation"
+      ],
+      "source-project": "gym-pybullet-drones",
+      "depends-on": [],
+      "tags": [
+        "pybullet",
+        "physics",
+        "aviary",
+        "quadrotor"
+      ],
+      "description": "Core PyBullet simulation engine \u2014 BaseAviary class hierarchy, physics models, step loop, frequency management, state vectors, and drone URDF configuration.",
+      "reference-files": [
+        "L2-platforms/pybullet/simulation-engine/drone-parameters-reference.md",
+        "L2-platforms/pybullet/simulation-engine/physics-models-reference.md"
+      ]
+    },
+    {
+      "name": "rltools-build",
+      "path": "L2-platforms/rl-tools/build",
+      "layer": "L2",
+      "domain": [
+        "general-rl",
+        "embedded"
+      ],
+      "source-project": "rl-tools-framework",
+      "depends-on": [],
+      "tags": [
+        "cmake",
+        "build",
+        "embedded",
+        "cpp17"
+      ],
+      "description": "CMake build system configuration for rl-tools \u2014 tiered targets (Core/Backend/Minimal/RLtools), backend auto-detection, embedded platform builds.",
+      "reference-files": []
+    },
+    {
+      "name": "rltools-deploy-hardware",
+      "path": "L2-platforms/rl-tools/deploy-hardware",
+      "layer": "L2",
+      "domain": [
+        "drones",
+        "embedded",
+        "sim-to-real"
+      ],
+      "source-project": "rl-tools-framework",
+      "depends-on": [
+        "rltools-build",
+        "rltools-training"
+      ],
+      "tags": [
+        "deployment",
+        "embedded",
+        "esp32",
+        "crazyflie",
+        "px4"
+      ],
+      "description": "Deploy trained rl-tools policies to hardware \u2014 ESP32, Teensy, Crazyflie, PX4, Betaflight platform adapters and firmware integration.",
+      "reference-files": [
+        "L2-platforms/rl-tools/deploy-hardware/references/platform-adapters.md"
+      ]
+    },
+    {
+      "name": "rltools-environment",
+      "path": "L2-platforms/rl-tools/environment",
+      "layer": "L2",
+      "domain": [
+        "general-rl"
+      ],
+      "source-project": "rl-tools-framework",
+      "depends-on": [
+        "rltools-build"
+      ],
+      "tags": [
+        "environment",
+        "custom-env",
+        "cpp17"
+      ],
+      "description": "Create custom RL environments for rl-tools C++17 \u2014 3-file structure (env header, operations_generic, operations_cpu), JSON serialization, UI render.",
+      "reference-files": [
+        "L2-platforms/rl-tools/environment/references/environment-header-template.md"
+      ]
+    },
+    {
+      "name": "rltools-experiment-tracking",
+      "path": "L2-platforms/rl-tools/experiment-tracking",
+      "layer": "L2",
+      "domain": [
+        "general-rl"
+      ],
+      "source-project": "rl-tools-framework",
+      "depends-on": [
+        "rltools-build",
+        "rltools-web-visualization"
+      ],
+      "tags": [
+        "experiment-tracking",
+        "extrack",
+        "visualization"
+      ],
+      "description": "ExTrack experiment tracking and visualization \u2014 experiment directories, evaluation intervals, trajectory replay, return.json metrics, dashboards.",
+      "reference-files": [
+        "L2-platforms/rl-tools/experiment-tracking/references/extrack-format.md"
+      ]
+    },
+    {
+      "name": "rltools-l2f",
+      "path": "L2-platforms/rl-tools/l2f",
+      "layer": "L2",
+      "domain": [
+        "drones",
+        "sim-to-real"
+      ],
+      "source-project": "rl-tools-framework",
+      "depends-on": [
+        "rltools-build",
+        "rltools-training",
+        "rltools-environment"
+      ],
+      "tags": [
+        "quadrotor",
+        "l2f",
+        "sim-to-real",
+        "crazyflie"
+      ],
+      "description": "Learning to Fly (L2F) quadrotor development \u2014 quadrotor simulation, drone control policies, system identification, domain randomization, sim-to-real deployment.",
+      "reference-files": []
+    },
+    {
+      "name": "rltools-neural-network",
+      "path": "L2-platforms/rl-tools/neural-network",
+      "layer": "L2",
+      "domain": [
+        "general-rl"
+      ],
+      "source-project": "rl-tools-framework",
+      "depends-on": [
+        "rltools-build"
+      ],
+      "tags": [
+        "neural-network",
+        "layers",
+        "mlp",
+        "cpp17"
+      ],
+      "description": "Custom neural network architectures in rl-tools \u2014 Dense, GRU, sample_and_squash layers, MLP/Sequential models, activation functions, optimizers, compile-time shapes.",
+      "reference-files": [
+        "L2-platforms/rl-tools/neural-network/references/layer-reference.md"
+      ]
+    },
+    {
+      "name": "rltools-python",
+      "path": "L2-platforms/rl-tools/python",
+      "layer": "L2",
+      "domain": [
+        "general-rl"
+      ],
+      "source-project": "rl-tools-framework",
+      "depends-on": [
+        "rltools-build"
+      ],
+      "tags": [
+        "python",
+        "bindings",
+        "gymnasium",
+        "pytorch"
+      ],
+      "description": "Python interface and integration for rl-tools \u2014 Gymnasium integration, pybind11 bindings, HDF5 checkpoints, tinyrl PyTorch extension.",
+      "reference-files": []
+    },
+    {
+      "name": "rltools-testing",
+      "path": "L2-platforms/rl-tools/testing",
+      "layer": "L2",
+      "domain": [
+        "general-rl"
+      ],
+      "source-project": "rl-tools-framework",
+      "depends-on": [
+        "rltools-build"
+      ],
+      "tags": [
+        "testing",
+        "benchmarking",
+        "googletest"
+      ],
+      "description": "Testing and benchmarking for rl-tools \u2014 GoogleTest, benchmark targets, environment correctness, NN inference speed, memory profiling for embedded.",
+      "reference-files": []
+    },
+    {
+      "name": "rltools-training",
+      "path": "L2-platforms/rl-tools/training",
+      "layer": "L2",
+      "domain": [
+        "general-rl"
+      ],
+      "source-project": "rl-tools-framework",
+      "depends-on": [
+        "rltools-build",
+        "rltools-neural-network"
+      ],
+      "tags": [
+        "training",
+        "sac",
+        "td3",
+        "ppo"
+      ],
+      "description": "Configure and run RL training with rl-tools \u2014 SAC, TD3, PPO training, hyperparameters, network architecture, composable loop steps.",
+      "reference-files": [
+        "L2-platforms/rl-tools/training/references/training-templates.md"
+      ]
+    },
+    {
+      "name": "rltools-web-visualization",
+      "path": "L2-platforms/rl-tools/web-visualization",
+      "layer": "L2",
+      "domain": [
+        "general-rl"
+      ],
+      "source-project": "rl-tools-framework",
+      "depends-on": [
+        "rltools-build"
+      ],
+      "tags": [
+        "web",
+        "wasm",
+        "visualization",
+        "threejs"
+      ],
+      "description": "Web-based visualization and browser simulation \u2014 Canvas 2D / Three.js 3D render functions, WASM compilation, Chart.js dashboards, gamepad support.",
+      "reference-files": []
+    },
+    {
+      "name": "gpd-control-systems",
+      "path": "L3-frameworks/gym-pybullet-drones/control-systems",
+      "layer": "L3",
+      "domain": [
+        "drones"
+      ],
+      "source-project": "gym-pybullet-drones",
+      "depends-on": [
+        "pybullet-simulation-engine"
+      ],
+      "tags": [
+        "pid",
+        "control",
+        "mrac",
+        "flight-controller"
+      ],
+      "description": "Flight controllers \u2014 DSLPIDControl cascaded PID, MRAC adaptive control, CTBRControl for Betaflight, BaseControl interface, controller pipeline.",
+      "reference-files": [
+        "L3-frameworks/gym-pybullet-drones/control-systems/pid-math-reference.md"
+      ]
+    },
+    {
+      "name": "gpd-extending-the-codebase",
+      "path": "L3-frameworks/gym-pybullet-drones/extending-the-codebase",
+      "layer": "L3",
+      "domain": [
+        "drones"
+      ],
+      "source-project": "gym-pybullet-drones",
+      "depends-on": [
+        "pybullet-simulation-engine",
+        "gpd-rl-environments"
+      ],
+      "tags": [
+        "extending",
+        "templates",
+        "registration"
+      ],
+      "description": "How to extend gym-pybullet-drones \u2014 new RL environments, control environments, drone models, Gymnasium registration, extension checklists.",
+      "reference-files": [
+        "L3-frameworks/gym-pybullet-drones/extending-the-codebase/templates-reference.md"
+      ]
+    },
+    {
+      "name": "gpd-firmware-sitl",
+      "path": "L3-frameworks/gym-pybullet-drones/firmware-sitl",
+      "layer": "L3",
+      "domain": [
+        "drones",
+        "sim-to-real"
+      ],
+      "source-project": "gym-pybullet-drones",
+      "depends-on": [
+        "pybullet-simulation-engine"
+      ],
+      "tags": [
+        "firmware",
+        "sitl",
+        "crazyflie",
+        "betaflight"
+      ],
+      "description": "Firmware-in-the-loop simulation \u2014 CFAviary (pycffirmware Crazyflie SITL), BetaAviary (Betaflight UDP SITL), command interfaces, sensor pipelines.",
+      "reference-files": [
+        "L3-frameworks/gym-pybullet-drones/firmware-sitl/firmware-api-reference.md"
+      ]
+    },
+    {
+      "name": "gpd-logging-testing",
+      "path": "L3-frameworks/gym-pybullet-drones/logging-testing",
+      "layer": "L3",
+      "domain": [
+        "drones"
+      ],
+      "source-project": "gym-pybullet-drones",
+      "depends-on": [
+        "pybullet-simulation-engine"
+      ],
+      "tags": [
+        "logging",
+        "testing",
+        "pytest",
+        "visualization"
+      ],
+      "description": "Logger class for data recording and visualization, real-time sync, pytest patterns, PyBullet debug tools, and video recording.",
+      "reference-files": [
+        "L3-frameworks/gym-pybullet-drones/logging-testing/logger-format-reference.md"
+      ]
+    },
+    {
+      "name": "gpd-rl-environments",
+      "path": "L3-frameworks/gym-pybullet-drones/rl-environments",
+      "layer": "L3",
+      "domain": [
+        "drones",
+        "general-rl"
+      ],
+      "source-project": "gym-pybullet-drones",
+      "depends-on": [
+        "pybullet-simulation-engine"
+      ],
+      "tags": [
+        "rl-environment",
+        "gymnasium",
+        "hover",
+        "multi-agent"
+      ],
+      "description": "RL environment creation \u2014 BaseRLAviary, ActionType/ObservationType dispatch, reward design, HoverAviary reference, single vs multi-agent patterns.",
+      "reference-files": [
+        "L3-frameworks/gym-pybullet-drones/rl-environments/action-observation-reference.md"
+      ]
+    },
+    {
+      "name": "gpd-training-evaluation",
+      "path": "L3-frameworks/gym-pybullet-drones/training-evaluation",
+      "layer": "L3",
+      "domain": [
+        "drones",
+        "general-rl"
+      ],
+      "source-project": "gym-pybullet-drones",
+      "depends-on": [
+        "gpd-rl-environments",
+        "pybullet-simulation-engine"
+      ],
+      "tags": [
+        "training",
+        "ppo",
+        "sb3",
+        "evaluation"
+      ],
+      "description": "Stable-Baselines3 PPO training pipeline \u2014 environment setup, callbacks, reward thresholds, model saving, evaluation, inference loop.",
+      "reference-files": [
+        "L3-frameworks/gym-pybullet-drones/training-evaluation/hyperparameter-reference.md"
+      ]
+    },
+    {
+      "name": "isaaclab-configclass-and-utilities",
+      "path": "L3-frameworks/isaaclab/configclass-and-utilities",
+      "layer": "L3",
+      "domain": [
+        "robotics",
+        "general-rl"
+      ],
+      "source-project": "IsaacLab",
+      "depends-on": [
+        "isaacsim-simulation-core"
+      ],
+      "tags": [
+        "configclass",
+        "utilities",
+        "math",
+        "quaternion"
+      ],
+      "description": "Provides guidance on @configclass decorator, MISSING sentinel, inheritance patterns, class_type convention, AppLauncher, math utilities, noise models, and buffers.",
+      "reference-files": [
+        "L3-frameworks/isaaclab/configclass-and-utilities/configclass-api-reference.md",
+        "L3-frameworks/isaaclab/configclass-and-utilities/utilities-catalog.md"
+      ]
+    },
+    {
+      "name": "isaaclab-controllers-and-teleop",
+      "path": "L3-frameworks/isaaclab/controllers-and-teleop",
+      "layer": "L3",
+      "domain": [
+        "robotics",
+        "manipulation"
+      ],
+      "source-project": "IsaacLab",
+      "depends-on": [
+        "isaacsim-robotics",
+        "isaaclab-configclass-and-utilities"
+      ],
+      "tags": [
+        "controllers",
+        "ik",
+        "teleop",
+        "manipulation"
+      ],
+      "description": "Implements task-space controllers (DifferentialIK, OperationalSpace, RmpFlow, JointImpedance) and teleoperation devices for IsaacLab.",
+      "reference-files": [
+        "L3-frameworks/isaaclab/controllers-and-teleop/controllers-api-reference.md"
+      ]
+    },
+    {
+      "name": "isaaclab-environment-design",
+      "path": "L3-frameworks/isaaclab/environment-design",
+      "layer": "L3",
+      "domain": [
+        "robotics",
+        "manipulation",
+        "locomotion",
+        "general-rl"
+      ],
+      "source-project": "IsaacLab",
+      "depends-on": [
+        "isaacsim-simulation-core",
+        "isaaclab-configclass-and-utilities",
+        "rl-theory-analyzer"
+      ],
+      "tags": [
+        "environment",
+        "gymnasium",
+        "configclass",
+        "marl"
+      ],
+      "description": "Designs IsaacLab environments using Manager-Based or Direct paradigms, composes InteractiveScene, registers environments, configures decimation, implements DirectMARLEnv.",
+      "reference-files": [
+        "L3-frameworks/isaaclab/environment-design/environment-api-reference.md",
+        "L3-frameworks/isaaclab/environment-design/environment-templates.md"
+      ]
+    },
+    {
+      "name": "isaaclab-imitation-learning",
+      "path": "L3-frameworks/isaaclab/imitation-learning",
+      "layer": "L3",
+      "domain": [
+        "robotics",
+        "manipulation"
+      ],
+      "source-project": "IsaacLab",
+      "depends-on": [
+        "isaaclab-environment-design",
+        "isaaclab-robot-and-asset-config"
+      ],
+      "tags": [
+        "imitation-learning",
+        "mimic",
+        "demonstrations",
+        "robomimic"
+      ],
+      "description": "Implements IsaacLab imitation learning pipeline \u2014 demo recording, IsaacLab Mimic, dataset annotation/generation, motion planners, robomimic training.",
+      "reference-files": [
+        "L3-frameworks/isaaclab/imitation-learning/imitation-learning-api.md",
+        "L3-frameworks/isaaclab/imitation-learning/imitation-learning-workflows.md"
+      ]
+    },
+    {
+      "name": "isaaclab-mdp-terms",
+      "path": "L3-frameworks/isaaclab/mdp-terms",
+      "layer": "L3",
+      "domain": [
+        "robotics",
+        "general-rl"
+      ],
+      "source-project": "IsaacLab",
+      "depends-on": [
+        "isaaclab-environment-design",
+        "isaaclab-configclass-and-utilities"
+      ],
+      "tags": [
+        "mdp",
+        "observations",
+        "rewards",
+        "terminations",
+        "managers"
+      ],
+      "description": "Implements MDP terms for IsaacLab manager-based environments across all 8 managers \u2014 Observation, Reward, Termination, Event, Action, Command, Curriculum, Recorder.",
+      "reference-files": [
+        "L3-frameworks/isaaclab/mdp-terms/mdp-terms-catalog.md",
+        "L3-frameworks/isaaclab/mdp-terms/mdp-terms-patterns.md"
+      ]
+    },
+    {
+      "name": "isaaclab-rl-training",
+      "path": "L3-frameworks/isaaclab/rl-training",
+      "layer": "L3",
+      "domain": [
+        "robotics",
+        "general-rl"
+      ],
+      "source-project": "IsaacLab",
+      "depends-on": [
+        "isaaclab-environment-design",
+        "rl-theory-analyzer"
+      ],
+      "tags": [
+        "training",
+        "ppo",
+        "rsl-rl",
+        "multi-gpu"
+      ],
+      "description": "Trains RL policies in IsaacLab using RSL-RL, RL-Games, Stable-Baselines3, or SKRL \u2014 PPO configs, checkpoints, multi-GPU, Ray tuning.",
+      "reference-files": [
+        "L3-frameworks/isaaclab/rl-training/rl-training-configs.md",
+        "L3-frameworks/isaaclab/rl-training/rl-training-workflows.md"
+      ]
+    },
+    {
+      "name": "isaaclab-robot-and-asset-config",
+      "path": "L3-frameworks/isaaclab/robot-and-asset-config",
+      "layer": "L3",
+      "domain": [
+        "robotics",
+        "manipulation",
+        "locomotion"
+      ],
+      "source-project": "IsaacLab",
+      "depends-on": [
+        "isaacsim-asset-pipeline",
+        "isaacsim-robotics",
+        "isaaclab-configclass-and-utilities"
+      ],
+      "tags": [
+        "robots",
+        "actuators",
+        "articulation",
+        "assets"
+      ],
+      "description": "Configures robots, rigid objects, deformable objects, and articulations \u2014 ArticulationCfg, actuator models, spawner configs, physics properties, robot catalog.",
+      "reference-files": [
+        "L3-frameworks/isaaclab/robot-and-asset-config/asset-configuration-api.md",
+        "L3-frameworks/isaaclab/robot-and-asset-config/robot-catalog.md"
+      ]
+    },
+    {
+      "name": "isaaclab-terrains-and-sensors",
+      "path": "L3-frameworks/isaaclab/terrains-and-sensors",
+      "layer": "L3",
+      "domain": [
+        "robotics",
+        "locomotion"
+      ],
+      "source-project": "IsaacLab",
+      "depends-on": [
+        "isaacsim-sensor-development",
+        "isaaclab-configclass-and-utilities"
+      ],
+      "tags": [
+        "terrains",
+        "sensors",
+        "height-field",
+        "curriculum"
+      ],
+      "description": "Configures terrain generation/import and sensors (ContactSensor, RayCaster, Camera, FrameTransformer, IMU) within InteractiveScene.",
+      "reference-files": [
+        "L3-frameworks/isaaclab/terrains-and-sensors/terrains-and-sensors-catalog.md"
+      ]
+    },
+    {
+      "name": "book-reader",
+      "path": "meta/book-reader",
+      "layer": "meta",
+      "domain": [
+        "general"
+      ],
+      "source-project": "Book-Mathematical-Foundation-of-RL",
+      "depends-on": [],
+      "tags": [
+        "knowledge-extraction",
+        "textbook",
+        "methodology"
+      ],
+      "description": "Reads an entire textbook, extracts mathematical/technical content, and builds a structured knowledge base plus actionable agent skills.",
+      "reference-files": []
+    },
+    {
+      "name": "book-reader-agent-prompt",
+      "path": "meta/book-reader-agent-prompt",
+      "layer": "meta",
+      "domain": [
+        "general"
+      ],
+      "source-project": "Book-Mathematical-Foundation-of-RL",
+      "depends-on": [
+        "book-reader"
+      ],
+      "tags": [
+        "prompt-template",
+        "agent",
+        "methodology"
+      ],
+      "description": "Prompt template for the /agent command to launch a book-reading agent that builds knowledge bases and skills from textbooks.",
+      "reference-files": []
+    },
+    {
+      "name": "rl-innovator",
+      "path": "meta/rl-innovator",
+      "layer": "meta",
+      "domain": [
+        "general-rl"
+      ],
+      "source-project": "Book-Mathematical-Foundation-of-RL",
+      "depends-on": [
+        "rl-theory-analyzer",
+        "rl-convergence-prover",
+        "rl-algorithm-designer",
+        "rl-implementer"
+      ],
+      "tags": [
+        "orchestration",
+        "innovation",
+        "meta"
+      ],
+      "description": "Meta-skill that orchestrates other RL skills to explore novel algorithm designs, identify limitations, and propose mathematically grounded improvements.",
+      "reference-files": []
+    }
+  ]
+}
