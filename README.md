@@ -66,6 +66,24 @@ A consolidated collection of **46 agent skills** organized in a 4-layer architec
 └─────────────────────────────────────────────────────────────────────────┘
 ```
 
+## Installation
+
+Install all skills as user-level Claude Code skills:
+
+```bash
+python install-skills.py
+```
+
+This creates skills in `~/.claude/skills/` with adapted frontmatter. Reference files are symlinked to avoid duplication.
+
+Other commands:
+
+```bash
+python install-skills.py --dry-run    # Preview without changes
+python install-skills.py --list       # Show install status
+python install-skills.py --uninstall  # Remove all installed skills
+```
+
 ## Skill Count by Layer
 
 | Layer | Count | Description |
