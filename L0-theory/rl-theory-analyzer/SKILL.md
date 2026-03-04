@@ -101,8 +101,15 @@ Closed-form: `v_pi = (I - gamma * P_pi)^{-1} * r_pi`
 
 ### Bellman Optimality Equation
 ```
-v*(s) = max_a sum_{s'} p(s'|s,a) * [sum_r p(r|s,a)*r + gamma * v*(s')]
+v*(s) = max_a [sum_r p(r|s,a)*r + gamma * sum_{s'} p(s'|s,a) * v*(s')]
 ```
+
+### Action Value
+```
+q_pi(s,a) = sum_r p(r|s,a) * r + gamma * sum_{s'} p(s'|s,a) * v_pi(s')
+```
+
+Relationship: `v_pi(s) = sum_a pi(a|s) * q_pi(s,a)`
 
 ### TD(0) Update
 ```

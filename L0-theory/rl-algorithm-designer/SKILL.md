@@ -30,14 +30,23 @@ Invoke this skill when you need to:
 **How:**
 - Evaluation: Estimate v_pi or q_pi for current policy
 - Improvement: Derive better policy from current value estimates
-**Variants:** Full evaluation (PI), single-step evaluation (VI), truncated (TPI with j steps)
+**Variants:** Full evaluation (PI, j=∞), single-step evaluation (VI, j=1), truncated (TPI with j steps).
+Key insight: VI and PI are endpoints of the TPI spectrum — adjusting j trades computation per iteration vs iterations needed.
 
 ### Pattern 2: Bootstrapping
 **What:** Using current value estimates as part of the target
 **When:** Want to learn online without waiting for episode completion
 **How:** Replace full return G_t with r_{t+1} + gamma * v(s_{t+1})
 **Trade-off:** Introduces bias but reduces variance; enables online learning
+**Generalization (n-step returns):** G_t:t+n = sum_{k=0}^{n-1} gamma^k * r_{t+k+1} + gamma^n * v(s_{t+n}).
+n=1 gives TD(0), n=inf gives MC. Interpolates bias-variance trade-off.
 **Risk:** Part of the deadly triad with FA + off-policy
+
+### Pattern 2.5: Monte Carlo Estimation
+**What:** Using complete episode returns as unbiased value estimates
+**When:** Episodic tasks where waiting for episode completion is acceptable
+**How:** G_t = r_{t+1} + gamma * r_{t+2} + ... (computed after episode ends)
+**Trade-off:** Unbiased but high variance; no bootstrapping bias; requires complete episodes
 
 ### Pattern 3: Stochastic Approximation
 **What:** Replacing expectations with single samples

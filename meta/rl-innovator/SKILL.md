@@ -89,7 +89,7 @@ Use `rl-implementer` to:
 
 1. **Implement the algorithm** in Python
 2. **Set up test environments:**
-   - Book's 5x5 grid world (sanity check)
+   - Book's 3×3 grid world (sanity check)
    - Larger grid worlds (scalability)
    - Classic control tasks (CartPole, MountainCar) via Gymnasium
 3. **Run experiments:**
@@ -122,7 +122,7 @@ Use `rl-implementer` to:
 1. **Analysis:** Q-learning is tabular; doesn't scale. With FA, the deadly triad emerges.
 2. **Design:** Combine Q-learning + target networks + experience replay + linear FA
    → This is essentially DQN (rediscovery validates the framework)
-3. **Theory:** Extended Dvoretzky doesn't directly apply to FA case. Use J_PBE minimization with target network stabilization as justification.
+3. **Theory:** No convergence guarantee exists for DQN (deadly triad: FA + bootstrapping + off-policy). Target networks and experience replay are empirical stabilization heuristics. Extended Dvoretzky applies only to the tabular case.
 4. **Implement:** DQN template from implementer skill
 5. **Test:** Compare tabular Q-learning vs. DQN on grid worlds of increasing size
 

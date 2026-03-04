@@ -25,16 +25,16 @@ Invoke this skill when you need to:
 ## Implementation Framework
 
 ### Environment Setup (Grid World)
-The book uses a 5x5 grid world throughout. Standard implementation:
+The book uses a 3×3 grid world throughout. Standard implementation:
 
 ```python
 import numpy as np
 from typing import Tuple, Dict, List, Optional
 
 class GridWorld:
-    """5x5 grid world environment from Zhao's book."""
+    """3×3 grid world environment from Zhao's book."""
 
-    def __init__(self, size: int = 5, gamma: float = 0.9):
+    def __init__(self, size: int = 3, gamma: float = 0.9):
         self.size = size
         self.n_states = size * size
         self.n_actions = 5  # up, down, left, right, stay
@@ -115,7 +115,130 @@ def value_iteration(env, gamma=0.9, theta=1e-6, max_iter=1000):
     return V, policy
 ```
 
-#### Template 2: Q-Learning (Algorithm 7.x)
+#### Template 2: Policy Iteration (Algorithm 4.2)
+```python
+def policy_iteration(env, gamma=0.9, theta=1e-6, max_iter=1000):
+    """Policy iteration: evaluate pi exactly, then improve greedily."""
+    P = env.get_transition_model()
+    policy = np.zeros(env.n_states, dtype=int)  # initial policy (all action 0)
+    V = np.zeros(env.n_states)
+
+    for iteration in range(max_iter):
+        # Policy evaluation: solve v_pi = r_pi + gamma * P_pi * v_pi iteratively
+        for _ in range(max_iter):
+            V_new = np.zeros(env.n_states)
+            for s in range(env.n_states):
+                a = policy[s]
+                for s_next in range(env.n_states):
+                    if P[s, a, s_next] > 0:
+                        r = env.rewards.get((s, a, s_next), -1)
+                        V_new[s] += P[s, a, s_next] * (r + gamma * V[s_next])
+            if np.max(np.abs(V_new - V)) < theta:
+                break
+            V = V_new
+
+        # Policy improvement: pi'(s) = argmax_a q_pi(s,a)
+        policy_stable = True
+        for s in range(env.n_states):
+            q_values = np.zeros(env.n_actions)
+            for a in range(env.n_actions):
+                for s_next in range(env.n_states):
+                    if P[s, a, s_next] > 0:
+                        r = env.rewards.get((s, a, s_next), -1)
+                        q_values[a] += P[s, a, s_next] * (r + gamma * V[s_next])
+            new_action = np.argmax(q_values)
+            if new_action != policy[s]:
+                policy_stable = False
+            policy[s] = new_action
+
+        if policy_stable:
+            break
+
+    return V, policy
+```
+
+#### Template 3: MC Epsilon-Greedy (Algorithm 5.3)
+```python
+def mc_epsilon_greedy(env, n_episodes=5000, gamma=0.9, epsilon=0.1):
+    """MC exploring starts with epsilon-greedy: uses complete episode returns."""
+    Q = np.zeros((env.n_states, env.n_actions))
+    returns_count = np.zeros((env.n_states, env.n_actions))
+
+    for episode in range(n_episodes):
+        # Generate episode using epsilon-greedy policy
+        trajectory = []
+        state = np.random.randint(env.n_states)
+
+        for step in range(200):
+            if np.random.random() < epsilon:
+                action = np.random.randint(env.n_actions)
+            else:
+                action = np.argmax(Q[state])
+            next_state, reward = env.step(state, action)
+            trajectory.append((state, action, reward))
+            state = next_state
+            if state == env.target_state:
+                break
+
+        # Backward return computation (first-visit MC)
+        G = 0
+        visited = set()
+        for t in reversed(range(len(trajectory))):
+            s_t, a_t, r_t = trajectory[t]
+            G = r_t + gamma * G
+            if (s_t, a_t) not in visited:
+                visited.add((s_t, a_t))
+                returns_count[s_t, a_t] += 1
+                # Incremental mean update
+                Q[s_t, a_t] += (G - Q[s_t, a_t]) / returns_count[s_t, a_t]
+
+    policy = np.argmax(Q, axis=1)
+    return Q, policy
+```
+
+#### Template 4: Sarsa (Algorithm 7.1)
+```python
+def sarsa(env, n_episodes=5000, gamma=0.9, alpha_0=0.5, epsilon_0=0.1):
+    """Sarsa: q(s,a) += alpha * [r + gamma * q(s',a') - q(s,a)] (on-policy)"""
+    Q = np.zeros((env.n_states, env.n_actions))
+    visit_count = np.zeros((env.n_states, env.n_actions))
+
+    for episode in range(n_episodes):
+        state = np.random.randint(env.n_states)
+        epsilon = epsilon_0 / (1 + episode / 1000)
+
+        # Choose initial action (epsilon-greedy)
+        if np.random.random() < epsilon:
+            action = np.random.randint(env.n_actions)
+        else:
+            action = np.argmax(Q[state])
+
+        for step in range(200):
+            next_state, reward = env.step(state, action)
+            visit_count[state, action] += 1
+
+            # Choose next action from SAME policy (on-policy)
+            if np.random.random() < epsilon:
+                next_action = np.random.randint(env.n_actions)
+            else:
+                next_action = np.argmax(Q[next_state])
+
+            alpha = alpha_0 / visit_count[state, action]
+
+            # Sarsa update: uses q(s',a') not max_a' q(s',a')
+            td_target = reward + gamma * Q[next_state, next_action]
+            Q[state, action] += alpha * (td_target - Q[state, action])
+
+            state = next_state
+            action = next_action
+            if state == env.target_state:
+                break
+
+    policy = np.argmax(Q, axis=1)
+    return Q, policy
+```
+
+#### Template 5: Q-Learning (Algorithm 7.x)
 ```python
 def q_learning(env, n_episodes=5000, gamma=0.9, alpha_0=0.5, epsilon_0=0.1):
     """Q-learning: q(s,a) += alpha * [r + gamma * max_a' q(s',a') - q(s,a)]"""
@@ -151,7 +274,7 @@ def q_learning(env, n_episodes=5000, gamma=0.9, alpha_0=0.5, epsilon_0=0.1):
     return Q, policy
 ```
 
-#### Template 3: REINFORCE (Algorithm 9.1)
+#### Template 6: REINFORCE (Algorithm 9.1)
 ```python
 def reinforce(env, n_episodes=5000, gamma=0.99, alpha=0.01):
     """REINFORCE: theta += alpha * grad ln pi(a|s,theta) * G_t"""
@@ -181,6 +304,7 @@ def reinforce(env, n_episodes=5000, gamma=0.99, alpha=0.01):
         G = 0
         for t in reversed(range(len(trajectory))):
             s_t, a_t, r_t = trajectory[t]
+            # G_t is an unbiased sample estimate of q_pi(s_t, a_t) — see KB Alg 9.1
             G = r_t + gamma * G  # G_t = r_{t+1} + gamma * G_{t+1}
 
             # Grad ln pi for softmax: e_a - pi(.|s)
@@ -194,7 +318,46 @@ def reinforce(env, n_episodes=5000, gamma=0.99, alpha=0.01):
     return theta, softmax_policy
 ```
 
-#### Template 4: TD(0) with Linear Function Approximation (Ch 8)
+#### Template 7: A2C — Advantage Actor-Critic (Algorithm 10.2)
+```python
+def a2c(env, n_episodes=5000, gamma=0.99, alpha_theta=0.01, alpha_w=0.05):
+    """A2C: actor (theta) + critic (w) with TD error as advantage estimate."""
+    # Separate actor and critic parameters
+    theta = np.zeros((env.n_states, env.n_actions))  # actor (policy)
+    w = np.zeros(env.n_states)                        # critic (state value)
+
+    def softmax_policy(state):
+        logits = theta[state] - np.max(theta[state])
+        exp_logits = np.exp(logits)
+        return exp_logits / np.sum(exp_logits)
+
+    for episode in range(n_episodes):
+        state = np.random.randint(env.n_states)
+
+        for step in range(200):
+            probs = softmax_policy(state)
+            action = np.random.choice(env.n_actions, p=probs)
+            next_state, reward = env.step(state, action)
+
+            # TD error = advantage estimate: delta = r + gamma * V(s') - V(s)
+            delta = reward + gamma * w[next_state] - w[state]
+
+            # Critic update: w += alpha_w * delta * grad_w V(s)
+            w[state] += alpha_w * delta
+
+            # Actor update: theta += alpha_theta * delta * grad ln pi(a|s)
+            grad_ln_pi = -probs.copy()
+            grad_ln_pi[action] += 1.0
+            theta[state] += alpha_theta * delta * grad_ln_pi
+
+            state = next_state
+            if state == env.target_state:
+                break
+
+    return theta, w, softmax_policy
+```
+
+#### Template 8: TD(0) with Linear Function Approximation (Ch 8)
 ```python
 def td_linear(env, feature_fn, n_episodes=5000, gamma=0.9, alpha_0=0.01):
     """TD(0) with linear FA: w += alpha * (r + gamma * phi(s')^T w - phi(s)^T w) * phi(s)"""
@@ -224,7 +387,7 @@ def td_linear(env, feature_fn, n_episodes=5000, gamma=0.9, alpha_0=0.01):
     return w
 ```
 
-#### Template 5: DQN (Algorithm 8.3 extended)
+#### Template 9: DQN (Algorithm 8.3 extended)
 ```python
 import torch
 import torch.nn as nn
@@ -343,7 +506,7 @@ def tabular_features(state, n_states):
 
 ### Polynomial Features
 ```python
-def polynomial_features(state, degree=3, size=5):
+def polynomial_features(state, degree=3, size=3):
     r, c = state // size, state % size
     # Normalize to [0, 1]
     x, y = r / (size - 1), c / (size - 1)
@@ -356,7 +519,7 @@ def polynomial_features(state, degree=3, size=5):
 
 ### Fourier Basis Features
 ```python
-def fourier_features(state, order=3, size=5):
+def fourier_features(state, order=3, size=3):
     r, c = state // size, state % size
     x, y = r / (size - 1), c / (size - 1)
     features = []

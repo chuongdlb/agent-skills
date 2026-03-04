@@ -50,7 +50,7 @@ where Delta_k is the error sequence. If:
 - (a) 0 <= alpha_k <= 1, sum(alpha_k) = inf, sum(alpha_k^2) < inf
 - (b) sum(beta_k^2) < inf
 - (c) E[eta_k | H_k] = 0 (unbiased noise)
-- (d) var[eta_k | H_k] <= C for some constant C
+- (d) E[eta_k^2 | H_k] <= C for some constant C
 
 Then Delta_k → 0 almost surely (i.e., the algorithm converges to the fixed point w*).
 
@@ -64,10 +64,10 @@ Then Delta_k → 0 almost surely (i.e., the algorithm converges to the fixed poi
 Delta_{k+1}(i) = (1 - alpha_k(i)) * Delta_k(i) + beta_k(i) * eta_k(i)
 ```
 where now the noise may be BIASED. If:
-- (a) 0 <= alpha_k(i) <= 1, sum(alpha_k(i)) = inf, sum(alpha_k(i)^2) < inf
+- (a) 0 <= alpha_k(i) <= 1, sum(alpha_k(i)) = inf, sum(alpha_k(i)^2) < inf; E[beta_k(i) | H_k] <= E[alpha_k(i) | H_k] (noise coefficient bounded by learning rate)
 - (b) ||beta_k||_inf <= beta_hat_k where sum(beta_hat_k^2) < inf
 - (c) ||E[eta_k | H_k]||_inf <= gamma * ||Delta_k||_inf (BIASED expectation allowed!)
-- (d) var[eta_k(i) | H_k] <= C * (1 + ||Delta_k||_inf^2)
+- (d) E[eta_k(i)^2 | H_k] <= C * (1 + ||Delta_k||_inf^2)
 
 Then Delta_k → 0 almost surely.
 
@@ -79,7 +79,7 @@ Then Delta_k → 0 almost surely.
 
 ### Theorem 4: Robbins-Monro Convergence
 **Statement:** Consider w_{k+1} = w_k - alpha_k * g_tilde(w_k, eta_k) where g_tilde = g(w) + noise. If:
-- (a) g(w) is bounded and points toward w* (g(w)*(w-w*) > 0 for w ≠ w*)
+- (a) 0 < c1 <= g'(w) <= c2 for all w (monotonically increasing with bounded gradient). Intuition: g(w)*(w-w*) > 0 for w ≠ w*
 - (b) sum(alpha_k) = inf, sum(alpha_k^2) < inf
 - (c) E[noise | history] = 0
 
@@ -128,7 +128,7 @@ Check each condition of the applicable theorem:
 
 **Noise conditions:**
 - [ ] E[eta_k | H_k] = 0 (for Dvoretzky) or ||E[eta_k | H_k]||_inf <= gamma*||Delta||_inf (for Extended Dvoretzky)
-- [ ] Variance bounded: var[eta_k | H_k] <= C
+- [ ] Second moment bounded: E[eta_k^2 | H_k] <= C
 
 **Contraction conditions:**
 - [ ] gamma < 1 (discount factor)
