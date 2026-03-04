@@ -1,6 +1,6 @@
 # Agent Skills Repository
 
-A consolidated collection of **46 agent skills** organized in a 4-layer architecture + meta category, following patterns used by top RL/AI labs (Nvidia Isaac, DeepMind Acme, OpenAI Gym, Meta Habitat, Berkeley RLlib).
+A consolidated collection of **44 agent skills** organized in a 4-layer architecture + meta category, following patterns used by top RL/AI labs (Nvidia Isaac, DeepMind Acme, OpenAI Gym, Meta Habitat, Berkeley RLlib).
 
 **Key design principle**: Organize by **abstraction layer** (not domain), with domain as cross-cutting metadata tags.
 
@@ -51,18 +51,19 @@ A consolidated collection of **46 agent skills** organized in a 4-layer architec
 │                                                                         │
 ├─────────────────────────────────────────────────────────────────────────┤
 │  L1-core (1 skill)                                                      │
-│  Core tools, programming, reusable infrastructure                       │
-│  ┌──────────────────────┐                                               │
-│  │ rl-implementer       │  Python RL implementations (tabular → DQN)    │
-│  └──────────────────────┘                                               │
+│  Reusable tools and infrastructure                                      │
+│  ┌──────────────────────────────────────────────────────────────────┐    │
+│  │ rl-algorithms    PyTorch scaffolds: DQN, A2C, PPO, DDPG, TD3,  │    │
+│  │                  SAC + shared components (MLP, buffers, GAE)    │    │
+│  └──────────────────────────────────────────────────────────────────┘    │
 │                                                                         │
 ├─────────────────────────────────────────────────────────────────────────┤
-│  L0-theory (3 skills)                                                   │
+│  L0-theory (1 skill)                                                    │
 │  Foundational RL/math knowledge (project-agnostic)                      │
-│  ┌──────────────────────┐ ┌─────────────────────┐ ┌──────────────────┐  │
-│  │ rl-theory-analyzer   │ │ rl-convergence-     │ │ rl-algorithm-    │  │
-│  │                      │ │ prover              │ │ designer         │  │
-│  └──────────────────────┘ └─────────────────────┘ └──────────────────┘  │
+│  ┌──────────────────────────────────────────────────────────────────┐    │
+│  │ rl-methodology   Analysis, proofs, design patterns, templates,  │    │
+│  │                  + extensible knowledge base (Zhao 2024)        │    │
+│  └──────────────────────────────────────────────────────────────────┘    │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -89,17 +90,17 @@ python install-skills.py --uninstall  # Remove all installed skills
 | Layer | Count | Description |
 |-------|-------|-------------|
 | meta | 3 | Orchestration & methodology (cross-layer) |
-| L0-theory | 3 | Foundational RL/math knowledge |
-| L1-core | 1 | Core tools & reusable infrastructure |
+| L0-theory | 1 | Foundational RL/math knowledge |
+| L1-core | 1 | Reusable tools and infrastructure |
 | L2-platforms | 25 | Simulation engines & platforms (IsaacSim, Gymnasium, PyBullet, RL-Tools) |
 | L3-frameworks | 14 | Domain frameworks (IsaacLab, gym-pybullet-drones) |
-| **Total** | **46** | |
+| **Total** | **44** | |
 
 ## Skill Count by Source Project
 
 | Source Project | Count | Layers |
 |----------------|-------|--------|
-| Book-Mathematical-Foundation-of-RL | 7 | meta, L0, L1 |
+| Book-Mathematical-Foundation-of-RL | 5 | meta, L0, L1 |
 | Gymnasium | 6 | L2 |
 | IsaacSim | 8 | L2 |
 | IsaacLab | 8 | L3 |
@@ -118,14 +119,12 @@ python install-skills.py --uninstall  # Remove all installed skills
 ### L0-theory
 | Skill | Description |
 |-------|-------------|
-| [rl-theory-analyzer](L0-theory/rl-theory-analyzer/SKILL.md) | Mathematical analysis of RL algorithms |
-| [rl-convergence-prover](L0-theory/rl-convergence-prover/SKILL.md) | Convergence proofs using SA theorems |
-| [rl-algorithm-designer](L0-theory/rl-algorithm-designer/SKILL.md) | Algorithm design from composable patterns |
+| [rl-methodology](L0-theory/rl-methodology/SKILL.md) | Analysis, proofs, design patterns, templates + extensible knowledge base |
 
 ### L1-core
 | Skill | Description |
 |-------|-------------|
-| [rl-implementer](L1-core/rl-implementer/SKILL.md) | Python RL implementations (tabular through DQN) |
+| [rl-algorithms](L1-core/rl-algorithms/SKILL.md) | PyTorch scaffolds for DQN, A2C, PPO, DDPG, TD3, SAC |
 
 ### L2-platforms/gymnasium
 | Skill | Description |
@@ -201,4 +200,4 @@ See [SKILL-SPEC.md](SKILL-SPEC.md) for the frontmatter specification.
 
 ## Machine-Readable Index
 
-[registry.json](registry.json) contains all 46 skills with paths, layers, domains, dependencies, and tags.
+[registry.json](registry.json) contains all 44 skills with paths, layers, domains, dependencies, and tags.

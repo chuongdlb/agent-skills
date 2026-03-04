@@ -1,50 +1,10 @@
 {
   "version": "1.0",
-  "total_skills": 46,
+  "total_skills": 44,
   "skills": [
     {
-      "name": "rl-algorithm-designer",
-      "path": "L0-theory/rl-algorithm-designer",
-      "layer": "L0",
-      "domain": [
-        "general-rl"
-      ],
-      "source-project": "Book-Mathematical-Foundation-of-RL",
-      "depends-on": [
-        "rl-theory-analyzer",
-        "rl-convergence-prover"
-      ],
-      "tags": [
-        "algorithm-design",
-        "patterns",
-        "theory"
-      ],
-      "description": "Designs new RL algorithms by composing known design patterns, generating update rules from first principles, and ensuring mathematical soundness.",
-      "reference-files": []
-    },
-    {
-      "name": "rl-convergence-prover",
-      "path": "L0-theory/rl-convergence-prover",
-      "layer": "L0",
-      "domain": [
-        "general-rl"
-      ],
-      "source-project": "Book-Mathematical-Foundation-of-RL",
-      "depends-on": [
-        "rl-theory-analyzer"
-      ],
-      "tags": [
-        "convergence",
-        "proof",
-        "stochastic-approximation",
-        "theory"
-      ],
-      "description": "Proves or disproves convergence of RL algorithms using contraction mapping, Dvoretzky, Extended Dvoretzky, and Robbins-Monro theorems.",
-      "reference-files": []
-    },
-    {
-      "name": "rl-theory-analyzer",
-      "path": "L0-theory/rl-theory-analyzer",
+      "name": "rl-methodology",
+      "path": "L0-theory/rl-methodology",
       "layer": "L0",
       "domain": [
         "general-rl"
@@ -53,32 +13,52 @@
       "depends-on": [],
       "tags": [
         "theory",
-        "analysis",
-        "bellman",
+        "convergence",
+        "algorithm-design",
+        "implementation",
         "stochastic-approximation"
       ],
-      "description": "Analyzes RL algorithms mathematically \u2014 derives update rules, proves convergence, identifies failure modes, and classifies algorithms along standard taxonomic dimensions.",
-      "reference-files": []
+      "description": "Comprehensive RL methodology \u2014 mathematical analysis, convergence proofs, algorithm design patterns, and implementation templates grounded in Zhao's \"Mathematical Foundations of Reinforcement Learning.\"",
+      "reference-files": [
+        "L0-theory/rl-methodology/knowledge-base/INDEX.md",
+        "L0-theory/rl-methodology/knowledge-base/zhao-mathematical-foundations/00-overview.md",
+        "L0-theory/rl-methodology/knowledge-base/zhao-mathematical-foundations/01-basic-concepts.md",
+        "L0-theory/rl-methodology/knowledge-base/zhao-mathematical-foundations/02-bellman-equation.md",
+        "L0-theory/rl-methodology/knowledge-base/zhao-mathematical-foundations/03-bellman-optimality-equation.md",
+        "L0-theory/rl-methodology/knowledge-base/zhao-mathematical-foundations/04-value-iteration-policy-iteration.md",
+        "L0-theory/rl-methodology/knowledge-base/zhao-mathematical-foundations/05-monte-carlo-methods.md",
+        "L0-theory/rl-methodology/knowledge-base/zhao-mathematical-foundations/06-stochastic-approximation.md",
+        "L0-theory/rl-methodology/knowledge-base/zhao-mathematical-foundations/07-temporal-difference-methods.md",
+        "L0-theory/rl-methodology/knowledge-base/zhao-mathematical-foundations/08-value-function-methods.md",
+        "L0-theory/rl-methodology/knowledge-base/zhao-mathematical-foundations/09-policy-gradient-methods.md",
+        "L0-theory/rl-methodology/knowledge-base/zhao-mathematical-foundations/10-actor-critic-methods.md",
+        "L0-theory/rl-methodology/knowledge-base/zhao-mathematical-foundations/11-appendix.md",
+        "L0-theory/rl-methodology/knowledge-base/zhao-mathematical-foundations/12-cross-reference-index.md"
+      ]
     },
     {
-      "name": "rl-implementer",
-      "path": "L1-core/rl-implementer",
+      "name": "rl-algorithms",
+      "path": "L1-core/rl-algorithms",
       "layer": "L1",
       "domain": [
         "general-rl"
       ],
       "source-project": "Book-Mathematical-Foundation-of-RL",
       "depends-on": [
-        "rl-theory-analyzer"
+        "rl-methodology"
       ],
       "tags": [
-        "implementation",
-        "python",
-        "tabular",
+        "pytorch",
+        "deep-rl",
+        "ppo",
+        "sac",
+        "td3",
+        "ddpg",
         "dqn",
-        "grid-world"
+        "a2c",
+        "training"
       ],
-      "description": "Implements RL algorithms with correct mathematical grounding, translating from theoretical framework to working Python code with grid worlds, learning rate schedules, and DQN.",
+      "description": "Production-ready PyTorch scaffolds for 6 deep RL algorithms (DQN, A2C, PPO, DDPG, TD3, SAC) with modular networks, replay/rollout buffers, and Gymnasium-compatible training loops.",
       "reference-files": []
     },
     {
@@ -856,7 +836,7 @@
       "depends-on": [
         "isaacsim-simulation-core",
         "isaaclab-configclass-and-utilities",
-        "rl-theory-analyzer",
+        "rl-methodology",
         "gymnasium-core-api"
       ],
       "tags": [
@@ -933,7 +913,7 @@
       "source-project": "IsaacLab",
       "depends-on": [
         "isaaclab-environment-design",
-        "rl-theory-analyzer",
+        "rl-methodology",
         "K-Dense-AI/stable-baselines3",
         "gymnasium-wrappers"
       ],
@@ -1045,10 +1025,8 @@
       ],
       "source-project": "Book-Mathematical-Foundation-of-RL",
       "depends-on": [
-        "rl-theory-analyzer",
-        "rl-convergence-prover",
-        "rl-algorithm-designer",
-        "rl-implementer"
+        "rl-methodology",
+        "rl-algorithms"
       ],
       "tags": [
         "orchestration",

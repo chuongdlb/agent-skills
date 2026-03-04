@@ -5,14 +5,14 @@ description: >
 layer: meta
 domain: [general-rl]
 source-project: Book-Mathematical-Foundation-of-RL
-depends-on: [rl-theory-analyzer, rl-convergence-prover, rl-algorithm-designer, rl-implementer]
+depends-on: [rl-methodology, rl-algorithms]
 tags: [orchestration, innovation, meta]
 ---
 
 # RL Innovator
 
 ## Purpose
-Meta-skill that orchestrates the other RL skills to explore novel algorithm designs, identify limitations of existing approaches, and propose mathematically grounded improvements.
+Meta-skill that orchestrates `rl-methodology` to explore novel algorithm designs, identify limitations of existing approaches, and propose mathematically grounded improvements.
 
 ## When to Use
 Invoke this skill when you need to:
@@ -27,7 +27,7 @@ Invoke this skill when you need to:
 ### Phase 1: Problem Analysis
 **Goal:** Understand the limitation or opportunity
 
-1. **Identify the baseline algorithm** and its properties using `rl-theory-analyzer`
+1. **Identify the baseline algorithm** and its properties using the Analysis Procedure in `rl-methodology`
 2. **Characterize the problem setting:**
    - What makes the problem hard? (large state space, continuous actions, sparse rewards, partial observability, non-stationarity)
    - What are the baseline's failure modes in this setting?
@@ -36,7 +36,7 @@ Invoke this skill when you need to:
 ### Phase 2: Design Exploration
 **Goal:** Generate candidate modifications
 
-Use `rl-algorithm-designer` to explore modifications along these dimensions:
+Use the Algorithm Design Procedure in `rl-methodology` to explore modifications along these dimensions:
 
 **Dimension 1: Objective Function**
 - Standard: maximize expected discounted return
@@ -66,7 +66,7 @@ Use `rl-algorithm-designer` to explore modifications along these dimensions:
 ### Phase 3: Theoretical Validation
 **Goal:** Verify mathematical soundness of the proposed algorithm
 
-Use `rl-convergence-prover` to:
+Use the Convergence Proof Procedure in `rl-methodology` to:
 
 1. **Formulate as SA:** Write the proposed update in Robbins-Monro or Dvoretzky form
 2. **Check convergence conditions:**
@@ -85,13 +85,13 @@ Use `rl-convergence-prover` to:
 ### Phase 4: Implementation & Testing
 **Goal:** Validate empirically
 
-Use `rl-implementer` to:
+Use the PyTorch scaffolds in `rl-algorithms` (DQN, A2C, PPO, DDPG, TD3, SAC) as starting templates, and the tabular templates in `rl-methodology` for simpler baselines:
 
-1. **Implement the algorithm** in Python
+1. **Implement the algorithm** — start from the closest `rl-algorithms` scaffold (e.g., modify the SAC update rule, extend the PPO loop) or build from scratch using the shared components (MLP, ReplayBuffer, RolloutBuffer, compute_gae, polyak_update)
 2. **Set up test environments:**
-   - Book's 3×3 grid world (sanity check)
-   - Larger grid worlds (scalability)
-   - Classic control tasks (CartPole, MountainCar) via Gymnasium
+   - Book's 3×3 grid world (sanity check, use `rl-methodology` tabular templates)
+   - Classic control tasks (CartPole, MountainCar, Pendulum) via Gymnasium
+   - Continuous control (HalfCheetah, Hopper) for deep RL variants
 3. **Run experiments:**
    - Compare against baseline on same environment
    - Measure: cumulative reward, convergence speed, final policy quality
