@@ -1,6 +1,6 @@
 # Agent Skills Repository
 
-A consolidated collection of **44 agent skills** organized in a 4-layer architecture + meta category, following patterns used by top RL/AI labs (Nvidia Isaac, DeepMind Acme, OpenAI Gym, Meta Habitat, Berkeley RLlib).
+A consolidated collection of **45 agent skills** organized in a 4-layer architecture + meta category, following patterns used by top RL/AI labs (Nvidia Isaac, DeepMind Acme, OpenAI Gym, Meta Habitat, Berkeley RLlib).
 
 **Key design principle**: Organize by **abstraction layer** (not domain), with domain as cross-cutting metadata tags.
 
@@ -8,9 +8,10 @@ A consolidated collection of **44 agent skills** organized in a 4-layer architec
 
 ```
                     ┌─────────────────────────────┐
-                    │         meta (3 skills)      │  Orchestration & methodology
+                    │         meta (4 skills)      │  Orchestration & methodology
                     │  rl-innovator, book-reader,  │  (cross-layer)
-                    │  book-reader-agent-prompt     │
+                    │  book-reader-agent-prompt,   │
+                    │  book-to-knowledge-base      │
                     └─────────────────────────────┘
 
 ┌─────────────────────────────────────────────────────────────────────────┐
@@ -89,18 +90,18 @@ python install-skills.py --uninstall  # Remove all installed skills
 
 | Layer | Count | Description |
 |-------|-------|-------------|
-| meta | 3 | Orchestration & methodology (cross-layer) |
+| meta | 4 | Orchestration & methodology (cross-layer) |
 | L0-theory | 1 | Foundational RL/math knowledge |
 | L1-core | 1 | Reusable tools and infrastructure |
 | L2-platforms | 25 | Simulation engines & platforms (IsaacSim, Gymnasium, PyBullet, RL-Tools) |
 | L3-frameworks | 14 | Domain frameworks (IsaacLab, gym-pybullet-drones) |
-| **Total** | **44** | |
+| **Total** | **45** | |
 
 ## Skill Count by Source Project
 
 | Source Project | Count | Layers |
 |----------------|-------|--------|
-| Book-Mathematical-Foundation-of-RL | 5 | meta, L0, L1 |
+| Book-Mathematical-Foundation-of-RL | 6 | meta, L0, L1 |
 | Gymnasium | 6 | L2 |
 | IsaacSim | 8 | L2 |
 | IsaacLab | 8 | L3 |
@@ -115,6 +116,7 @@ python install-skills.py --uninstall  # Remove all installed skills
 | [rl-innovator](meta/rl-innovator/SKILL.md) | Orchestrates RL skills for novel algorithm exploration |
 | [book-reader](meta/book-reader/SKILL.md) | Textbook knowledge extraction methodology |
 | [book-reader-agent-prompt](meta/book-reader-agent-prompt/SKILL.md) | Prompt template for book-reading agents |
+| [book-to-knowledge-base](meta/book-to-knowledge-base/SKILL.md) | Lossless PDF-to-markdown knowledge base conversion |
 
 ### L0-theory
 | Skill | Description |
@@ -200,4 +202,4 @@ See [SKILL-SPEC.md](SKILL-SPEC.md) for the frontmatter specification.
 
 ## Machine-Readable Index
 
-[registry.json](registry.json) contains all 44 skills with paths, layers, domains, dependencies, and tags.
+[registry.json](registry.json) contains all 45 skills with paths, layers, domains, dependencies, and tags.

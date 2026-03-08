@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "total_skills": 44,
+  "total_skills": 45,
   "skills": [
     {
       "name": "rl-methodology",
@@ -979,6 +979,25 @@
       "reference-files": [
         "L3-frameworks/isaaclab/terrains-and-sensors/terrains-and-sensors-catalog.md"
       ]
+    },
+    {
+      "name": "book-to-knowledge-base",
+      "path": "meta/book-to-knowledge-base",
+      "layer": "meta",
+      "domain": [
+        "general"
+      ],
+      "source-project": "Book-Mathematical-Foundation-of-RL",
+      "depends-on": [],
+      "tags": [
+        "knowledge-extraction",
+        "pdf-to-markdown",
+        "textbook",
+        "lossless",
+        "knowledge-base"
+      ],
+      "description": "Losslessly converts technical books from PDF chapters into structured markdown knowledge bases, preserving every definition, theorem, algorithm, equation, and proof with LaTeX notation and chapter-dependency metadata.",
+      "reference-files": []
     },
     {
       "name": "book-reader",
