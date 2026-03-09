@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "total_skills": 45,
+  "total_skills": 50,
   "skills": [
     {
       "name": "rl-methodology",
@@ -1053,6 +1053,111 @@
         "meta"
       ],
       "description": "Meta-skill that orchestrates other RL skills to explore novel algorithm designs, identify limitations, and propose mathematically grounded improvements.",
+      "reference-files": []
+    },
+    {
+      "name": "paper-extractor",
+      "path": "meta/paper-extractor",
+      "layer": "meta",
+      "domain": [
+        "general"
+      ],
+      "source-project": "papers-kb",
+      "depends-on": [],
+      "tags": [
+        "paper",
+        "extraction",
+        "knowledge-base",
+        "pdf",
+        "research"
+      ],
+      "description": "Extract structured contributions from a research paper PDF into a paper card with metadata, method summary, key results, and novelty claims.",
+      "reference-files": []
+    },
+    {
+      "name": "kb-integrator",
+      "path": "meta/kb-integrator",
+      "layer": "meta",
+      "domain": [
+        "general"
+      ],
+      "source-project": "papers-kb",
+      "depends-on": [
+        "paper-extractor"
+      ],
+      "tags": [
+        "knowledge-base",
+        "integration",
+        "novelty-classification",
+        "topic-synthesis"
+      ],
+      "description": "Compare a paper card against the existing knowledge base, classify its novelty, and update topic files, index, timeline, and registry.",
+      "reference-files": []
+    },
+    {
+      "name": "paper-discoverer",
+      "path": "meta/paper-discoverer",
+      "layer": "meta",
+      "domain": [
+        "general"
+      ],
+      "source-project": "papers-kb",
+      "depends-on": [],
+      "tags": [
+        "discovery",
+        "academic-search",
+        "semantic-scholar",
+        "arxiv",
+        "github",
+        "knowledge-base"
+      ],
+      "description": "Search academic databases and GitHub for new papers relevant to the knowledge base, score relevance, and produce a ranked candidate list.",
+      "reference-files": []
+    },
+    {
+      "name": "kb-query",
+      "path": "meta/kb-query",
+      "layer": "meta",
+      "domain": [
+        "general"
+      ],
+      "source-project": "papers-kb",
+      "depends-on": [
+        "paper-extractor",
+        "kb-integrator"
+      ],
+      "tags": [
+        "knowledge-base",
+        "query",
+        "research",
+        "sota-lookup",
+        "comparison"
+      ],
+      "description": "Answer research questions against the knowledge base using structured lookups across topic files, paper cards, and the index.",
+      "reference-files": []
+    },
+    {
+      "name": "kb-maintenance",
+      "path": "meta/kb-maintenance",
+      "layer": "meta",
+      "domain": [
+        "general"
+      ],
+      "source-project": "papers-kb",
+      "depends-on": [
+        "paper-extractor",
+        "kb-integrator",
+        "paper-discoverer",
+        "kb-query"
+      ],
+      "tags": [
+        "knowledge-base",
+        "orchestration",
+        "pipeline",
+        "automation",
+        "discovery"
+      ],
+      "description": "Run a full KB update cycle: discover new papers, filter, extract, integrate, and report. Orchestrates the other four KB skills.",
       "reference-files": []
     }
   ]
