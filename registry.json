@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "total_skills": 50,
+  "total_skills": 51,
   "skills": [
     {
       "name": "rl-methodology",
@@ -18,7 +18,7 @@
         "implementation",
         "stochastic-approximation"
       ],
-      "description": "Comprehensive RL methodology \u2014 mathematical analysis, convergence proofs, algorithm design patterns, and implementation templates grounded in Zhao's \"Mathematical Foundations of Reinforcement Learning.\"",
+      "description": "Comprehensive RL methodology — mathematical analysis, convergence proofs, algorithm design patterns, and implementation templates grounded in Zhao's \"Mathematical Foundations of Reinforcement Learning.\"",
       "reference-files": [
         "L0-theory/rl-methodology/knowledge-base/INDEX.md",
         "L0-theory/rl-methodology/knowledge-base/zhao-mathematical-foundations/00-overview.md",
@@ -77,7 +77,7 @@
         "registration",
         "rl-loop"
       ],
-      "description": "Core Gymnasium RL environment interface \u2014 Env base class, step/reset contract, Wrapper hierarchy, registration system, and standard RL loop patterns.",
+      "description": "Core Gymnasium RL environment interface — Env base class, step/reset contract, Wrapper hierarchy, registration system, and standard RL loop patterns.",
       "reference-files": [
         "L2-platforms/gymnasium/core-api/registration-reference.md"
       ]
@@ -100,7 +100,7 @@
         "dict",
         "flatten"
       ],
-      "description": "Gymnasium space types for defining observation and action domains \u2014 Box, Discrete, Dict, Tuple, and composite spaces with sampling, containment, and flatten utilities.",
+      "description": "Gymnasium space types for defining observation and action domains — Box, Discrete, Dict, Tuple, and composite spaces with sampling, containment, and flatten utilities.",
       "reference-files": [
         "L2-platforms/gymnasium/spaces/spaces-catalog.md"
       ]
@@ -124,7 +124,7 @@
         "frame-stack",
         "video"
       ],
-      "description": "Built-in Gymnasium wrappers for observation, action, reward, rendering, and common transformations \u2014 composable environment modifiers for preprocessing and monitoring.",
+      "description": "Built-in Gymnasium wrappers for observation, action, reward, rendering, and common transformations — composable environment modifiers for preprocessing and monitoring.",
       "reference-files": [
         "L2-platforms/gymnasium/wrappers/wrappers-catalog.md"
       ]
@@ -148,7 +148,7 @@
         "async",
         "sync"
       ],
-      "description": "Gymnasium vector environment API \u2014 SyncVectorEnv, AsyncVectorEnv, batched step/reset semantics, autoreset modes, and vector wrappers for parallel RL.",
+      "description": "Gymnasium vector environment API — SyncVectorEnv, AsyncVectorEnv, batched step/reset semantics, autoreset modes, and vector wrappers for parallel RL.",
       "reference-files": []
     },
     {
@@ -170,7 +170,7 @@
         "atari",
         "classic-control"
       ],
-      "description": "Built-in Gymnasium environments \u2014 Classic Control, Box2D, Toy Text, MuJoCo, and functional/JAX variants with IDs, spaces, and dependency requirements.",
+      "description": "Built-in Gymnasium environments — Classic Control, Box2D, Toy Text, MuJoCo, and functional/JAX variants with IDs, spaces, and dependency requirements.",
       "reference-files": [
         "L2-platforms/gymnasium/environments/environment-catalog.md"
       ]
@@ -194,7 +194,7 @@
         "packaging",
         "templates"
       ],
-      "description": "Building custom Gymnasium environments \u2014 Env subclass pattern, render modes, FuncEnv stateless interface, registration, packaging, and env_checker validation.",
+      "description": "Building custom Gymnasium environments — Env subclass pattern, render modes, FuncEnv stateless interface, registration, packaging, and env_checker validation.",
       "reference-files": [
         "L2-platforms/gymnasium/custom-environments/custom-env-template.md"
       ]
@@ -218,7 +218,7 @@
         "assets",
         "import-export"
       ],
-      "description": "Imports, exports, and validates robot and scene assets in Isaac Sim \u2014 URDF/MJCF import, USD-to-URDF export, heightmap terrain generation, and asset conversion.",
+      "description": "Imports, exports, and validates robot and scene assets in Isaac Sim — URDF/MJCF import, USD-to-URDF export, heightmap terrain generation, and asset conversion.",
       "reference-files": [
         "L2-platforms/isaacsim/asset-pipeline/import-export-reference.md"
       ]
@@ -241,7 +241,7 @@
         "premake",
         "ci-cd"
       ],
-      "description": "Builds, configures, and tests the Isaac Sim repository \u2014 Premake5/Lua build system, Packman dependencies, pip packages, extension tests, CI/CD.",
+      "description": "Builds, configures, and tests the Isaac Sim repository — Premake5/Lua build system, Packman dependencies, pip packages, extension tests, CI/CD.",
       "reference-files": [
         "L2-platforms/isaacsim/build-and-test/build-system-reference.md",
         "L2-platforms/isaacsim/build-and-test/test-configuration.md"
@@ -266,7 +266,7 @@
         "kit",
         "plugins"
       ],
-      "description": "Creates and modifies Omniverse Kit extensions for Isaac Sim \u2014 extension.toml manifests, Python module scaffolding, OmniGraph nodes, C++ plugins.",
+      "description": "Creates and modifies Omniverse Kit extensions for Isaac Sim — extension.toml manifests, Python module scaffolding, OmniGraph nodes, C++ plugins.",
       "reference-files": [
         "L2-platforms/isaacsim/extensions/extension-template.md",
         "L2-platforms/isaacsim/extensions/extension-toml-reference.md"
@@ -316,7 +316,7 @@
         "bridge",
         "topics"
       ],
-      "description": "Integrates Isaac Sim with ROS 2 via OmniGraph-based bridge \u2014 topic pub/sub, camera/lidar/IMU streaming, clock sync, TF broadcasting.",
+      "description": "Integrates Isaac Sim with ROS 2 via OmniGraph-based bridge — topic pub/sub, camera/lidar/IMU streaming, clock sync, TF broadcasting.",
       "reference-files": [
         "L2-platforms/isaacsim/ros2-integration/ros2-patterns.md"
       ]
@@ -340,7 +340,7 @@
         "radar",
         "annotators"
       ],
-      "description": "Creates and configures sensors in Isaac Sim \u2014 cameras, physics-based sensors, PhysX lidar, RTX lidar/radar, annotator pipelines, and lens distortion.",
+      "description": "Creates and configures sensors in Isaac Sim — cameras, physics-based sensors, PhysX lidar, RTX lidar/radar, annotator pipelines, and lens distortion.",
       "reference-files": [
         "L2-platforms/isaacsim/sensor-development/sensor-types-reference.md"
       ]
@@ -388,7 +388,7 @@
         "replicator",
         "sdg"
       ],
-      "description": "Generates synthetic training data using Replicator \u2014 domain randomization, behavior scripting, SDG workflows, custom writers and annotators.",
+      "description": "Generates synthetic training data using Replicator — domain randomization, behavior scripting, SDG workflows, custom writers and annotators.",
       "reference-files": [
         "L2-platforms/isaacsim/synthetic-data/sdg-workflows.md"
       ]
@@ -411,7 +411,7 @@
         "aviary",
         "quadrotor"
       ],
-      "description": "Core PyBullet simulation engine \u2014 BaseAviary class hierarchy, physics models, step loop, frequency management, state vectors, and drone URDF configuration.",
+      "description": "Core PyBullet simulation engine — BaseAviary class hierarchy, physics models, step loop, frequency management, state vectors, and drone URDF configuration.",
       "reference-files": [
         "L2-platforms/pybullet/simulation-engine/drone-parameters-reference.md",
         "L2-platforms/pybullet/simulation-engine/physics-models-reference.md"
@@ -433,7 +433,7 @@
         "embedded",
         "cpp17"
       ],
-      "description": "CMake build system configuration for rl-tools \u2014 tiered targets (Core/Backend/Minimal/RLtools), backend auto-detection, embedded platform builds.",
+      "description": "CMake build system configuration for rl-tools — tiered targets (Core/Backend/Minimal/RLtools), backend auto-detection, embedded platform builds.",
       "reference-files": []
     },
     {
@@ -457,7 +457,7 @@
         "crazyflie",
         "px4"
       ],
-      "description": "Deploy trained rl-tools policies to hardware \u2014 ESP32, Teensy, Crazyflie, PX4, Betaflight platform adapters and firmware integration.",
+      "description": "Deploy trained rl-tools policies to hardware — ESP32, Teensy, Crazyflie, PX4, Betaflight platform adapters and firmware integration.",
       "reference-files": [
         "L2-platforms/rl-tools/deploy-hardware/references/platform-adapters.md"
       ]
@@ -478,7 +478,7 @@
         "custom-env",
         "cpp17"
       ],
-      "description": "Create custom RL environments for rl-tools C++17 \u2014 3-file structure (env header, operations_generic, operations_cpu), JSON serialization, UI render.",
+      "description": "Create custom RL environments for rl-tools C++17 — 3-file structure (env header, operations_generic, operations_cpu), JSON serialization, UI render.",
       "reference-files": [
         "L2-platforms/rl-tools/environment/references/environment-header-template.md"
       ]
@@ -500,7 +500,7 @@
         "extrack",
         "visualization"
       ],
-      "description": "ExTrack experiment tracking and visualization \u2014 experiment directories, evaluation intervals, trajectory replay, return.json metrics, dashboards.",
+      "description": "ExTrack experiment tracking and visualization — experiment directories, evaluation intervals, trajectory replay, return.json metrics, dashboards.",
       "reference-files": [
         "L2-platforms/rl-tools/experiment-tracking/references/extrack-format.md"
       ]
@@ -525,7 +525,7 @@
         "sim-to-real",
         "crazyflie"
       ],
-      "description": "Learning to Fly (L2F) quadrotor development \u2014 quadrotor simulation, drone control policies, system identification, domain randomization, sim-to-real deployment.",
+      "description": "Learning to Fly (L2F) quadrotor development — quadrotor simulation, drone control policies, system identification, domain randomization, sim-to-real deployment.",
       "reference-files": []
     },
     {
@@ -545,7 +545,7 @@
         "mlp",
         "cpp17"
       ],
-      "description": "Custom neural network architectures in rl-tools \u2014 Dense, GRU, sample_and_squash layers, MLP/Sequential models, activation functions, optimizers, compile-time shapes.",
+      "description": "Custom neural network architectures in rl-tools — Dense, GRU, sample_and_squash layers, MLP/Sequential models, activation functions, optimizers, compile-time shapes.",
       "reference-files": [
         "L2-platforms/rl-tools/neural-network/references/layer-reference.md"
       ]
@@ -568,7 +568,7 @@
         "gymnasium",
         "pytorch"
       ],
-      "description": "Python interface and integration for rl-tools \u2014 Gymnasium integration, pybind11 bindings, HDF5 checkpoints, tinyrl PyTorch extension.",
+      "description": "Python interface and integration for rl-tools — Gymnasium integration, pybind11 bindings, HDF5 checkpoints, tinyrl PyTorch extension.",
       "reference-files": []
     },
     {
@@ -587,7 +587,7 @@
         "benchmarking",
         "googletest"
       ],
-      "description": "Testing and benchmarking for rl-tools \u2014 GoogleTest, benchmark targets, environment correctness, NN inference speed, memory profiling for embedded.",
+      "description": "Testing and benchmarking for rl-tools — GoogleTest, benchmark targets, environment correctness, NN inference speed, memory profiling for embedded.",
       "reference-files": []
     },
     {
@@ -608,7 +608,7 @@
         "td3",
         "ppo"
       ],
-      "description": "Configure and run RL training with rl-tools \u2014 SAC, TD3, PPO training, hyperparameters, network architecture, composable loop steps.",
+      "description": "Configure and run RL training with rl-tools — SAC, TD3, PPO training, hyperparameters, network architecture, composable loop steps.",
       "reference-files": [
         "L2-platforms/rl-tools/training/references/training-templates.md"
       ]
@@ -630,7 +630,7 @@
         "visualization",
         "threejs"
       ],
-      "description": "Web-based visualization and browser simulation \u2014 Canvas 2D / Three.js 3D render functions, WASM compilation, Chart.js dashboards, gamepad support.",
+      "description": "Web-based visualization and browser simulation — Canvas 2D / Three.js 3D render functions, WASM compilation, Chart.js dashboards, gamepad support.",
       "reference-files": []
     },
     {
@@ -650,7 +650,7 @@
         "mrac",
         "flight-controller"
       ],
-      "description": "Flight controllers \u2014 DSLPIDControl cascaded PID, MRAC adaptive control, CTBRControl for Betaflight, BaseControl interface, controller pipeline.",
+      "description": "Flight controllers — DSLPIDControl cascaded PID, MRAC adaptive control, CTBRControl for Betaflight, BaseControl interface, controller pipeline.",
       "reference-files": [
         "L3-frameworks/gym-pybullet-drones/control-systems/pid-math-reference.md"
       ]
@@ -673,7 +673,7 @@
         "templates",
         "registration"
       ],
-      "description": "How to extend gym-pybullet-drones \u2014 new RL environments, control environments, drone models, Gymnasium registration, extension checklists.",
+      "description": "How to extend gym-pybullet-drones — new RL environments, control environments, drone models, Gymnasium registration, extension checklists.",
       "reference-files": [
         "L3-frameworks/gym-pybullet-drones/extending-the-codebase/templates-reference.md"
       ]
@@ -696,7 +696,7 @@
         "crazyflie",
         "betaflight"
       ],
-      "description": "Firmware-in-the-loop simulation \u2014 CFAviary (pycffirmware Crazyflie SITL), BetaAviary (Betaflight UDP SITL), command interfaces, sensor pipelines.",
+      "description": "Firmware-in-the-loop simulation — CFAviary (pycffirmware Crazyflie SITL), BetaAviary (Betaflight UDP SITL), command interfaces, sensor pipelines.",
       "reference-files": [
         "L3-frameworks/gym-pybullet-drones/firmware-sitl/firmware-api-reference.md"
       ]
@@ -744,7 +744,7 @@
         "hover",
         "multi-agent"
       ],
-      "description": "RL environment creation \u2014 BaseRLAviary, ActionType/ObservationType dispatch, reward design, HoverAviary reference, single vs multi-agent patterns.",
+      "description": "RL environment creation — BaseRLAviary, ActionType/ObservationType dispatch, reward design, HoverAviary reference, single vs multi-agent patterns.",
       "reference-files": [
         "L3-frameworks/gym-pybullet-drones/rl-environments/action-observation-reference.md"
       ]
@@ -769,7 +769,7 @@
         "sb3",
         "evaluation"
       ],
-      "description": "Stable-Baselines3 PPO training pipeline \u2014 environment setup, callbacks, reward thresholds, model saving, evaluation, inference loop.",
+      "description": "Stable-Baselines3 PPO training pipeline — environment setup, callbacks, reward thresholds, model saving, evaluation, inference loop.",
       "reference-files": [
         "L3-frameworks/gym-pybullet-drones/training-evaluation/hyperparameter-reference.md"
       ]
@@ -870,7 +870,7 @@
         "demonstrations",
         "robomimic"
       ],
-      "description": "Implements IsaacLab imitation learning pipeline \u2014 demo recording, IsaacLab Mimic, dataset annotation/generation, motion planners, robomimic training.",
+      "description": "Implements IsaacLab imitation learning pipeline — demo recording, IsaacLab Mimic, dataset annotation/generation, motion planners, robomimic training.",
       "reference-files": [
         "L3-frameworks/isaaclab/imitation-learning/imitation-learning-api.md",
         "L3-frameworks/isaaclab/imitation-learning/imitation-learning-workflows.md"
@@ -896,7 +896,7 @@
         "terminations",
         "managers"
       ],
-      "description": "Implements MDP terms for IsaacLab manager-based environments across all 8 managers \u2014 Observation, Reward, Termination, Event, Action, Command, Curriculum, Recorder.",
+      "description": "Implements MDP terms for IsaacLab manager-based environments across all 8 managers — Observation, Reward, Termination, Event, Action, Command, Curriculum, Recorder.",
       "reference-files": [
         "L3-frameworks/isaaclab/mdp-terms/mdp-terms-catalog.md",
         "L3-frameworks/isaaclab/mdp-terms/mdp-terms-patterns.md"
@@ -923,7 +923,7 @@
         "rsl-rl",
         "multi-gpu"
       ],
-      "description": "Trains RL policies in IsaacLab using RSL-RL, RL-Games, Stable-Baselines3, or SKRL \u2014 PPO configs, checkpoints, multi-GPU, Ray tuning.",
+      "description": "Trains RL policies in IsaacLab using RSL-RL, RL-Games, Stable-Baselines3, or SKRL — PPO configs, checkpoints, multi-GPU, Ray tuning.",
       "reference-files": [
         "L3-frameworks/isaaclab/rl-training/rl-training-configs.md",
         "L3-frameworks/isaaclab/rl-training/rl-training-workflows.md"
@@ -950,7 +950,7 @@
         "articulation",
         "assets"
       ],
-      "description": "Configures robots, rigid objects, deformable objects, and articulations \u2014 ArticulationCfg, actuator models, spawner configs, physics properties, robot catalog.",
+      "description": "Configures robots, rigid objects, deformable objects, and articulations — ArticulationCfg, actuator models, spawner configs, physics properties, robot catalog.",
       "reference-files": [
         "L3-frameworks/isaaclab/robot-and-asset-config/asset-configuration-api.md",
         "L3-frameworks/isaaclab/robot-and-asset-config/robot-catalog.md"
@@ -1158,6 +1158,30 @@
         "discovery"
       ],
       "description": "Run a full KB update cycle: discover new papers, filter, extract, integrate, and report. Orchestrates the other four KB skills.",
+      "reference-files": []
+    },
+    {
+      "name": "publication-scout",
+      "path": "meta/publication-scout",
+      "layer": "meta",
+      "domain": [
+        "general"
+      ],
+      "source-project": "papers-kb",
+      "depends-on": [
+        "kb-query",
+        "paper-discoverer",
+        "K-Dense-AI/research-lookup"
+      ],
+      "tags": [
+        "research-gaps",
+        "publication-planning",
+        "deep-research",
+        "gap-verification",
+        "5-gates-review",
+        "orchestration"
+      ],
+      "description": "Discover publishable research sweet spots at keyword intersections via deep research, verify gaps against real literature, and output exactly 3 ISI/Scopus Q1/Q2 publication approaches with 5-Gates critical review.",
       "reference-files": []
     }
   ]
