@@ -68,7 +68,7 @@ A consolidated collection of **45 agent skills** organized in a 4-layer architec
 └─────────────────────────────────────────────────────────────────────────┘
 ```
 
-## Installation
+## Claude Installation
 
 Install all skills as user-level Claude Code skills:
 
@@ -85,6 +85,36 @@ python install-skills.py --dry-run    # Preview without changes
 python install-skills.py --list       # Show install status
 python install-skills.py --uninstall  # Remove all installed skills
 ```
+
+## Codex Build / Installation
+
+Build Codex-compatible skill folders into `dist/codex-skills/`:
+
+```bash
+python build_codex_skills.py
+```
+
+Install them directly into `~/.codex/skills/`:
+
+```bash
+python build_codex_skills.py --install
+```
+
+Other Codex commands:
+
+```bash
+python build_codex_skills.py --dry-run
+python build_codex_skills.py --list-installed
+python build_codex_skills.py --uninstall
+python build_codex_skills.py --skill gymnasium-core-api --skill book-reader
+python build_codex_skills.py --copy-files   # copy references instead of symlinking
+```
+
+The Codex build keeps the source skill content intact and adapts each skill into:
+
+- Minimal Codex `SKILL.md` frontmatter (`name`, `description`)
+- Generated `agents/openai.yaml`
+- Symlinked or copied bundled reference files
 
 ## Skill Count by Layer
 

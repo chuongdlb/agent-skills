@@ -13,6 +13,8 @@ python install-skills.py              # Install all skills to ~/.claude/skills/
 python install-skills.py --dry-run    # Preview without changes
 python install-skills.py --list       # Show install status
 python install-skills.py --uninstall  # Remove all installed skills
+python build_codex_skills.py          # Build Codex-compatible skills in dist/codex-skills/
+python build_codex_skills.py --install # Install Codex-compatible skills to ~/.codex/skills/
 ```
 
 There is no build system, linter, or test suite.
