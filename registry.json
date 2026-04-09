@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "total_skills": 51,
+  "total_skills": 52,
   "skills": [
     {
       "name": "rl-methodology",
@@ -1148,7 +1148,8 @@
         "paper-extractor",
         "kb-integrator",
         "paper-discoverer",
-        "kb-query"
+        "kb-query",
+        "kb-lint"
       ],
       "tags": [
         "knowledge-base",
@@ -1158,6 +1159,27 @@
         "discovery"
       ],
       "description": "Run a full KB update cycle: discover new papers, filter, extract, integrate, and report. Orchestrates the other four KB skills.",
+      "reference-files": []
+    },
+    {
+      "name": "kb-lint",
+      "path": "meta/kb-lint",
+      "layer": "meta",
+      "domain": [
+        "general"
+      ],
+      "source-project": "papers-kb",
+      "depends-on": [
+        "kb-query"
+      ],
+      "tags": [
+        "knowledge-base",
+        "lint",
+        "health-check",
+        "quality",
+        "maintenance"
+      ],
+      "description": "Health-check the KB: mechanical checks (YAML, enums, links, orphans, duplicates) via Python script, semantic checks (stale SoTA, missing cross-refs, coverage gaps) via LLM. Report + interactive fix mode.",
       "reference-files": []
     },
     {

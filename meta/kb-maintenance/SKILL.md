@@ -80,13 +80,17 @@ Invoke `kb-integrator` **sequentially** (one at a time):
 
 **Order**: Process papers chronologically (oldest first) so SoTA classifications are stable.
 
-### Step 5: Health Check
+### Step 5: Health Check + Lint
 
-Run these `kb-query` checks:
-1. Registry integrity: `total_papers` matches actual entries count
-2. Index completeness: every registry entry has an index row
-3. Topic coverage: every domain tag in taxonomy has at least one topic file
-4. Orphan check: no paper cards without registry entries
+Run the `kb-lint` mechanical checks via Python script, then semantic checks via LLM:
+
+1. Execute `uv run scripts/kb_lint.py` — produces `kb/reports/lint-findings.json`
+2. Read the findings JSON — check the `summary` for error/warning/info counts
+3. Run semantic checks S1 (stale SoTA) and S2 (missing cross-references) on flagged items
+4. Append the lint summary to the cycle report (see Health Check section in report template)
+5. If errors > 0, warn the user before proceeding to git commit
+
+This replaces the previous manual health checks (registry integrity, index completeness, orphan detection) — the lint script covers all of them (M4, M5, M10).
 
 ### Step 6: Write Cycle Report
 
@@ -120,12 +124,12 @@ Write `kb/reports/YYYY-MM-DD-cycle.md`:
 - Pending review: K
 - Discarded: L
 
-## Health Check
+## Health Check (kb-lint)
 
-- [ ] Registry count matches: YES/NO
-- [ ] Index complete: YES/NO
-- [ ] Topic coverage: YES/NO
-- [ ] No orphans: YES/NO
+- Errors: N | Warnings: M | Info: K
+- [ ] No errors (M1-M6): YES/NO
+- [ ] No stale SoTA (S1): YES/NO
+- [ ] Full lint report: `kb/reports/lint-YYYY-MM-DD.md`
 
 ## Errors
 
