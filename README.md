@@ -59,11 +59,15 @@ A consolidated collection of **45 agent skills** organized in a 4-layer architec
 │  └──────────────────────────────────────────────────────────────────┘    │
 │                                                                         │
 ├─────────────────────────────────────────────────────────────────────────┤
-│  L0-theory (1 skill)                                                    │
+│  L0-theory (2 skills)                                                   │
 │  Foundational RL/math knowledge (project-agnostic)                      │
 │  ┌──────────────────────────────────────────────────────────────────┐    │
-│  │ rl-methodology   Analysis, proofs, design patterns, templates,  │    │
-│  │                  + extensible knowledge base (Zhao 2024)        │    │
+│  │ rl-methodology         Analysis, proofs, design patterns,       │    │
+│  │                        templates + KB (Zhao 2024)               │    │
+│  │ rl-training-protocol   Project-agnostic deep-RL hygiene: env-   │    │
+│  │                        symmetry, init/schedule asserts, drift, │    │
+│  │                        seed gating, mechanism attribution,     │    │
+│  │                        PPO update & data-pipeline checks       │    │
 │  └──────────────────────────────────────────────────────────────────┘    │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
@@ -121,7 +125,7 @@ The Codex build keeps the source skill content intact and adapts each skill into
 | Layer | Count | Description |
 |-------|-------|-------------|
 | meta | 4 | Orchestration & methodology (cross-layer) |
-| L0-theory | 1 | Foundational RL/math knowledge |
+| L0-theory | 2 | Foundational RL/math knowledge |
 | L1-core | 1 | Reusable tools and infrastructure |
 | L2-platforms | 25 | Simulation engines & platforms (IsaacSim, Gymnasium, PyBullet, RL-Tools) |
 | L3-frameworks | 14 | Domain frameworks (IsaacLab, gym-pybullet-drones) |
@@ -152,6 +156,7 @@ The Codex build keeps the source skill content intact and adapts each skill into
 | Skill | Description |
 |-------|-------------|
 | [rl-methodology](L0-theory/rl-methodology/SKILL.md) | Analysis, proofs, design patterns, templates + extensible knowledge base |
+| [rl-training-protocol](L0-theory/rl-training-protocol/SKILL.md) | Project-agnostic deep-RL hygiene across six failure-mode classes: env invariance, init/schedule asserts, late-training drift, multi-seed gating, mechanism attribution, PPO update & data-pipeline checks |
 
 ### L1-core
 | Skill | Description |

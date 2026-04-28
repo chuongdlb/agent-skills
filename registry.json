@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "total_skills": 52,
+  "total_skills": 53,
   "skills": [
     {
       "name": "rl-methodology",
@@ -35,6 +35,34 @@
         "L0-theory/rl-methodology/knowledge-base/zhao-mathematical-foundations/11-appendix.md",
         "L0-theory/rl-methodology/knowledge-base/zhao-mathematical-foundations/12-cross-reference-index.md"
       ]
+    },
+    {
+      "name": "rl-training-protocol",
+      "path": "L0-theory/rl-training-protocol",
+      "layer": "L0",
+      "domain": [
+        "general-rl",
+        "ml-training"
+      ],
+      "source-project": "rl-escape-dense-forest",
+      "depends-on": [
+        "rl-methodology"
+      ],
+      "tags": [
+        "training",
+        "protocol",
+        "debugging",
+        "ablation",
+        "reproducibility",
+        "ppo",
+        "off-policy",
+        "actor-critic",
+        "vec-envs",
+        "curriculum",
+        "checkpointing"
+      ],
+      "description": "General-purpose training-protocol hygiene for deep RL with parameterized simulators — env-generator invariance, init/schedule pre-flight assertions, late-training drift handling, multi-seed gating, mechanism-attribution discipline, and PPO/data-pipeline hygiene. Project-agnostic.",
+      "reference-files": []
     },
     {
       "name": "rl-algorithms",
