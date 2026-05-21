@@ -209,6 +209,11 @@ When invoked with fix mode:
 - **M3 unknown tag**: Check if the tag is close to a valid tag (typo), or suggest the closest valid tag
 - **M4 orphan card**: Offer to create a registry entry from the card's frontmatter
 - **M5 missing index row**: Offer to add the row to index.md
+- **M7 duplicate arxiv/doi**: First **triage** each flagged pair — they are not all the same kind:
+  - **True duplicate** (same paper, two slugs): keep the canonical (most inbound refs / fullest content / correct metadata), then delete the rest with `uv run scripts/kb_remove.py <id…>`. The helper does the registry + index + card-file surgery and **refuses to delete a card with inbound cross-refs** (it lists them) — repoint those refs first, or pass `--force`. If the deleted card was *fuller* than the canonical, diff them (`git show HEAD:kb/papers/<id>.md`) and fold back any unique content before regenerating.
+  - **Wrong-arXiv-ID error** (two *distinct* papers sharing an ID by copy-paste, e.g. titles clearly differ): **do NOT delete** — look up the correct arXiv ID and fix the `arxiv:`/`paper_url:` of the mislabeled card. If the correct ID can't be verified, blank it and flag rather than guess. (Fixing one card's ID can *reveal* a previously-masked true duplicate — re-run the lint.)
+  - When unsure, read both full cards before acting.
+  - After any removal, regenerate artifacts: `uv run scripts/update_kb_stats.py && uv run scripts/generate_compact.py && uv run scripts/build_dashboard.py` (or pass `--regen` to `kb_remove.py`).
 - **M8 pending novelty**: Read the card and classify using the scoring rubric in `kb/config/scoring-rubric.md`
 - **M9 thin SoTA card**: If PDF exists in `pdf/`, offer to re-extract using `paper-extractor`
 - **M10 stats drift**: Offer to run `uv run scripts/update_kb_stats.py`
