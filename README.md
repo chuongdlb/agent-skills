@@ -1,63 +1,22 @@
 # Agent Skills Repository
 
-A consolidated collection of **45 agent skills** organized in a 4-layer architecture + meta category, following patterns used by top RL/AI labs (Nvidia Isaac, DeepMind Acme, OpenAI Gym, Meta Habitat, Berkeley RLlib).
+A collection of **14 agent skills** organized by layer — theory, meta-orchestration, and knowledge-base management.
 
 **Key design principle**: Organize by **abstraction layer** (not domain), with domain as cross-cutting metadata tags.
 
 ## Architecture
 
 ```
-                    ┌─────────────────────────────┐
-                    │         meta (4 skills)      │  Orchestration & methodology
-                    │  rl-innovator, book-reader,  │  (cross-layer)
-                    │  book-reader-agent-prompt,   │
-                    │  book-to-knowledge-base      │
-                    └─────────────────────────────┘
-
 ┌─────────────────────────────────────────────────────────────────────────┐
-│  L3-frameworks (14 skills)                                              │
-│  Domain frameworks & applications built on platforms                    │
-│  ┌──────────────────────────┐  ┌──────────────────────────────────┐     │
-│  │ isaaclab/ (8 skills)     │  │ gym-pybullet-drones/ (6 skills)  │     │
-│  │ environment-design       │  │ rl-environments                  │     │
-│  │ mdp-terms, rl-training   │  │ control-systems                  │     │
-│  │ robot-and-asset-config   │  │ training-evaluation              │     │
-│  │ terrains-and-sensors     │  │ logging-testing                  │     │
-│  │ controllers-and-teleop   │  │ firmware-sitl                    │     │
-│  │ configclass-and-utils    │  │ extending-the-codebase           │     │
-│  │ imitation-learning       │  │                                  │     │
-│  └────────────┬─────────────┘  └───────────────┬──────────────────┘     │
-│               │                                │                        │
-├───────────────┼────────────────────────────────┼────────────────────────┤
-│  L2-platforms (25 skills)                      │                        │
-│  Simulation engines & platforms                │                        │
-│  ┌────────────┴────────┐  ┌────────────────┐  ┌┴───────────────────┐    │
-│  │ isaacsim/ (8)       │  │ pybullet/ (1)  │  │ rl-tools/ (10)     │    │
-│  │ simulation-core     │  │ simulation-    │  │ build              │    │
-│  │ asset-pipeline      │  │ engine         │  │ neural-network     │    │
-│  │ robotics            │  │                │  │ training           │    │
-│  │ sensor-development  │  │                │  │ environment        │    │
-│  │ synthetic-data      │  │                │  │ l2f                │    │
-│  │ ros2-integration    │  │                │  │ deploy-hardware    │    │
-│  │ build-and-test      │  │                │  │ python, testing    │    │
-│  │ extensions          │  │                │  │ experiment-tracking│    │
-│  │                     │  │                │  │ web-visualization  │    │
-│  └─────────────────────┘  └────────────────┘  └────────────────────┘    │
-│                                                                         │
-│  ┌──────────────────────────────────────────────┐                       │
-│  │ gymnasium/ (6)                                │                      │
-│  │ core-api, spaces, wrappers, vector-envs,      │                      │
-│  │ environments, custom-environments             │                      │
-│  └──────────────────────────────────────────────┘                       │
-│                                                                         │
-├─────────────────────────────────────────────────────────────────────────┤
-│  L1-core (1 skill)                                                      │
-│  Reusable tools and infrastructure                                      │
+│  meta (12 skills)                                                       │
+│  Orchestration & methodology (cross-layer)                              │
 │  ┌──────────────────────────────────────────────────────────────────┐    │
-│  │ rl-algorithms    PyTorch scaffolds: DQN, A2C, PPO, DDPG, TD3,  │    │
-│  │                  SAC + shared components (MLP, buffers, GAE)    │    │
+│  │ rl-innovator, book-reader, book-reader-agent-prompt,            │    │
+│  │ book-to-knowledge-base                                          │    │
+│  │ paper-extractor, tex-source-paper-extractor, kb-integrator,     │    │
+│  │ paper-discoverer, kb-query, kb-maintenance, kb-lint,            │    │
+│  │ publication-scout                                               │    │
 │  └──────────────────────────────────────────────────────────────────┘    │
-│                                                                         │
 ├─────────────────────────────────────────────────────────────────────────┤
 │  L0-theory (2 skills)                                                   │
 │  Foundational RL/math knowledge (project-agnostic)                      │
@@ -65,9 +24,9 @@ A consolidated collection of **45 agent skills** organized in a 4-layer architec
 │  │ rl-methodology         Analysis, proofs, design patterns,       │    │
 │  │                        templates + KB (Zhao 2024)               │    │
 │  │ rl-training-protocol   Project-agnostic deep-RL hygiene: env-   │    │
-│  │                        symmetry, init/schedule asserts, drift, │    │
-│  │                        seed gating, mechanism attribution,     │    │
-│  │                        PPO update & data-pipeline checks       │    │
+│  │                        symmetry, init/schedule asserts, drift,  │    │
+│  │                        seed gating, mechanism attribution,      │    │
+│  │                        PPO update & data-pipeline checks        │    │
 │  └──────────────────────────────────────────────────────────────────┘    │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
@@ -124,23 +83,17 @@ The Codex build keeps the source skill content intact and adapts each skill into
 
 | Layer | Count | Description |
 |-------|-------|-------------|
-| meta | 4 | Orchestration & methodology (cross-layer) |
+| meta | 12 | Orchestration & methodology (cross-layer) |
 | L0-theory | 2 | Foundational RL/math knowledge |
-| L1-core | 1 | Reusable tools and infrastructure |
-| L2-platforms | 25 | Simulation engines & platforms (IsaacSim, Gymnasium, PyBullet, RL-Tools) |
-| L3-frameworks | 14 | Domain frameworks (IsaacLab, gym-pybullet-drones) |
-| **Total** | **45** | |
+| **Total** | **14** | |
 
 ## Skill Count by Source Project
 
 | Source Project | Count | Layers |
 |----------------|-------|--------|
-| Book-Mathematical-Foundation-of-RL | 6 | meta, L0, L1 |
-| Gymnasium | 6 | L2 |
-| IsaacSim | 8 | L2 |
-| IsaacLab | 8 | L3 |
-| gym-pybullet-drones | 7 | L2 (1), L3 (6) |
-| rl-tools-framework | 10 | L2 |
+| Book-Mathematical-Foundation-of-RL | 5 | meta, L0 |
+| rl-escape-dense-forest | 1 | L0 |
+| papers-kb | 8 | meta |
 
 ## Skill Index
 
@@ -151,80 +104,20 @@ The Codex build keeps the source skill content intact and adapts each skill into
 | [book-reader](meta/book-reader/SKILL.md) | Textbook knowledge extraction methodology |
 | [book-reader-agent-prompt](meta/book-reader-agent-prompt/SKILL.md) | Prompt template for book-reading agents |
 | [book-to-knowledge-base](meta/book-to-knowledge-base/SKILL.md) | Lossless PDF-to-markdown knowledge base conversion |
+| [paper-extractor](meta/paper-extractor/SKILL.md) | Extract structured contributions from a research paper PDF |
+| [tex-source-paper-extractor](meta/tex-source-paper-extractor/SKILL.md) | Extract or enrich a paper card from an arXiv paper's LaTeX (.tex) source |
+| [kb-integrator](meta/kb-integrator/SKILL.md) | Classify novelty and update topic files, index, timeline, registry |
+| [paper-discoverer](meta/paper-discoverer/SKILL.md) | Search databases and GitHub for new papers, produce ranked list |
+| [kb-query](meta/kb-query/SKILL.md) | Answer research questions against the knowledge base |
+| [kb-maintenance](meta/kb-maintenance/SKILL.md) | Full KB update cycle: discover, filter, extract, integrate, report |
+| [kb-lint](meta/kb-lint/SKILL.md) | Health-check the KB: mechanical and semantic checks |
+| [publication-scout](meta/publication-scout/SKILL.md) | Discover publishable research gaps with 5-Gates review |
 
 ### L0-theory
 | Skill | Description |
 |-------|-------------|
 | [rl-methodology](L0-theory/rl-methodology/SKILL.md) | Analysis, proofs, design patterns, templates + extensible knowledge base |
-| [rl-training-protocol](L0-theory/rl-training-protocol/SKILL.md) | Project-agnostic deep-RL hygiene across six failure-mode classes: env invariance, init/schedule asserts, late-training drift, multi-seed gating, mechanism attribution, PPO update & data-pipeline checks |
-
-### L1-core
-| Skill | Description |
-|-------|-------------|
-| [rl-algorithms](L1-core/rl-algorithms/SKILL.md) | PyTorch scaffolds for DQN, A2C, PPO, DDPG, TD3, SAC |
-
-### L2-platforms/gymnasium
-| Skill | Description |
-|-------|-------------|
-| [core-api](L2-platforms/gymnasium/core-api/SKILL.md) | Env base class, step/reset contract, registration |
-| [spaces](L2-platforms/gymnasium/spaces/SKILL.md) | Box, Discrete, Dict, Tuple, composite spaces |
-| [wrappers](L2-platforms/gymnasium/wrappers/SKILL.md) | Observation, action, reward, rendering wrappers |
-| [vector-envs](L2-platforms/gymnasium/vector-envs/SKILL.md) | SyncVectorEnv, AsyncVectorEnv, batched semantics |
-| [environments](L2-platforms/gymnasium/environments/SKILL.md) | Classic Control, Box2D, Toy Text, MuJoCo |
-| [custom-environments](L2-platforms/gymnasium/custom-environments/SKILL.md) | Env subclass, FuncEnv, registration, packaging |
-
-### L2-platforms/isaacsim
-| Skill | Description |
-|-------|-------------|
-| [simulation-core](L2-platforms/isaacsim/simulation-core/SKILL.md) | World, Scene, prim wrappers, physics |
-| [asset-pipeline](L2-platforms/isaacsim/asset-pipeline/SKILL.md) | URDF/MJCF import, USD conversion |
-| [robotics](L2-platforms/isaacsim/robotics/SKILL.md) | Robot configs, motion planning, controllers |
-| [sensor-development](L2-platforms/isaacsim/sensor-development/SKILL.md) | Cameras, lidar, radar, annotators |
-| [synthetic-data](L2-platforms/isaacsim/synthetic-data/SKILL.md) | Replicator SDG, domain randomization |
-| [ros2-integration](L2-platforms/isaacsim/ros2-integration/SKILL.md) | ROS 2 bridge, topics, TF |
-| [build-and-test](L2-platforms/isaacsim/build-and-test/SKILL.md) | Premake build, Packman deps, CI/CD |
-| [extensions](L2-platforms/isaacsim/extensions/SKILL.md) | Omniverse Kit extensions, OmniGraph |
-
-### L2-platforms/pybullet
-| Skill | Description |
-|-------|-------------|
-| [simulation-engine](L2-platforms/pybullet/simulation-engine/SKILL.md) | BaseAviary, physics models, step loop |
-
-### L2-platforms/rl-tools
-| Skill | Description |
-|-------|-------------|
-| [build](L2-platforms/rl-tools/build/SKILL.md) | CMake build system, tiered targets |
-| [neural-network](L2-platforms/rl-tools/neural-network/SKILL.md) | NN architectures, layers, optimizers |
-| [python](L2-platforms/rl-tools/python/SKILL.md) | Python bindings, Gymnasium integration |
-| [testing](L2-platforms/rl-tools/testing/SKILL.md) | GoogleTest, benchmarking, profiling |
-| [experiment-tracking](L2-platforms/rl-tools/experiment-tracking/SKILL.md) | ExTrack directories, metrics, dashboards |
-| [web-visualization](L2-platforms/rl-tools/web-visualization/SKILL.md) | WASM, Canvas 2D, Three.js, Chart.js |
-| [training](L2-platforms/rl-tools/training/SKILL.md) | SAC/TD3/PPO training pipelines |
-| [environment](L2-platforms/rl-tools/environment/SKILL.md) | Custom C++17 RL environments |
-| [l2f](L2-platforms/rl-tools/l2f/SKILL.md) | Learning to Fly quadrotor pipeline |
-| [deploy-hardware](L2-platforms/rl-tools/deploy-hardware/SKILL.md) | ESP32, Teensy, Crazyflie, PX4 deployment |
-
-### L3-frameworks/isaaclab
-| Skill | Description |
-|-------|-------------|
-| [configclass-and-utilities](L3-frameworks/isaaclab/configclass-and-utilities/SKILL.md) | @configclass, math utilities, buffers |
-| [environment-design](L3-frameworks/isaaclab/environment-design/SKILL.md) | Manager-Based & Direct env paradigms |
-| [mdp-terms](L3-frameworks/isaaclab/mdp-terms/SKILL.md) | 8 MDP managers, obs/reward/termination terms |
-| [robot-and-asset-config](L3-frameworks/isaaclab/robot-and-asset-config/SKILL.md) | ArticulationCfg, actuators, robot catalog |
-| [terrains-and-sensors](L3-frameworks/isaaclab/terrains-and-sensors/SKILL.md) | Terrain generation, sensor configs |
-| [controllers-and-teleop](L3-frameworks/isaaclab/controllers-and-teleop/SKILL.md) | IK, operational space, teleoperation |
-| [rl-training](L3-frameworks/isaaclab/rl-training/SKILL.md) | RSL-RL/RL-Games/SB3/SKRL training |
-| [imitation-learning](L3-frameworks/isaaclab/imitation-learning/SKILL.md) | Demo recording, Mimic, robomimic |
-
-### L3-frameworks/gym-pybullet-drones
-| Skill | Description |
-|-------|-------------|
-| [rl-environments](L3-frameworks/gym-pybullet-drones/rl-environments/SKILL.md) | BaseRLAviary, action/obs types, rewards |
-| [control-systems](L3-frameworks/gym-pybullet-drones/control-systems/SKILL.md) | PID, MRAC, Betaflight controllers |
-| [training-evaluation](L3-frameworks/gym-pybullet-drones/training-evaluation/SKILL.md) | SB3 PPO training, callbacks, eval |
-| [logging-testing](L3-frameworks/gym-pybullet-drones/logging-testing/SKILL.md) | Logger, pytest, debug tools |
-| [firmware-sitl](L3-frameworks/gym-pybullet-drones/firmware-sitl/SKILL.md) | Crazyflie & Betaflight SITL |
-| [extending-the-codebase](L3-frameworks/gym-pybullet-drones/extending-the-codebase/SKILL.md) | Extension templates & registration |
+| [rl-training-protocol](L0-theory/rl-training-protocol/SKILL.md) | Project-agnostic deep-RL hygiene across six failure-mode classes |
 
 ## File Structure
 
@@ -237,4 +130,4 @@ See [SKILL-SPEC.md](SKILL-SPEC.md) for the frontmatter specification.
 
 ## Machine-Readable Index
 
-[registry.json](registry.json) contains all 45 skills with paths, layers, domains, dependencies, and tags.
+[registry.json](registry.json) contains all 14 skills with paths, layers, domains, dependencies, and tags.

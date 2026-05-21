@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Repository Is
 
-A collection of **46 Claude Code agent skills** for reinforcement learning and robotics, organized by abstraction layer. Skills are installed to `~/.claude/skills/` where Claude Code loads them automatically.
+A collection of **14 Claude Code agent skills** for reinforcement learning research and knowledge management, organized by abstraction layer. Skills are installed to `~/.claude/skills/` where Claude Code loads them automatically.
 
 ## Commands
 
@@ -25,13 +25,8 @@ Skills are organized by **abstraction layer** (not domain):
 
 | Layer | Purpose | Examples |
 |-------|---------|---------|
-| `meta` | Cross-layer orchestration | rl-innovator, book-reader |
-| `L0-theory` | Project-agnostic foundational knowledge | rl-theory-analyzer, rl-convergence-prover |
-| `L1-core` | Reusable tools and infrastructure | rl-implementer |
-| `L2-platforms` | Simulation engines (grouped by platform) | isaacsim/, gymnasium/, rl-tools/, pybullet/ |
-| `L3-frameworks` | Domain frameworks built on L2 | isaaclab/, gym-pybullet-drones/ |
-
-Dependencies flow downward: L3 → L2 → L1 → L0. Meta skills may depend on any layer.
+| `meta` | Cross-layer orchestration & knowledge management | rl-innovator, kb-maintenance, publication-scout |
+| `L0-theory` | Project-agnostic foundational knowledge | rl-methodology, rl-training-protocol |
 
 ## Skill File Structure
 
@@ -69,7 +64,7 @@ tags: [keyword1, keyword2]
 
 ## Adding a New Skill
 
-1. Create directory under the appropriate layer (e.g., `L2-platforms/gymnasium/new-skill/`)
+1. Create directory under the appropriate layer (e.g., `meta/new-skill/` or `L0-theory/new-skill/`)
 2. Write `SKILL.md` with valid frontmatter per SKILL-SPEC.md
 3. Add reference files if needed
 4. Add entry to `registry.json` with matching `name`, `path`, and `reference-files`
