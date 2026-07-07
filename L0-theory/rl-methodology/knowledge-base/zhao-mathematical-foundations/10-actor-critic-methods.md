@@ -185,7 +185,7 @@ This updates the policy based on the **relative** value of $q_t$ with respect to
 
 **Intuition from slides**: Rewriting (10.8):
 
-$$\theta_{t+1} = \theta_t + \alpha \frac{\nabla_\theta \pi(a_t|s_t, \theta_t)}{\pi(a_t|s_t, \theta_t)} \delta_t(s_t, a_t) = \theta_t + \underbrace{\alpha \frac{\delta_t(s_t, a_t)}{\pi(a_t|s_t, \theta_t)}}_{\beta_t} \nabla_\theta \pi(a_t|s_t, \theta_t)$$
+$$\theta_{t+1} = \theta_t + \alpha \frac{\nabla_\theta \pi(a_t|s_t, \theta_t)}{\pi(a_t|s_t, \theta_t)} \delta_t(s_t, a_t) = \theta_t + \alpha \underbrace{\frac{\delta_t(s_t, a_t)}{\pi(a_t|s_t, \theta_t)}}_{\beta_t} \nabla_\theta \pi(a_t|s_t, \theta_t)$$
 
 This reveals:
 - Greater $\delta_t(s_t, a_t)$ $\Rightarrow$ greater $\beta_t$ $\Rightarrow$ greater $\pi(a_t|s_t, \theta_{t+1})$: actions with higher advantage get reinforced.
@@ -436,7 +436,7 @@ $$a = \mu(s, \theta) \doteq \mu(s)$$
 
 **Key differences from stochastic policies**:
 
-| Property | Stochastic Policy $\pi(a|s, \theta)$ | Deterministic Policy $\mu(s, \theta)$ |
+| Property | Stochastic Policy $\pi(a\|s, \theta)$ | Deterministic Policy $\mu(s, \theta)$ |
 |---|---|---|
 | Output | Probability distribution over actions | A single action directly |
 | Type | $\pi: \mathcal{S} \times \mathcal{A} \to [0, 1]$ | $\mu: \mathcal{S} \to \mathcal{A}$ |
@@ -467,7 +467,7 @@ where $\eta$ is a distribution of the states. Theorem 10.2 summarizes the result
 
 #### Metric 1: Average Value (Discounted Case)
 
-$$J(\theta) = \mathbb{E}[v_\mu(s)] = \sum_{s \in \mathcal{S}} d_0(s) v_\mu(s)$$
+$$J(\theta) = \mathbb{E}[v_\mu(S)] = \sum_{s \in \mathcal{S}} d_0(s) v_\mu(s), \quad S \sim d_0$$
 (10.15)
 
 where $d_0$ is a probability distribution of states, selected to be **independent of** $\mu$ for simplicity.
@@ -613,7 +613,7 @@ Since $\beta$ (behavior) and $\mu$ (target) differ, the critic is off-policy. Im
 #### How to Select the Behavior Policy $\beta$?
 
 - It can be **any exploratory policy**.
-- It can be a stochastic policy obtained by **adding noise to** $\mu$ (e.g., $\beta = \mu + \text{noise}$). In this case, $\mu$ is effectively also the behavior policy, making this an **on-policy implementation**.
+- It can be a stochastic policy obtained by **adding noise to** $\mu$ (e.g., $\beta = \mu + \text{noise}$). Strictly, $\beta \neq \mu$, so this remains off-policy by the definition above; but because $\beta$ tracks the current target policy, it is often described as an **approximately on-policy implementation** (this is the DDPG exploration scheme).
 
 ---
 
@@ -683,12 +683,12 @@ Since $\beta$ (behavior) and $\mu$ (target) differ, the critic is off-policy. Im
 | TD actor-critic | Same as A2C | 10.2.2 |
 | REINFORCE with baseline | MC version of A2C | 10.2.2 |
 | Importance sampling | $\mathbb{E}_{p_0}[X] = \mathbb{E}_{p_1}\left[\frac{p_0(X)}{p_1(X)} X\right]$ | 10.3.1 |
-| Importance weight | $\frac{p_0(x)}{p_1(x)}$ or $\frac{\pi(a|s,\theta)}{\beta(a|s)}$ | 10.3.1 |
+| Importance weight | $\frac{p_0(x)}{p_1(x)}$ or $\frac{\pi(a\|s,\theta)}{\beta(a\|s)}$ | 10.3.1 |
 | Off-policy policy gradient theorem | Theorem 10.1 | 10.3.2 |
 | Off-policy actor-critic | Algorithm 10.3 | 10.3.3 |
 | Deterministic policy | $a = \mu(s, \theta)$ | 10.4 |
 | Deterministic policy gradient theorem | Theorem 10.2 (general), 10.3 (discounted), 10.4 (undiscounted) | 10.4.1 |
-| Discounted total probability | $\Pr_\mu(s'|s) = [(I - \gamma P_\mu)^{-1}]_{ss'}$ | 10.4.1 |
+| Discounted total probability | $\Pr_\mu(s'\|s) = [(I - \gamma P_\mu)^{-1}]_{ss'}$ | 10.4.1 |
 | Deterministic actor-critic (DPG) | Algorithm 10.4 | 10.4.2 |
 | Deep Deterministic Policy Gradient (DDPG) | DPG with neural network $q(s,a,w)$ | 10.4.2 |
 | A3C | Asynchronous advantage actor-critic (variant of A2C) | 10.2.2 |

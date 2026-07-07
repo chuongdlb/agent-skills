@@ -38,9 +38,9 @@ Previously in the book, policies were represented by tables. Each entry is index
 
 | | $a_1$ | $a_2$ | $a_3$ | $a_4$ | $a_5$ |
 |---|---|---|---|---|---|
-| $s_1$ | $\pi(a_1|s_1)$ | $\pi(a_2|s_1)$ | $\pi(a_3|s_1)$ | $\pi(a_4|s_1)$ | $\pi(a_5|s_1)$ |
+| $s_1$ | $\pi(a_1\|s_1)$ | $\pi(a_2\|s_1)$ | $\pi(a_3\|s_1)$ | $\pi(a_4\|s_1)$ | $\pi(a_5\|s_1)$ |
 | $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ | $\vdots$ |
-| $s_9$ | $\pi(a_1|s_9)$ | $\pi(a_2|s_9)$ | $\pi(a_3|s_9)$ | $\pi(a_4|s_9)$ | $\pi(a_5|s_9)$ |
+| $s_9$ | $\pi(a_1\|s_9)$ | $\pi(a_2\|s_9)$ | $\pi(a_3\|s_9)$ | $\pi(a_4\|s_9)$ | $\pi(a_5\|s_9)$ |
 
 ### Function Representation
 
@@ -64,7 +64,7 @@ The function may be, for example, a **neural network** whose input is $s$, outpu
 |---|---|---|
 | **Defining optimal policies** | Optimal if it maximizes *every* state value | Optimal if it maximizes certain *scalar metrics* |
 | **Updating policies** | Directly change table entries | Change the parameter vector $\theta$ |
-| **Retrieving action probabilities** | Look up the corresponding table entry | Calculate $\pi(a|s,\theta)$ given the function structure and parameter |
+| **Retrieving action probabilities** | Look up the corresponding table entry | Calculate $\pi(a\|s,\theta)$ given the function structure and parameter |
 
 ### The Basic Idea of Policy Gradient
 
@@ -438,7 +438,7 @@ where $c \in \mathbb{R}$.
 
 **Step 1**: Show that $v_\pi^*$ in (9.24) is a solution.
 
-Let $A \doteq I_n - P_\pi + \mathbf{1}_n d_\pi^T$. Then $v_\pi^* = A^{-1} r_\pi$. Substituting into (9.23): $A^{-1} r_\pi = r_\pi - \mathbf{1}_n d_\pi^T r_\pi + P_\pi A^{-1} r_\pi$. This gives $(-A^{-1} + I_n - \mathbf{1}_n d_\pi^T + P_\pi) A^{-1} r_\pi = 0$, i.e., $(-I_n + A - \mathbf{1}_n d_\pi^T A + P_\pi) A^{-1} r_\pi = 0$. The bracket evaluates to $-I_n + (I_n - P_\pi + \mathbf{1}_n d_\pi^T) - \mathbf{1}_n d_\pi^T (I_n - P_\pi + \mathbf{1}_n d_\pi^T) + P_\pi = 0$.
+Let $A \doteq I_n - P_\pi + \mathbf{1}_n d_\pi^T$. Then $v_\pi^* = A^{-1} r_\pi$. Substituting into (9.23): $A^{-1} r_\pi = r_\pi - \mathbf{1}_n d_\pi^T r_\pi + P_\pi A^{-1} r_\pi$. This gives $(-A^{-1} + I_n - \mathbf{1}_n d_\pi^T + P_\pi A^{-1}) r_\pi = 0$, i.e., $(-I_n + A - \mathbf{1}_n d_\pi^T A + P_\pi) A^{-1} r_\pi = 0$. The bracket evaluates to $-I_n + (I_n - P_\pi + \mathbf{1}_n d_\pi^T) - \mathbf{1}_n d_\pi^T (I_n - P_\pi + \mathbf{1}_n d_\pi^T) + P_\pi = 0$.
 
 **Step 2**: General expression of solutions.
 
@@ -660,24 +660,24 @@ This chapter introduced the policy gradient method, which is the foundation of m
 
 | Concept | Notation | Section |
 |---|---|---|
-| Parameterized policy | $\pi(a|s,\theta)$, $\theta \in \mathbb{R}^m$ | 9.1 |
-| Softmax policy | $\pi(a|s,\theta) = \frac{e^{h(s,a,\theta)}}{\sum_{a'} e^{h(s,a',\theta)}}$ | 9.3 |
+| Parameterized policy | $\pi(a\|s,\theta)$, $\theta \in \mathbb{R}^m$ | 9.1 |
+| Softmax policy | $\pi(a\|s,\theta) = \frac{e^{h(s,a,\theta)}}{\sum_{a'} e^{h(s,a',\theta)}}$ | 9.3 |
 | Preference function | $h(s,a,\theta)$ | 9.3 |
 | Average state value | $\bar{v}_\pi = \sum_s d(s) v_\pi(s) = d^T v_\pi$ | 9.2 |
 | Average value (policy-independent $d_0$) | $\bar{v}_\pi^0 = d_0^T v_\pi$ | 9.2 |
 | Average reward | $\bar{r}_\pi = \sum_s d_\pi(s) r_\pi(s) = d_\pi^T r_\pi$ | 9.2 |
-| Expected immediate reward | $r_\pi(s) = \sum_a \pi(a|s,\theta) r(s,a)$ | 9.2 |
+| Expected immediate reward | $r_\pi(s) = \sum_a \pi(a\|s,\theta) r(s,a)$ | 9.2 |
 | Stationary distribution | $d_\pi^T P_\pi = d_\pi^T$ | 9.2 |
-| Discounted total probability | $\text{Pr}_\pi(s'|s) = \sum_{k=0}^\infty \gamma^k [P_\pi^k]_{ss'} = [(I_n - \gamma P_\pi)^{-1}]_{ss'}$ | 9.3.1 |
-| Discounted state distribution | $\rho_\pi(s) = \sum_{s'} d_0(s') \text{Pr}_\pi(s|s')$ | 9.3.1 |
+| Discounted total probability | $\text{Pr}_\pi(s'\|s) = \sum_{k=0}^\infty \gamma^k [P_\pi^k]_{ss'} = [(I_n - \gamma P_\pi)^{-1}]_{ss'}$ | 9.3.1 |
+| Discounted state distribution | $\rho_\pi(s) = \sum_{s'} d_0(s') \text{Pr}_\pi(s\|s')$ | 9.3.1 |
 | Policy gradient theorem | $\nabla_\theta J = \sum_s \eta(s) \sum_a \nabla_\theta \pi \, q_\pi$ | 9.3 |
 | Log-derivative trick | $\nabla_\theta \pi = \pi \nabla_\theta \ln \pi$ | 9.3 |
-| Compact gradient form | $\nabla_\theta J = \mathbb{E}[\nabla_\theta \ln \pi(A|S,\theta) q_\pi(S,A)]$ | 9.3 |
-| Differential state value (undiscounted) | $v_\pi(s) = \mathbb{E}[\sum_k (R_{t+k+1} - \bar{r}_\pi) | S_t = s]$ | 9.3.2 |
+| Compact gradient form | $\nabla_\theta J = \mathbb{E}[\nabla_\theta \ln \pi(A\|S,\theta) q_\pi(S,A)]$ | 9.3 |
+| Differential state value (undiscounted) | $v_\pi(s) = \mathbb{E}[\sum_k (R_{t+k+1} - \bar{r}_\pi) \| S_t = s]$ | 9.3.2 |
 | Poisson equation | $v_\pi = r_\pi - \bar{r}_\pi \mathbf{1}_n + P_\pi v_\pi$ | 9.3.2 |
-| REINFORCE algorithm | $\theta_{t+1} = \theta_t + \alpha \nabla_\theta \ln \pi(a_t|s_t,\theta_t) q_t(s_t,a_t)$ | 9.4 |
-| Concise REINFORCE form | $\theta_{t+1} = \theta_t + \alpha \beta_t \nabla_\theta \pi(a_t|s_t,\theta_t)$ | 9.4 |
-| Update coefficient | $\beta_t = q_t(s_t,a_t) / \pi(a_t|s_t,\theta_t)$ | 9.4 |
+| REINFORCE algorithm | $\theta_{t+1} = \theta_t + \alpha \nabla_\theta \ln \pi(a_t\|s_t,\theta_t) q_t(s_t,a_t)$ | 9.4 |
+| Concise REINFORCE form | $\theta_{t+1} = \theta_t + \alpha \beta_t \nabla_\theta \pi(a_t\|s_t,\theta_t)$ | 9.4 |
+| Update coefficient | $\beta_t = q_t(s_t,a_t) / \pi(a_t\|s_t,\theta_t)$ | 9.4 |
 | Cesaro mean | $\lim_{n \to \infty} \frac{1}{n} \sum_{k=1}^n a_k = \lim_{k \to \infty} a_k$ | 9.2 (Box 9.1) |
 | Kronecker product in gradient derivation | $\nabla_\theta v_\pi = u + \gamma(P_\pi \otimes I_m) \nabla_\theta v_\pi$ | 9.3.1 |
 
@@ -687,7 +687,7 @@ This chapter introduced the policy gradient method, which is the foundation of m
 
 | This chapter concept | Used in / Extended by |
 |---|---|
-| Parameterized policy $\pi(a|s,\theta)$ | Ch 10 (actor-critic methods) |
+| Parameterized policy $\pi(a\|s,\theta)$ | Ch 10 (actor-critic methods) |
 | Policy gradient theorem (Thm 9.1) | Ch 10 (actor-critic gradient updates) |
 | REINFORCE algorithm (Alg 9.1) | Ch 10 (extended to actor-critic by replacing MC with TD for value estimation) |
 | $\beta_t$ interpretation (exploration-exploitation) | Ch 10 (baseline subtraction in actor-critic) |

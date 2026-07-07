@@ -648,34 +648,54 @@ Concrete implementation of the tabular MDP interface, matching the book's exampl
 
 ```python
 class GridWorld:
-    """3x3 grid world from Zhao's 'Mathematical Foundations of RL'.
+    """3x3 grid world from Zhao's 'Mathematical Foundations of RL' (Ch 1).
 
+    Book-faithful semantics (Sections 1.3 and 1.5):
+    - Forbidden cells are ACCESSIBLE but punished — the book explicitly
+      adopts this scenario ("the forbidden cells are accessible, although
+      stepping into them may get punished").
+    - Attempting to cross the boundary bounces back with r_boundary.
+    - Rewards: r_boundary = r_forbidden = -1, r_target = +1, 0 otherwise.
+    - The task is CONTINUING: the target is not terminal (staying at the
+      target keeps earning +1). Pass terminal_states explicitly if an
+      episodic variant is needed for episode-based algorithms.
+
+    Defaults reproduce the book's canonical layout (Figure 1.3):
+    forbidden s6, s7 and target s9 — 0-indexed states 5, 6 and 8.
     Implements the tabular MDP interface: n_states, n_actions,
     step(s, a), is_terminal(s), sample_start().
     """
 
-    def __init__(self, size=3, gamma=0.9):
+    def __init__(self, size=3, gamma=0.9, forbidden_states=(5, 6),
+                 target_state=8, r_boundary=-1.0, r_forbidden=-1.0,
+                 r_target=1.0, r_other=0.0, terminal_states=()):
         self.size = size
         self.n_states = size * size
-        self.n_actions = 5  # up, down, left, right, stay
+        self.n_actions = 5  # a1..a5 in the book: up, right, down, left, stay
         self.gamma = gamma
         self.action_effects = {
-            0: (-1, 0), 1: (1, 0), 2: (0, -1), 3: (0, 1), 4: (0, 0)
+            0: (-1, 0), 1: (0, 1), 2: (1, 0), 3: (0, -1), 4: (0, 0)
         }
-        self.forbidden_states = set()
-        self.terminal_states = set()  # e.g., {8} for goal at bottom-right
-        self.rewards = {}             # (s, a, s') -> r; default is -1
+        self.forbidden_states = set(forbidden_states)
+        self.target_state = target_state
+        self.r_boundary = r_boundary
+        self.r_forbidden = r_forbidden
+        self.r_target = r_target
+        self.r_other = r_other
+        self.terminal_states = set(terminal_states)
 
     def step(self, state, action):
-        r, c = state // self.size, state % self.size
+        r, c = divmod(state, self.size)
         dr, dc = self.action_effects[action]
         nr, nc = r + dr, c + dc
-        if 0 <= nr < self.size and 0 <= nc < self.size:
-            next_state = nr * self.size + nc
-            if next_state not in self.forbidden_states:
-                reward = self.rewards.get((state, action, next_state), -1)
-                return next_state, reward
-        return state, self.rewards.get((state, action, state), -1)
+        if not (0 <= nr < self.size and 0 <= nc < self.size):
+            return state, self.r_boundary            # bounced back
+        next_state = nr * self.size + nc
+        if next_state in self.forbidden_states:
+            return next_state, self.r_forbidden      # accessible but punished
+        if next_state == self.target_state:
+            return next_state, self.r_target
+        return next_state, self.r_other
 
     def is_terminal(self, state):
         return state in self.terminal_states
@@ -690,7 +710,7 @@ class GridWorld:
         R: shape (n_states, n_actions) — expected rewards.
         """
         P = np.zeros((self.n_states, self.n_actions, self.n_states))
-        R = np.full((self.n_states, self.n_actions), -1.0)
+        R = np.zeros((self.n_states, self.n_actions))
         for s in range(self.n_states):
             for a in range(self.n_actions):
                 s_next, reward = self.step(s, a)

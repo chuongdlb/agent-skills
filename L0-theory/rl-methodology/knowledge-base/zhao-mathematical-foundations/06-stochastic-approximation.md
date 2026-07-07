@@ -238,7 +238,7 @@ $$\sum_{k=1}^{\infty} \frac{1}{k^2} = \frac{\pi^2}{6} < \infty$$
 
 This is known as the **Basel problem**.
 
-**Slight modifications** such as $a_k = 1/(k+1)$ or $a_k = c_k / k$ (where $c_k$ is bounded) also satisfy condition (b).
+**Slight modifications** such as $a_k = 1/(k+1)$ or $a_k = c_k / k$ (where $0 < \underline{c} \leq c_k \leq \bar{c}$ is bounded above **and below** by positive constants — boundedness above alone is insufficient, e.g. $c_k = 2^{-k}$ gives $\sum a_k < \infty$) also satisfy condition (b).
 
 **Practical note**: In many applications, $a_k$ is selected as a **sufficiently small constant**. Although condition (b) is not satisfied ($\sum a_k^2 = \infty$), the algorithm can still converge in a certain sense (see [24, Section 1.5]).
 
@@ -589,7 +589,7 @@ Given samples $\{x_i\}_{i=1}^{n}$ of $X$, to minimize $J(w) = E[f(w, X)]$:
 | Algorithm | Update Rule | Samples per Iteration |
 |---|---|---|
 | **BGD** | $w_{k+1} = w_k - \alpha_k \frac{1}{n} \sum_{i=1}^{n} \nabla_w f(w_k, x_i)$ | All $n$ samples |
-| **MBGD** | $w_{k+1} = w_k - \alpha_k \frac{1}{m} \sum_{j \in I_k} \nabla_w f(w_k, x_j)$ | $m$ samples ($I_k \subset \{1,\ldots,n\}$, $|I_k| = m$) |
+| **MBGD** | $w_{k+1} = w_k - \alpha_k \frac{1}{m} \sum_{j \in I_k} \nabla_w f(w_k, x_j)$ | $m$ samples ($I_k \subset \{1,\ldots,n\}$, $\|I_k\| = m$) |
 | **SGD** | $w_{k+1} = w_k - \alpha_k \nabla_w f(w_k, x_k)$ | 1 sample |
 
 **Comparison**:
@@ -745,16 +745,16 @@ Since all three RM conditions are satisfied, convergence follows from Theorem 6.
 | Dvoretzky's theorem | $\Delta_{k+1} = (1-\alpha_k)\Delta_k + \beta_k \eta_k \to 0$ | 6.3 |
 | Quasimartingale | Used in proof of Dvoretzky's theorem | 6.3.1 |
 | Extended Dvoretzky (multi-variable) | $\Delta_{k+1}(s) = (1-\alpha_k(s))\Delta_k(s) + \beta_k(s)\eta_k(s)$ | 6.3.4 |
-| Maximum norm over $\mathcal{S}$ | $\|\cdot\|_\infty = \max_{s \in \mathcal{S}} |\cdot|$ | 6.3.4 |
+| Maximum norm over $\mathcal{S}$ | $\|\cdot\|_\infty = \max_{s \in \mathcal{S}} \|\cdot\|$ | 6.3.4 |
 | Gradient descent (GD) | $w_{k+1} = w_k - \alpha_k E[\nabla_w f(w_k, X)]$ | 6.4 |
 | Batch gradient descent (BGD) | $w_{k+1} = w_k - \frac{\alpha_k}{n}\sum_{i=1}^{n}\nabla_w f(w_k, x_i)$ | 6.4 |
 | Stochastic gradient descent (SGD) | $w_{k+1} = w_k - \alpha_k \nabla_w f(w_k, x_k)$ | 6.4 |
 | True gradient | $E[\nabla_w f(w_k, X)]$ | 6.4 |
 | Stochastic gradient | $\nabla_w f(w_k, x_k)$ | 6.4 |
 | Mini-batch gradient descent (MBGD) | $w_{k+1} = w_k - \frac{\alpha_k}{m}\sum_{j \in I_k}\nabla_w f(w_k, x_j)$ | 6.4.4 |
-| Mini-batch size | $m = |I_k|$ | 6.4.4 |
-| Relative error (SGD vs GD) | $\delta_k = \frac{|\nabla_w f(w_k,x_k) - E[\nabla_w f(w_k,X)]|}{|E[\nabla_w f(w_k,X)]|}$ | 6.4.2 |
-| Convergence pattern of SGD | $\delta_k \le \frac{|\text{stoch. grad.} - \text{true grad.}|}{c|w_k - w^*|}$ | 6.4.2 |
+| Mini-batch size | $m = \|I_k\|$ | 6.4.4 |
+| Relative error (SGD vs GD) | $\delta_k = \frac{\|\nabla_w f(w_k,x_k) - E[\nabla_w f(w_k,X)]\|}{\|E[\nabla_w f(w_k,X)]\|}$ | 6.4.2 |
+| Convergence pattern of SGD | $\delta_k \le \frac{\|\text{stoch. grad.} - \text{true grad.}\|}{c\|w_k - w^*\|}$ | 6.4.2 |
 | Hessian matrix | $\nabla_w^2 f(w, X)$ (vector $w$ case) | 6.4.5 |
 | Strict convexity condition | $0 < c_1 \le \nabla_w^2 f(w, X) \le c_2$ | 6.4.5 |
 

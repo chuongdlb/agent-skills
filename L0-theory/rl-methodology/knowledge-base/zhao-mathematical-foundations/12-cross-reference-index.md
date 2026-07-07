@@ -185,7 +185,7 @@ This file provides a comprehensive cross-reference across all chapters of *Mathe
 |--------|------|-------------------|---------|
 | Lemma 4.1 | Policy Improvement | If $\pi'$ is greedy w.r.t. $v_\pi$, then $v_{\pi'} \geq v_\pi$ elementwise. | Ch 4 |
 | Prop 4.1 | Value Improvement | In truncated PE, $v^{(j+1)}_{\pi_k} \geq v^{(j)}_{\pi_k}$ elementwise. | Ch 4 |
-| Lemma 8.1 | Stationary Distribution Identity | $\Phi^T D P_\pi \Phi = \Phi^T D_\pi \Phi$ where $D$ is the stationary distribution matrix. | Ch 8 |
+| Lemma 8.1 | TD-Linear Fixed-Point Matrices | $\mathbb{E}[(r_{t+1} + \gamma\phi^T(s_{t+1})w - \phi^T(s_t)w)\phi(s_t)] = b - Aw$ with $A = \Phi^T D(I - \gamma P_\pi)\Phi$, $b = \Phi^T D r_\pi$. | Ch 8 |
 | Lemma 9.1 | Equivalence of $\bar{v}_\pi$ and $\bar{r}_\pi$ | Maximizing $\bar{v}_\pi$ is equivalent to maximizing $\bar{r}_\pi$: $\bar{v}_\pi = \bar{r}_\pi / (1 - \gamma)$. | Ch 9 |
 | Lemma 9.2 | Gradient of $v_\pi(s)$ | $\nabla_\theta v_\pi(s) = \sum_{s'} \sum_{k=0}^{\infty} \gamma^k \Pr(s \to s', k, \pi) \sum_a \nabla_\theta \pi(a\|s',\theta) q_\pi(s',a)$ | Ch 9 |
 | Lemma 9.3 | Invertibility | $I_n - P_\pi + \mathbf{1}_n d_\pi^T$ is invertible for ergodic chains. | Ch 9 |

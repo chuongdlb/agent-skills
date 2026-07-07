@@ -102,7 +102,7 @@ While v_k has not converged (i.e., ||v_k - v_{k-1}|| > threshold), for the kth i
 
 ### 4.1.2 Illustrative Example
 
-**Setup**: A 2x2 grid world with states $s_1, s_2, s_3, s_4$. State $s_3$ is a forbidden area. State $s_4$ is the target. Reward settings: $r_{\text{boundary}} = r_{\text{forbidden}} = -1$, $r_{\text{target}} = 1$. Discount rate $\gamma = 0.9$.
+**Setup**: A 2x2 grid world with states $s_1, s_2, s_3, s_4$. State $s_2$ is a forbidden area. State $s_4$ is the target. Reward settings: $r_{\text{boundary}} = r_{\text{forbidden}} = -1$, $r_{\text{target}} = 1$. Discount rate $\gamma = 0.9$.
 
 **Q-table expressions** (Table 4.1):
 
@@ -587,8 +587,8 @@ The idea of interaction between value and policy updates widely exists in RL alg
 | Value iteration algorithm | $v_{k+1} = \max_\pi (r_\pi + \gamma P_\pi v_k)$ | 4.1 |
 | Policy update (in VI) | $\pi_{k+1} = \arg\max_\pi (r_\pi + \gamma P_\pi v_k)$ | 4.1 |
 | Value update (in VI) | $v_{k+1} = r_{\pi_{k+1}} + \gamma P_{\pi_{k+1}} v_k$ | 4.1 |
-| Greedy policy | $\pi_{k+1}(a|s) = 1$ if $a = a^*_k(s)$, 0 otherwise | 4.1.1 |
-| Action value (intermediate) | $q_k(s,a) = \sum_r p(r|s,a)r + \gamma \sum_{s'} p(s'|s,a) v_k(s')$ | 4.1.1 |
+| Greedy policy | $\pi_{k+1}(a\|s) = 1$ if $a = a^*_k(s)$, 0 otherwise | 4.1.1 |
+| Action value (intermediate) | $q_k(s,a) = \sum_r p(r\|s,a)r + \gamma \sum_{s'} p(s'\|s,a) v_k(s')$ | 4.1.1 |
 | Policy iteration algorithm | PE + PI alternation | 4.2 |
 | Policy evaluation (PE) | $v_{\pi_k} = r_{\pi_k} + \gamma P_{\pi_k} v_{\pi_k}$ | 4.2.1 |
 | Policy improvement (PI) | $\pi_{k+1} = \arg\max_\pi (r_\pi + \gamma P_\pi v_{\pi_k})$ | 4.2.1 |

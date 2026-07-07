@@ -338,7 +338,7 @@ Since $E[X|Y]$ is a random variable, we can compute its expectation:
 |---|---|
 | (a) | $E\big[E[X\|Y]\big] = E[X]$ (tower property / law of iterated expectations) |
 | (b) | $E\big[E[X\|Y, Z]\big] = E[X]$ |
-| (c) | $E\big[E[X\|Y] \,\big|\, Y\big] = E[X\|Y]$ |
+| (c) | $E\big[E[X\|Y] \,\big\|\, Y\big] = E[X\|Y]$ |
 
 **Proof of (a)**: Denote $f(Y) = E[X|Y]$. Then:
 $$E[E[X|Y]] = E[f(Y)] = \sum_y f(Y=y) \, p(y) = \sum_y E[X|Y=y] \, p(y) = \sum_y \left(\sum_x x \, p(x|y)\right) p(y)$$
@@ -393,7 +393,9 @@ The most frequently used cases are $r = 1$ and $r = 2$.
 #### Convergence in Distribution
 
 **Definition**: The CDF of $X_k$ is $P(X_k \leq a)$ for $a \in \mathbb{R}$. Then $\{X_k\}$ converges to $X$ **in distribution** if:
-$$\lim_{k \to \infty} P(X_k \leq a) = P(X \leq a) \quad \text{for all } a \in \mathbb{R}$$
+$$\lim_{k \to \infty} P(X_k \leq a) = P(X \leq a) \quad \text{for all } a \in \mathbb{R} \text{ at which } a \mapsto P(X \leq a) \text{ is continuous}$$
+
+(The continuity-point restriction is essential for discrete random variables: $X_k = 1/k$ converges in distribution to $X \equiv 0$ even though $P(X_k \leq 0) = 0 \not\to P(X \leq 0) = 1$.)
 
 Compact form: $\lim_{k \to \infty} P(A_k) = P(A)$ where $A_k = \{\omega \in \Omega : X_k(\omega) \leq a\}$ and $A = \{\omega \in \Omega : X(\omega) \leq a\}$.
 
@@ -509,7 +511,7 @@ $$E[X_k] \leq E[X_{k-1}] \leq \cdots \leq E[X_1]$$
 
 #### Theorem C.3 (Martingale Convergence Theorem)
 
-If $\{X_k\}$ is a submartingale (or supermartingale), then there is a **finite** random variable $X$ such that $X_k \to X$ **almost surely**.
+If $\{X_k\}$ is a submartingale with $\sup_k E[X_k^+] < \infty$ (or a supermartingale with $\sup_k E[X_k^-] < \infty$; in particular, any nonnegative supermartingale), then there is a **finite** random variable $X$ such that $X_k \to X$ **almost surely**. The boundedness hypothesis is essential: the deterministic submartingale $X_k = k$ diverges.
 
 A supermartingale/submartingale is comparable to a deterministic monotonic sequence: Theorem C.3 is the stochastic analog of Theorem C.1.
 
@@ -600,8 +602,10 @@ The degree of convexity influences **step size selection** in gradient descent.
 
 #### Lower Bound (Strongly Convex)
 
-**Definition**: A function is **strongly convex** (or strictly convex) if:
+**Definition**: A function is **strongly convex** if:
 $$\nabla^2 f(x) \succeq \ell I_n \quad \text{where } \ell > 0 \text{ for all } x$$
+
+(Strong convexity implies strict convexity but not conversely: $f(x) = x^4$ is strictly convex yet not strongly convex at $x = 0$.)
 
 #### Upper Bound (Lipschitz Gradient)
 
@@ -672,7 +676,7 @@ then $\eta_k > 0$, so $f(x_{k+1}) \leq f(x_k)$. The sequence $\{f(x_k)\}$ is **n
 $$f^* \leq f^* - \lim_{k \to \infty} \eta_k \|\nabla f(x_k)\|^2$$
 $$\Rightarrow 0 \leq -\lim_{k \to \infty} \eta_k \|\nabla f(x_k)\|^2$$
 
-Since $\eta_k \|\nabla f(x_k)\|^2 \geq 0$, this implies $\lim_{k \to \infty} \eta_k \|\nabla f(x_k)\|^2 = 0$, so $x_k \to x^*$ where $\nabla f(x^*) = 0$.
+Since $\eta_k \|\nabla f(x_k)\|^2 \geq 0$, this implies $\lim_{k \to \infty} \eta_k \|\nabla f(x_k)\|^2 = 0$. If, in addition, the step sizes keep $\eta_k$ bounded away from zero (e.g., $\alpha_k \in [\epsilon,\, 2/L - \epsilon]$ with $\epsilon > 0$), this forces $\|\nabla f(x_k)\| \to 0$, and strong convexity then yields $x_k \to x^*$ where $\nabla f(x^*) = 0$.
 
 ### Key Insight: Step Size Selection
 
@@ -699,14 +703,14 @@ The condition $0 < \alpha_k < 2/L$ confirms the intuition:
 | $\mathbb{R}^{n \times m}$ | Set of all $n \times m$ real matrices |
 | $A \succeq 0$ ($A \succ 0$) | Matrix $A$ is positive semidefinite (definite) |
 | $A \preceq 0$ ($A \prec 0$) | Matrix $A$ is negative semidefinite (definite) |
-| $|x|$ | Absolute value of real scalar $x$ |
-| $|S|$ | Number of elements in set $S$ |
+| $\|x\|$ | Absolute value of real scalar $x$ |
+| $\|S\|$ | Number of elements in set $S$ |
 | $\nabla_x f(x)$ | Gradient of scalar function $f(x)$ w.r.t. vector $x$ (written $\nabla f(x)$ for short) |
 | $[A]_{ij}$ | Element in $i$-th row and $j$-th column of matrix $A$ |
 | $[x]_i$ | $i$-th element of vector $x$ |
 | $X \sim p$ | $p$ is the probability distribution of random variable $X$ |
 | $p(X = x)$, $\Pr(X = x)$ | Probability of $X = x$ (often written $p(x)$ or $\Pr(x)$) |
-| $p(x|y)$ | Conditional probability |
+| $p(x\|y)$ | Conditional probability |
 | $E_{X \sim p}[X]$ | Expectation of $X$ (often written $E[X]$) |
 | $\text{var}(X)$ | Variance of random variable $X$ |
 | $\arg\max_x f(x)$ | Maximizer of function $f(x)$ |
@@ -723,16 +727,16 @@ The condition $0 < \alpha_k < 2/L$ confirms the intuition:
 | Stochastic sequence | $\{x_i\}_{i=1}^n$ | A |
 | Probability | $p(X = x)$ or $p(x)$ | A |
 | Joint probability | $p(x, y)$; $\sum_y p(x,y) = p(x)$ | A |
-| Conditional probability | $p(x|a) = p(x,a)/p(a)$ | A |
-| Law of total probability | $p(x) = \sum_a p(x|a)p(a)$ | A |
+| Conditional probability | $p(x\|a) = p(x,a)/p(a)$ | A |
+| Law of total probability | $p(x) = \sum_a p(x\|a)p(a)$ | A |
 | Independence | $p(x,y) = p(x)p(y)$ | A |
-| Conditional independence | $p(x|a,b) = p(x|b)$ | A |
-| Chain rule | $p(a,b,c) = p(a|b,c)p(b|c)p(c)$ | A |
+| Conditional independence | $p(x\|a,b) = p(x\|b)$ | A |
+| Chain rule | $p(a,b,c) = p(a\|b,c)p(b\|c)p(c)$ | A |
 | Expectation / mean | $E[X] = \sum_x p(x) \, x$ | A |
 | Linearity of expectation | $E[X+Y] = E[X] + E[Y]$ | A |
-| Conditional expectation | $E[X|A=a] = \sum_x x \, p(x|a)$ | A |
-| Law of total expectation | $E[X] = \sum_a E[X|A=a]p(a)$ | A |
-| $E[X|A=a]$ vs $E[X|A]$ | Value vs. random variable | A |
+| Conditional expectation | $E[X\|A=a] = \sum_x x \, p(x\|a)$ | A |
+| Law of total expectation | $E[X] = \sum_a E[X\|A=a]p(a)$ | A |
+| $E[X\|A=a]$ vs $E[X\|A]$ | Value vs. random variable | A |
 | Gradient of expectation | $\nabla_\beta E[f(X,\beta)] = E[\nabla_\beta f(X,\beta)]$ | A |
 | Variance | $\text{var}(X) = E[(X - \bar{x})^2]$ | A |
 | Covariance | $\text{cov}(X,Y) = E[(X-\bar{x})(Y-\bar{y})]$ | A |
@@ -744,19 +748,19 @@ The condition $0 < \alpha_k < 2/L$ confirms the intuition:
 | Random variable (measure-theoretic) | $X(\omega) : \Omega \to \mathbb{R}$ | B |
 | Simple random variable | $X(\omega) = \sum_x x \, \mathbf{1}_{A_x}(\omega)$ | B |
 | Indicator function | $\mathbf{1}_A(\omega)$; $E[\mathbf{1}_A] = P(A)$ | B |
-| Conditional expectation (random variable) | $E[X|Y]$ is a function of $Y$ | B |
-| Tower property | $E[E[X|Y]] = E[X]$ | B (Lemma B.2) |
+| Conditional expectation (random variable) | $E[X\|Y]$ is a function of $Y$ | B |
+| Tower property | $E[E[X\|Y]] = E[X]$ | B (Lemma B.2) |
 | Sure convergence | $\lim X_k(\omega) = X(\omega)$ for all $\omega$ | B |
 | Almost sure convergence | $P(\lim X_k = X) = 1$; $X_k \xrightarrow{a.s.} X$ | B |
-| Convergence in probability | $\lim P(|X_k - X| > \epsilon) = 0$ | B |
-| Convergence in mean ($L^r$) | $\lim E[|X_k - X|^r] = 0$ | B |
+| Convergence in probability | $\lim P(\|X_k - X\| > \epsilon) = 0$ | B |
+| Convergence in mean ($L^r$) | $\lim E[\|X_k - X\|^r] = 0$ | B |
 | Convergence in distribution | $\lim P(X_k \leq a) = P(X \leq a)$ | B |
 | Monotone convergence (deterministic) | Nonincreasing + bounded $\Rightarrow$ converges | C.1 (Thm C.1) |
 | Nonmonotonic convergence (deterministic) | $\sum(x_{k+1}-x_k)^+ < \infty \Rightarrow$ converges | C.1 (Thm C.2) |
 | Perturbation bound | $x_{k+1} \leq x_k + \eta_k$, $\sum \eta_k < \infty$ | C.1 (Cor C.1) |
-| Martingale | $E[X_{k+1}|H_k] = X_k$; $E[X_k]$ constant | C.2 |
-| Submartingale | $E[X_{k+1}|H_k] \geq X_k$; $E[X_k]$ nondecreasing | C.2 |
-| Supermartingale | $E[X_{k+1}|H_k] \leq X_k$; $E[X_k]$ nonincreasing | C.2 |
+| Martingale | $E[X_{k+1}\|H_k] = X_k$; $E[X_k]$ constant | C.2 |
+| Submartingale | $E[X_{k+1}\|H_k] \geq X_k$; $E[X_k]$ nondecreasing | C.2 |
+| Supermartingale | $E[X_{k+1}\|H_k] \leq X_k$; $E[X_k]$ nonincreasing | C.2 |
 | Martingale convergence theorem | Sub/supermartingale $\Rightarrow$ a.s. convergence | C.2 (Thm C.3) |
 | Quasimartingale | Nonmonotonic expectation | C.2 |
 | Quasimartingale convergence | $\sum E[(X_{k+1}-X_k)\mathbf{1}_{A_k}] < \infty \Rightarrow$ a.s. convergence | C.2 (Thm C.4) |

@@ -4,7 +4,15 @@ import pytest
 
 
 class GridWorld:
-    """3x3 grid world environment from rl-methodology SKILL.md."""
+    """Simplified 3x3 grid-world test MDP (cost-to-go rewards, blocked
+    forbidden cells).
+
+    NOT the book-faithful environment: Zhao's actual grid world makes
+    forbidden cells accessible-but-punished, uses 0/-1/+1 rewards, and is a
+    continuing task — see the GridWorld reference implementation in
+    rl-methodology SKILL.md. This variant is kept as a compact MDP for
+    algorithm sanity tests only.
+    """
 
     def __init__(self, size=3, gamma=0.9):
         self.size = size

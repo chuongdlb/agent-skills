@@ -150,7 +150,7 @@ $$E[\delta_t | S_t = s_t] = E\big[v_\pi(S_t) - (R_{t+1} + \gamma v_\pi(S_{t+1}))
 | **Update timing** | **Incremental/online**: Can update state/action values immediately after receiving an experience sample | **Non-incremental/offline**: Must wait until an entire episode has been completely collected (needs to compute discounted return) |
 | **Task types** | **Episodic and continuing tasks**: Since TD is incremental, it handles both task types | **Episodic tasks only**: Since MC is non-incremental, it requires episodes that terminate after finitely many steps |
 | **Bootstrapping** | **Bootstrapping**: Update of a state/action value relies on the previous estimate of this value; requires an initial guess | **Non-bootstrapping**: Can directly estimate state/action values without initial guesses |
-| **Estimation variance** | **Low variance**: Fewer random variables involved. E.g., Sarsa requires samples of only three random variables: $R_{t+1}, S_{t+1}, A_{t+1}$ | **High variance**: Many random variables involved. To estimate $q_\pi(s_t, a_t)$, need samples of $R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \ldots$ If episode length is $L$ and each state has $|\mathcal{A}|$ actions, there are $|\mathcal{A}|^L$ possible episodes under a soft policy |
+| **Estimation variance** | **Low variance**: Fewer random variables involved. E.g., Sarsa requires samples of only three random variables: $R_{t+1}, S_{t+1}, A_{t+1}$ | **High variance**: Many random variables involved. To estimate $q_\pi(s_t, a_t)$, need samples of $R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \ldots$ If episode length is $L$ and each state has $\|\mathcal{A}\|$ actions, there are $\|\mathcal{A}\|^L$ possible episodes under a soft policy |
 
 ### 7.1.3 Convergence Analysis
 
@@ -179,11 +179,11 @@ $$\Delta_{t+1}(s) = (1 - \alpha_t(s))\Delta_t(s) + \alpha_t(s)\underbrace{\big(r
 This matches the stochastic process in Theorem 6.3. The three conditions are verified:
 
 1. **Condition 1** (learning rate): Valid by assumption in Theorem 7.1.
-2. **Condition 2** ($\|E[\eta_t(s) | H_t]\|_\infty \leq \gamma \|\Delta_t(s)\|_\infty$):
-   - For $s \neq s_t$: $\eta_t(s) = 0$, so $|E[\eta_t(s)]| = 0 \leq \gamma \|\Delta_t(s)\|_\infty$.
+2. **Condition 2** ($\|E[\eta_t(s) | H_t]\|_\infty \leq \gamma \|\Delta_t\|_\infty$):
+   - For $s \neq s_t$: $\eta_t(s) = 0$, so $|E[\eta_t(s)]| = 0 \leq \gamma \|\Delta_t\|_\infty$.
    - For $s = s_t$: Using $v_\pi(s_t) = E[r_{t+1} + \gamma v_\pi(s_{t+1}) | s_t]$:
      $$E[\eta_t(s)] = \gamma E[v_t(s_{t+1}) - v_\pi(s_{t+1}) | s_t] = \gamma \sum_{s' \in \mathcal{S}} p(s'|s_t)[v_t(s') - v_\pi(s')]$$
-     Therefore $|E[\eta_t(s)]| \leq \gamma \max_{s'} |v_t(s') - v_\pi(s')| = \gamma \|\Delta_t(s)\|_\infty$.
+     Therefore $|E[\eta_t(s)]| \leq \gamma \max_{s'} |v_t(s') - v_\pi(s')| = \gamma \|\Delta_t\|_\infty$.
 3. **Condition 3** (bounded variance): Since $r_{t+1}$ is bounded, $\text{var}[\eta_t(s)|H_t]$ is bounded.
 
 Since all three conditions are satisfied, Theorem 6.3 guarantees convergence. (Proof inspired by [32].)
@@ -341,7 +341,7 @@ The return $G_t$ can be decomposed in different ways:
 | $\vdots$ | $\vdots$ | $\vdots$ |
 | $G_t^{(\infty)}$ | $R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + \cdots$ | **MC learning** ($n = \infty$) |
 
-**Critical note**: $G_t = G_t^{(1)} = G_t^{(2)} = G_t^{(n)} = G_t^{(\infty)}$. The superscripts merely indicate different decomposition structures; they all equal the same $G_t$.
+**Critical note**: $G_t = G_t^{(1)} = G_t^{(2)} = G_t^{(n)} = G_t^{(\infty)}$ holds **in conditional expectation given $(S_t, A_t)$**: each $G_t^{(n)}$ replaces the tail return with $q_\pi(S_{t+n}, A_{t+n})$, so the variants are not pathwise equal as random variables. The superscripts indicate different decomposition structures sharing the same conditional mean $q_\pi(S_t, A_t)$.
 
 ### Algorithms for Different $n$
 
@@ -584,7 +584,7 @@ $$q_{t+1}(s_t, a_t) = q_t(s_t, a_t) - \alpha_t(s_t, a_t)\big[q_t(s_t, a_t) - \ba
 
 where $\bar{q}_t$ is the **TD target**. Different algorithms have different TD targets.
 
-### Table 7.2: Unified TD Target Expressions
+### Table 7.2a: Unified TD Target Expressions
 
 | Algorithm | TD Target $\bar{q}_t$ |
 |---|---|
@@ -595,7 +595,7 @@ where $\bar{q}_t$ is the **TD target**. Different algorithms have different TD t
 
 **MC as a special case**: Setting $\alpha_t(s_t, a_t) = 1$ in (7.20) gives $q_{t+1}(s_t, a_t) = \bar{q}_t$, which is the MC learning algorithm.
 
-### Table 7.2: Underlying Equations
+### Table 7.2b: Underlying Equations
 
 | Algorithm | Equation Solved |
 |---|---|
@@ -666,7 +666,7 @@ Key takeaways from this chapter:
 | Bootstrapping | Updating values based on previous estimates | 7.1 |
 | Sarsa | $q_{t+1}(s_t, a_t) = q_t(s_t, a_t) - \alpha_t(s_t, a_t)[q_t(s_t, a_t) - (r_{t+1} + \gamma q_t(s_{t+1}, a_{t+1}))]$ | 7.2 |
 | Bellman equation (action values) | $q_\pi(s,a) = E[R + \gamma q_\pi(S', A') \mid s, a]$ | 7.2 |
-| $\epsilon$-greedy policy | $\pi(a|s) = 1 - \frac{\epsilon}{|\mathcal{A}|}(|\mathcal{A}|-1)$ for greedy $a$; $\frac{\epsilon}{|\mathcal{A}|}$ otherwise | 7.2 |
+| $\epsilon$-greedy policy | $\pi(a\|s) = 1 - \frac{\epsilon}{\|\mathcal{A}\|}(\|\mathcal{A}\|-1)$ for greedy $a$; $\frac{\epsilon}{\|\mathcal{A}\|}$ otherwise | 7.2 |
 | Generalized policy iteration (GPI) | Alternating value update and policy improvement | 7.2 |
 | Expected Sarsa | Uses $r_{t+1} + \gamma E[q_t(s_{t+1}, A)]$ as TD target | 7.2 |
 | n-step Sarsa | $\bar{q}_t = r_{t+1} + \gamma r_{t+2} + \cdots + \gamma^n q_t(s_{t+n}, a_{t+n})$ | 7.3 |

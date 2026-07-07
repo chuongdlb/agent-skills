@@ -29,7 +29,7 @@ This chapter introduces two central elements of reinforcement learning: the **co
 
 Consider a simple grid world with four states $s_1, s_2, s_3, s_4$:
 - Orange cell (forbidden): $s_2$
-- Blue cell (target): $s_3, s_4$
+- Blue cell (target): $s_4$
 - The given policy selects $a_2$ (rightward) at $s_1$, leading through the forbidden area
 
 The policy is not good because it selects $a_2$ (rightward) at state $s_1$, causing the agent to enter the forbidden area and receive $r = -1$.
@@ -654,10 +654,10 @@ A beginner may think adding a negative reward (e.g., $-1$) to every step is nece
 | Optimal policy | $\pi^*$ | 3.2 |
 | Optimal state value | $v^*(s)$ or $v_{\pi^*}(s)$ | 3.2 |
 | Policy comparison (partial order) | $v_{\pi_1}(s) \geq v_{\pi_2}(s) \; \forall s$ | 3.2 |
-| Bellman optimality equation (elementwise) | $v(s) = \max_\pi \sum_a \pi(a|s) q(s,a)$ | 3.3 |
+| Bellman optimality equation (elementwise) | $v(s) = \max_\pi \sum_a \pi(a\|s) q(s,a)$ | 3.3 |
 | Bellman optimality equation (matrix-vector) | $\mathbf{v} = \max_\pi(\mathbf{r}_\pi + \gamma \mathbf{P}_\pi \mathbf{v})$ | 3.3.2 |
 | Bellman optimality equation (compact) | $\mathbf{v} = f(\mathbf{v})$ | 3.3.2 |
-| Optimal action value | $q^*(s,a) = \sum_r p(r|s,a)r + \gamma \sum_{s'} p(s'|s,a) v^*(s')$ | 3.4 |
+| Optimal action value | $q^*(s,a) = \sum_r p(r\|s,a)r + \gamma \sum_{s'} p(s'\|s,a) v^*(s')$ | 3.4 |
 | Fixed point | $f(x^*) = x^*$ | 3.3.3 |
 | Contraction mapping | $\|f(x_1) - f(x_2)\| \leq \gamma\|x_1 - x_2\|$ | 3.3.3 |
 | Contraction mapping theorem | Existence + Uniqueness + Algorithm | 3.3.3 |
@@ -665,7 +665,7 @@ A beginner may think adding a negative reward (e.g., $-1$) to every step is nece
 | Contraction property of BOE | $\|f(v_1) - f(v_2)\|_\infty \leq \gamma\|v_1 - v_2\|_\infty$ | 3.3.4 |
 | Maximum norm | $\|\cdot\|_\infty$ = max absolute value of elements | 3.3.4 |
 | Value iteration (preview) | $v_{k+1} = f(v_k)$ | 3.4 |
-| Greedy policy | $\pi^*(a|s) = 1$ if $a = \arg\max_a q^*(s,a)$, else 0 | 3.4 |
+| Greedy policy | $\pi^*(a\|s) = 1$ if $a = \arg\max_a q^*(s,a)$, else 0 | 3.4 |
 | Affine transformation of rewards | $r \to \alpha r + \beta$, $\alpha > 0$ | 3.5 |
 | Optimal policy invariance | $\pi^*$ unchanged under affine reward transform | 3.5 |
 | Transformed optimal state value | $v' = \alpha v^* + \frac{\beta}{1-\gamma}\mathbf{1}$ | 3.5 |

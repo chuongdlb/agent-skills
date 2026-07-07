@@ -259,8 +259,8 @@ An MDP formalizes all the preceding concepts into a unified framework.
 #### Model (Dynamics)
 | Component | Notation | Constraint |
 |---|---|---|
-| State transition probability | $p(s'|s,a)$ | $\sum_{s' \in \mathcal{S}} p(s'|s,a) = 1$ for any $(s,a)$ |
-| Reward probability | $p(r|s,a)$ | $\sum_{r \in \mathcal{R}(s,a)} p(r|s,a) = 1$ for any $(s,a)$ |
+| State transition probability | $p(s'\|s,a)$ | $\sum_{s' \in \mathcal{S}} p(s'\|s,a) = 1$ for any $(s,a)$ |
+| Reward probability | $p(r\|s,a)$ | $\sum_{r \in \mathcal{R}(s,a)} p(r\|s,a) = 1$ for any $(s,a)$ |
 
 #### Policy
 $$\pi(a|s): \quad \sum_{a \in \mathcal{A}(s)} \pi(a|s) = 1 \text{ for any } s \in \mathcal{S}$$
@@ -298,7 +298,7 @@ The RL framework is a closed loop:
 **A**: Yes. It is the **relative** reward values, not absolute values, that determine the optimal policy. Adding a constant to all rewards does not change the optimal policy:
 - Original: $r_{\text{boundary}} = -1, r_{\text{forbidden}} = -1, r_{\text{target}} = +1, r_{\text{other}} = 0$
 - Shifted by $-2$: $r_{\text{boundary}} = -3, r_{\text{forbidden}} = -3, r_{\text{target}} = -1, r_{\text{other}} = -2$
-- **Same optimal policy** because optimal policies are invariant to **affine transformations** of rewards.
+- **Same optimal policy** because optimal policies are invariant to **affine transformations** of rewards $r \to \alpha r + \beta$ with $\alpha > 0$ (here $\alpha = 1$, $\beta = -2$; a negative scaling would generally change the optimal policy).
 
 **Forward reference**: This is proven formally in Chapter 3, Section 3.5.
 
@@ -319,11 +319,11 @@ This simplification allows the **Bellman equation** to be established cleanly (C
 | State space | $\mathcal{S}$ | 1.2 |
 | Action space | $\mathcal{A}(s)$ or $\mathcal{A}$ | 1.2 |
 | State transition | $s \xrightarrow{a} s'$ | 1.3 |
-| State transition probability | $p(s'|s,a)$ | 1.3 |
-| Policy | $\pi(a|s)$ | 1.4 |
-| Deterministic policy | $\pi(a|s) \in \{0, 1\}$ | 1.4 |
-| Stochastic policy | $\pi(a|s) \in [0, 1]$ | 1.4 |
-| Reward | $r(s,a)$ or $p(r|s,a)$ | 1.5 |
+| State transition probability | $p(s'\|s,a)$ | 1.3 |
+| Policy | $\pi(a\|s)$ | 1.4 |
+| Deterministic policy | $\pi(a\|s) \in \{0, 1\}$ | 1.4 |
+| Stochastic policy | $\pi(a\|s) \in [0, 1]$ | 1.4 |
+| Reward | $r(s,a)$ or $p(r\|s,a)$ | 1.5 |
 | Trajectory | state-action-reward chain | 1.6 |
 | Return (total/cumulative reward) | $\sum r_k$ | 1.6 |
 | Discounted return | $\sum \gamma^k r_{k+1}$ | 1.6 |
@@ -333,11 +333,11 @@ This simplification allows the **Bellman equation** to be established cleanly (C
 | Continuing task | task without terminal states | 1.6 |
 | Absorbing state | state the agent never leaves | 1.6 |
 | Markov Decision Process (MDP) | $(\mathcal{S}, \mathcal{A}, p, r, \pi)$ | 1.7 |
-| Markov property | $p(s_{t+1}|s_t,a_t)$ memoryless | 1.7 |
+| Markov property | $p(s_{t+1}\|s_t,a_t)$ memoryless | 1.7 |
 | Markov process / Markov chain | MDP with fixed policy | 1.7 |
-| Model / dynamics | $p(s'|s,a)$ and $p(r|s,a)$ | 1.7 |
+| Model / dynamics | $p(s'\|s,a)$ and $p(r\|s,a)$ | 1.7 |
 | Stationary vs. non-stationary model | time-invariant vs. time-variant | 1.7 |
-| Finite MDP | finite $|\mathcal{S}|$ and $|\mathcal{A}|$ | 1.7 |
+| Finite MDP | finite $\|\mathcal{S}\|$ and $\|\mathcal{A}\|$ | 1.7 |
 
 ---
 
@@ -346,7 +346,7 @@ This simplification allows the **Bellman equation** to be established cleanly (C
 | This chapter concept | Used in / Extended by |
 |---|---|
 | State, action, policy, reward | Every subsequent chapter |
-| State transition probability $p(s'|s,a)$ | Ch 2 (Bellman equation derivation) |
+| State transition probability $p(s'\|s,a)$ | Ch 2 (Bellman equation derivation) |
 | Markov property | Ch 2 (enables Bellman equation) |
 | Discount rate $\gamma$ | Ch 2, 3 (Bellman equations); Ch 3.5 (effect analysis) |
 | Reward invariance to affine transforms | Ch 3.5 (formal proof) |

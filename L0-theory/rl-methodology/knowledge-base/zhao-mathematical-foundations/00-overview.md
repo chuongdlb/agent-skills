@@ -175,6 +175,6 @@ MDP Fundamentals          Bellman Equation          Bellman Optimality Eq.
 
 6. **For mathematical prerequisites**, consult `11-appendix.md`. Key results include probability fundamentals (Appendix A), measure-theoretic foundations (Appendix B), convergence theorems used in Chapters 6--7 proofs (Appendix C), and gradient descent theory underlying Chapters 6, 8--10 (Appendix D).
 
-7. **Grid world example**: The 3x3 grid world introduced in Chapter 1 is the running example throughout the book. Chapter 1 contains the canonical setup; subsequent chapters show how each algorithm applies to this same example.
+7. **Grid world example**: A grid world is the running example throughout the book. Chapter 1 introduces the canonical 3x3 setup (forbidden $s_6, s_7$; target $s_9$; forbidden cells are *accessible but punished*, rewards $r_{\text{boundary}} = r_{\text{forbidden}} = -1$, $r_{\text{target}} = +1$, $0$ otherwise, continuing task). Later chapters mostly demonstrate algorithms on a larger 5x5 variant (e.g., Sections 2.7.3 and 5.5).
 
 8. **Chapter file structure**: Each chapter file follows a consistent format: YAML frontmatter, purpose/context section, section-by-section content with definitions, theorems, algorithms, worked examples, and a summary with key takeaways.

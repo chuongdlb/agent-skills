@@ -258,7 +258,7 @@ Before claiming a mechanism:
 7. **Observation normalizer state on resume.** Restore running-mean / running-variance from the checkpoint; never recompute from scratch on the warm-start distribution.
 8. **Reward normalizer state on resume.** Same: persisted across resume; not silently re-initialized.
 
-For **off-policy algorithms (DDPG, TD3, SAC, DQN)**: replay-buffer staleness, target-network sync interval, importance-sampling correction when behavior ≠ target, and prioritized-replay correction are analogous concerns. They are not duplicated here; see `rl-algorithms` (L1) and the algorithm-specific platform skills.
+For **off-policy algorithms (DDPG, TD3, SAC, DQN)**: replay-buffer staleness, target-network sync interval, importance-sampling correction when behavior ≠ target, and prioritized-replay correction are analogous concerns. They are not duplicated here; consult the algorithm's own implementation reference — replay/target-network/IS hygiene is algorithm-specific.
 
 ### How to apply
 
@@ -335,7 +335,6 @@ When this skill is invoked:
 
 ## Cross-References
 
-- `rl-methodology` (L0): convergence theory, SA learning-rate conditions, deadly triad — upstream of why entropy/lr schedules need to satisfy `sum=inf, sum-sq<inf` properties; also the home of off-policy convergence theory.
-- `rl-algorithms` (L1): PyTorch scaffolds where these protocol items get implemented; algorithm-specific replay/target-network/IS hygiene lives here.
-- `rl-implementer` (L1): use this protocol when implementing a new algorithm to bake the assertions in from the start.
-- Platform skills (`rl-tools`, `isaaclab-rl-training`, `gpd-training-evaluation`, `stable-baselines3`): apply this protocol on top of platform-specific trainers.
+- `rl-methodology` (L0): convergence theory, SA learning-rate conditions, deadly triad — upstream of why entropy/lr schedules need to satisfy `sum=inf, sum-sq<inf` properties; also the home of off-policy convergence theory and the algorithm implementation templates.
+- When implementing a new algorithm, apply this protocol from the start — bake the assertions in rather than retrofitting them after the first broken run.
+- Platform / framework trainers (Isaac Lab, Stable-Baselines3, rl-tools, custom PPO stacks): apply this protocol on top of the platform's own configuration surface.

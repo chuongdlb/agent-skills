@@ -5,7 +5,7 @@ Master manifest of all knowledge base sources used by the `rl-methodology` skill
 ## Sources
 
 ### zhao-mathematical-foundations
-- **Full title:** Mathematical Foundations of Reinforcement Learning (Shiyu Zhao, 2024)
+- **Full title:** Mathematical Foundations of Reinforcement Learning (Shiyu Zhao, Springer, 2025)
 - **Directory:** `zhao-mathematical-foundations/`
 - **Files:** 13
 - **Size:** ~428 KB
@@ -25,7 +25,7 @@ Master manifest of all knowledge base sources used by the `rl-methodology` skill
 | `09-policy-gradient-methods.md` | Policy gradient theorem, REINFORCE, baseline subtraction | Ch 9 |
 | `10-actor-critic-methods.md` | QAC, A2C, off-policy AC, DPG, DDPG, TD3, SAC | Ch 10 |
 | `11-appendix.md` | Mathematical prerequisites, norms, probability, linear algebra | Appendix |
-| `12-cross-reference-index.md` | Algorithm comparison table, theorem index, symbol glossary | Ch 12 |
+| `12-cross-reference-index.md` | Algorithm comparison table, theorem index, symbol glossary | — (derived index, not a book chapter) |
 
 ## Adding New Sources
 

@@ -461,7 +461,7 @@ Starting from $(s_1, a_1)$:
 - **100 steps**: Visits a limited region
 - **1,000 steps**: Visits most of the grid
 - **10,000 steps**: Visits all state-action pairs
-- **1 million steps**: All $9 \times 5 = 45$ (or $25 \times 5 = 125$ in 5x5 grid) state-action pairs visited approximately **evenly** (~7,600-8,300 times each)
+- **1 million steps**: All $25 \times 5 = 125$ state-action pairs visited approximately **evenly** (~7,600-8,300 times each; $10^6 / 125 = 8{,}000$)
 
 #### $\epsilon = 0.5$ (Moderate Exploration)
 
@@ -543,8 +543,8 @@ The three MC algorithms form a progression:
 | Mean estimation (model-free) | $\mathbb{E}[X] \approx \bar{x} = \frac{1}{n}\sum_{i=1}^n x_i$ | 5.1 |
 | Law of large numbers | $\mathbb{E}[\bar{x}] = \mathbb{E}[X]$, $\text{var}[\bar{x}] = \frac{1}{n}\text{var}[X]$ | 5.1 |
 | i.i.d. samples | Independent and identically distributed | 5.1 |
-| Action value (model-based) | $q_\pi(s,a) = \sum_r p(r|s,a)r + \gamma \sum_{s'} p(s'|s,a) v_\pi(s')$ | 5.2.1 |
-| Action value (model-free) | $q_\pi(s,a) = \mathbb{E}[G_t|S_t=s, A_t=a] \approx \frac{1}{n}\sum g^{(i)}(s,a)$ | 5.2.1 |
+| Action value (model-based) | $q_\pi(s,a) = \sum_r p(r\|s,a)r + \gamma \sum_{s'} p(s'\|s,a) v_\pi(s')$ | 5.2.1 |
+| Action value (model-free) | $q_\pi(s,a) = \mathbb{E}[G_t\|S_t=s, A_t=a] \approx \frac{1}{n}\sum g^{(i)}(s,a)$ | 5.2.1 |
 | MC Basic algorithm | Algorithm 5.1: model-free variant of policy iteration | 5.2.2 |
 | Episode length | Must be sufficiently long to reach target | 5.2.3 |
 | Sparse reward | No positive reward unless target is reached | 5.2.3 |
@@ -556,8 +556,8 @@ The three MC algorithms form a progression:
 | Exploring starts condition | Episodes must start from every $(s,a)$ pair | 5.3.3 |
 | Backward return computation | $g \leftarrow \gamma g + r_{t+1}$ iterating $t = T{-}1, \ldots, 0$ | 5.3.3 |
 | Generalized policy iteration (GPI) | Framework of alternating evaluation and improvement | 5.3.2 |
-| Soft policy | $\pi(a|s) > 0$ for all $a, s$ | 5.4.1 |
-| $\epsilon$-greedy policy | Greedy with prob $1 - \epsilon + \frac{\epsilon}{|\mathcal{A}|}$; others with prob $\frac{\epsilon}{|\mathcal{A}|}$ | 5.4.1 |
+| Soft policy | $\pi(a\|s) > 0$ for all $a, s$ | 5.4.1 |
+| $\epsilon$-greedy policy | Greedy with prob $1 - \epsilon + \frac{\epsilon}{\|\mathcal{A}\|}$; others with prob $\frac{\epsilon}{\|\mathcal{A}\|}$ | 5.4.1 |
 | MC $\epsilon$-Greedy algorithm | Algorithm 5.3: no exploring starts needed | 5.4.2 |
 | Policy set $\Pi$ | Set of all possible policies | 5.4.2 |
 | Policy set $\Pi_\epsilon$ | Set of all $\epsilon$-greedy policies (fixed $\epsilon$) | 5.4.2 |

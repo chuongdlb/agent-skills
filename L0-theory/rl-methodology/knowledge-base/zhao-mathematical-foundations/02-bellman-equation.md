@@ -31,7 +31,7 @@ Returns play a fundamental role in RL because they can evaluate whether a policy
 
 ### Setup
 
-Consider four states $s_1, s_2, s_3, s_4$ where $s_2$ is in a forbidden area and $s_3, s_4$ are target-like states. Three policies differ only at $s_1$:
+Consider four states $s_1, s_2, s_3, s_4$ where $s_2$ is in a forbidden area and $s_4$ is the target state. Three policies differ only at $s_1$:
 
 - **Policy 1** (deterministic): At $s_1$, go down to $s_3$ (avoids forbidden area). Rewards: $r = 0$ from $s_1$, $r = 1$ from $s_3$, $r = 1$ from $s_4$, etc.
 - **Policy 2** (deterministic): At $s_1$, go right to $s_2$ (enters forbidden area). Rewards: $r = -1$ from $s_1$, $r = 1$ from $s_2$ onward.
