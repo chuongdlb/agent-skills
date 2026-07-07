@@ -17,7 +17,7 @@ python build_codex_skills.py          # Build Codex-compatible skills in dist/co
 python build_codex_skills.py --install # Install Codex-compatible skills to ~/.codex/skills/
 ```
 
-There is no build system, linter, or test suite.
+Run the test suite with `uv run python -m pytest tests/` — it covers the Codex build layout, registry ↔ filesystem ↔ frontmatter consistency, and rl-methodology algorithm validation.
 
 ## Architecture
 

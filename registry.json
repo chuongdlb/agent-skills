@@ -128,8 +128,7 @@
       ],
       "source-project": "Book-Mathematical-Foundation-of-RL",
       "depends-on": [
-        "rl-methodology",
-        "rl-algorithms"
+        "rl-methodology"
       ],
       "tags": [
         "orchestration",
@@ -265,7 +264,7 @@
         "automation",
         "discovery"
       ],
-      "description": "Run a full KB update cycle: discover new papers, filter, extract, integrate, and report. Orchestrates the other four KB skills.",
+      "description": "Run a full KB update cycle: discover new papers, filter, extract, integrate, and report. Orchestrates the other five KB skills.",
       "reference-files": []
     },
     {

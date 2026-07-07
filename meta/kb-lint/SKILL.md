@@ -63,6 +63,8 @@ This writes `kb/reports/lint-findings.json` with all mechanical findings.
 | M8 | Pending novelty | warning | Cards still marked `novelty: pending` |
 | M9 | Thin SoTA cards | warning | SoTA cards with <15 lines or missing Key Results section |
 | M10 | Stats drift | warning | `kb/stats.md` counts vs actual counts |
+| M11 | Registry header drift | error | `total_papers` header in registry.json matches actual entry count |
+| M12 | Derived layer sync | error | `compact.jsonl` / `compact_slim.jsonl` row ids match registry entries |
 
 ### Read the findings
 
@@ -79,7 +81,7 @@ After the script completes, read `kb/reports/lint-findings.json`:
 
 ## Step 2: Semantic Checks (LLM)
 
-Run these checks using the mechanical findings as a starting point. Only read individual files when needed — don't scan all 1,300+ cards.
+Run these checks using the mechanical findings as a starting point. Only read individual files when needed — don't scan all 1,100+ cards.
 
 ### S1: Stale SoTA Detection
 
@@ -217,6 +219,8 @@ When invoked with fix mode:
 - **M8 pending novelty**: Read the card and classify using the scoring rubric in `kb/config/scoring-rubric.md`
 - **M9 thin SoTA card**: If PDF exists in `pdf/`, offer to re-extract using `paper-extractor`
 - **M10 stats drift**: Offer to run `uv run scripts/update_kb_stats.py`
+- **M11 registry header drift**: Offer to set `total_papers` to the actual entry count
+- **M12 derived layer sync**: Offer to run `uv run scripts/generate_compact.py`
 
 ### Semantic fixes
 

@@ -17,7 +17,7 @@ def test_build_codex_skills_generates_codex_layout(tmp_path):
             "--output-dir",
             str(output_dir),
             "--skill",
-            "gymnasium-core-api",
+            "rl-methodology",
             "--skill",
             "book-reader",
         ]
@@ -25,27 +25,27 @@ def test_build_codex_skills_generates_codex_layout(tmp_path):
 
     assert exit_code == 0
 
-    gym_skill = output_dir / "gymnasium-core-api"
-    gym_skill_md = gym_skill / "SKILL.md"
-    gym_openai_yaml = gym_skill / "agents" / "openai.yaml"
-    gym_reference = gym_skill / "registration-reference.md"
+    rl_skill = output_dir / "rl-methodology"
+    rl_skill_md = rl_skill / "SKILL.md"
+    rl_openai_yaml = rl_skill / "agents" / "openai.yaml"
+    rl_reference = rl_skill / "knowledge-base" / "INDEX.md"
 
-    assert gym_skill_md.exists()
-    assert gym_openai_yaml.exists()
-    assert gym_reference.exists()
-    assert gym_reference.is_symlink()
+    assert rl_skill_md.exists()
+    assert rl_openai_yaml.exists()
+    assert rl_reference.exists()
+    assert rl_reference.is_symlink()
 
-    skill_text = gym_skill_md.read_text(encoding="utf-8")
-    assert 'name: "gymnasium-core-api"' in skill_text
-    assert 'description: "Core Gymnasium RL environment interface' in skill_text
+    skill_text = rl_skill_md.read_text(encoding="utf-8")
+    assert 'name: "rl-methodology"' in skill_text
+    assert 'description: "Comprehensive RL methodology' in skill_text
     assert "layer:" not in skill_text
     assert "depends-on:" not in skill_text
-    assert "# Gymnasium Core API" in skill_text
+    assert "# RL Methodology" in skill_text
 
-    openai_text = gym_openai_yaml.read_text(encoding="utf-8")
-    assert 'display_name: "Gymnasium Core API"' in openai_text
-    assert 'short_description: "Core Gymnasium RL environment interface' in openai_text
-    assert 'default_prompt: "Use the Gymnasium Core API skill when relevant.' in openai_text
+    openai_text = rl_openai_yaml.read_text(encoding="utf-8")
+    assert 'display_name: "RL Methodology"' in openai_text
+    assert 'short_description: "Comprehensive RL methodology' in openai_text
+    assert 'default_prompt: "Use the RL Methodology skill when relevant.' in openai_text
 
     book_skill = output_dir / "book-reader"
     book_openai_yaml = book_skill / "agents" / "openai.yaml"

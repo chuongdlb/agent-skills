@@ -5,7 +5,7 @@ description: >
 layer: meta
 domain: [general-rl]
 source-project: Book-Mathematical-Foundation-of-RL
-depends-on: [rl-methodology, rl-algorithms]
+depends-on: [rl-methodology]
 tags: [orchestration, innovation, meta]
 ---
 
@@ -85,9 +85,9 @@ Use the Convergence Proof Procedure in `rl-methodology` to:
 ### Phase 4: Implementation & Testing
 **Goal:** Validate empirically
 
-Use the PyTorch scaffolds in `rl-algorithms` (DQN, A2C, PPO, DDPG, TD3, SAC) as starting templates, and the tabular templates in `rl-methodology` for simpler baselines:
+Use the tabular templates in `rl-methodology` for simple baselines, and standard PyTorch implementations of the classic deep-RL algorithms (DQN, A2C, PPO, DDPG, TD3, SAC) as starting scaffolds:
 
-1. **Implement the algorithm** — start from the closest `rl-algorithms` scaffold (e.g., modify the SAC update rule, extend the PPO loop) or build from scratch using the shared components (MLP, ReplayBuffer, RolloutBuffer, compute_gae, polyak_update)
+1. **Implement the algorithm** — start from a standard scaffold of the closest algorithm (e.g., modify the SAC update rule, extend the PPO loop) or build from scratch using shared components (MLP, ReplayBuffer, RolloutBuffer, GAE, polyak update)
 2. **Set up test environments:**
    - Book's 3×3 grid world (sanity check, use `rl-methodology` tabular templates)
    - Classic control tasks (CartPole, MountainCar, Pendulum) via Gymnasium
@@ -123,7 +123,7 @@ Use the PyTorch scaffolds in `rl-algorithms` (DQN, A2C, PPO, DDPG, TD3, SAC) as 
 2. **Design:** Combine Q-learning + target networks + experience replay + linear FA
    → This is essentially DQN (rediscovery validates the framework)
 3. **Theory:** No convergence guarantee exists for DQN (deadly triad: FA + bootstrapping + off-policy). Target networks and experience replay are empirical stabilization heuristics. Extended Dvoretzky applies only to the tabular case.
-4. **Implement:** DQN template from implementer skill
+4. **Implement:** standard DQN implementation
 5. **Test:** Compare tabular Q-learning vs. DQN on grid worlds of increasing size
 
 ### Workflow 2: "Design Variance-Reduced Policy Gradient"

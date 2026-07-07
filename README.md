@@ -69,7 +69,7 @@ Other Codex commands:
 python build_codex_skills.py --dry-run
 python build_codex_skills.py --list-installed
 python build_codex_skills.py --uninstall
-python build_codex_skills.py --skill gymnasium-core-api --skill book-reader
+python build_codex_skills.py --skill rl-methodology --skill book-reader
 python build_codex_skills.py --copy-files   # copy references instead of symlinking
 ```
 

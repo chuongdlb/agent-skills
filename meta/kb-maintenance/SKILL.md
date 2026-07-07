@@ -1,11 +1,11 @@
 ---
 name: kb-maintenance
 description: >
-  Run a full KB update cycle: discover new papers, filter, extract, integrate, and report. Orchestrates the other four KB skills.
+  Run a full KB update cycle: discover new papers, filter, extract, integrate, and report. Orchestrates the other five KB skills.
 layer: meta
 domain: [general]
 source-project: papers-kb
-depends-on: [paper-extractor, kb-integrator, paper-discoverer, kb-query]
+depends-on: [paper-extractor, kb-integrator, paper-discoverer, kb-query, kb-lint]
 tags: [knowledge-base, orchestration, pipeline, automation, discovery]
 ---
 

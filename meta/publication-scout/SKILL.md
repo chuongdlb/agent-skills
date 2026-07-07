@@ -2,6 +2,11 @@
 name: publication-scout
 description: >
   Discover publishable research sweet spots at keyword intersections via deep research, verify gaps against real literature, and output exactly 3 ISI/Scopus Q1/Q2 publication approaches with 5-Gates critical review.
+layer: meta
+domain: [general]
+source-project: papers-kb
+depends-on: [kb-query, paper-discoverer, K-Dense-AI/research-lookup]
+tags: [research-gaps, publication-planning, deep-research, gap-verification, 5-gates-review, orchestration]
 ---
 
 # Publication Scout — Research Gap Discovery & Publication Approach Generator
