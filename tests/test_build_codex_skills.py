@@ -37,14 +37,14 @@ def test_build_codex_skills_generates_codex_layout(tmp_path):
 
     skill_text = rl_skill_md.read_text(encoding="utf-8")
     assert 'name: "rl-methodology"' in skill_text
-    assert 'description: "Comprehensive RL methodology' in skill_text
+    assert 'description: "Distilled RL methodology' in skill_text
     assert "layer:" not in skill_text
     assert "depends-on:" not in skill_text
     assert "# RL Methodology" in skill_text
 
     openai_text = rl_openai_yaml.read_text(encoding="utf-8")
     assert 'display_name: "RL Methodology"' in openai_text
-    assert 'short_description: "Comprehensive RL methodology' in openai_text
+    assert 'short_description: "Distilled RL methodology' in openai_text
     assert 'default_prompt: "Use the RL Methodology skill when relevant.' in openai_text
 
     book_skill = output_dir / "book-reader"

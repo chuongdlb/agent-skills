@@ -18,7 +18,7 @@
         "implementation",
         "stochastic-approximation"
       ],
-      "description": "Comprehensive RL methodology \u2014 mathematical analysis, convergence proofs, algorithm design patterns, and implementation templates grounded in Zhao's \"Mathematical Foundations of Reinforcement Learning.\"",
+      "description": "Distilled RL methodology \u2014 mathematical analysis, convergence proofs, algorithm design patterns, and implementation templates covering the full arc from Bellman equations and Bellman optimality through dynamic programming, Monte Carlo, stochastic approximation, and temporal-difference learning to function approximation, policy gradient, and actor-critic methods.",
       "reference-files": [
         "L0-theory/rl-methodology/knowledge-base/INDEX.md",
         "L0-theory/rl-methodology/knowledge-base/zhao-mathematical-foundations/00-overview.md",

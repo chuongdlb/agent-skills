@@ -22,7 +22,7 @@ A collection of **14 agent skills** organized by layer — theory, meta-orchestr
 │  Foundational RL/math knowledge (project-agnostic)                      │
 │  ┌──────────────────────────────────────────────────────────────────┐    │
 │  │ rl-methodology         Analysis, proofs, design patterns,       │    │
-│  │                        templates + KB (Zhao 2024)               │    │
+│  │                        templates + reference KB                 │    │
 │  │ rl-training-protocol   Project-agnostic deep-RL hygiene: env-   │    │
 │  │                        symmetry, init/schedule asserts, drift,  │    │
 │  │                        seed gating, mechanism attribution,      │    │

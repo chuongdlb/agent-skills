@@ -1,7 +1,7 @@
 ---
 name: rl-methodology
 description: >
-  Comprehensive RL methodology — mathematical analysis, convergence proofs, algorithm design patterns, and implementation templates grounded in Zhao's "Mathematical Foundations of Reinforcement Learning."
+  Distilled RL methodology — mathematical analysis, convergence proofs, algorithm design patterns, and implementation templates covering the full arc from Bellman equations and Bellman optimality through dynamic programming, Monte Carlo, stochastic approximation, and temporal-difference learning to function approximation, policy gradient, and actor-critic methods.
 layer: L0
 domain: [general-rl]
 source-project: Book-Mathematical-Foundation-of-RL
@@ -21,9 +21,81 @@ Invoke this skill when you need to:
 - Debug an RL implementation by checking mathematical correctness
 - Look up theoretical foundations (Bellman equations, SA conditions, policy gradient theorem)
 
-## Knowledge Base Navigation
+## The Distilled Core — Bellman Optimality to Actor-Critic
 
-The `knowledge-base/zhao-mathematical-foundations/` directory contains the full mathematical reference. Use this lookup table to find the right file:
+One chain runs through all of RL: every algorithm solves a Bellman-type equation under progressively weaker assumptions — first without a model, then without a table, then without an explicit value-derived policy.
+
+### 1. Bellman equation (what a policy is worth)
+```
+v_pi = r_pi + gamma * P_pi * v_pi                 (matrix-vector form)
+v_pi(s) = sum_a pi(a|s) * q_pi(s,a)
+q_pi(s,a) = E[R|s,a] + gamma * sum_{s'} p(s'|s,a) * v_pi(s')
+```
+Unique solution `v_pi = (I - gamma*P_pi)^{-1} r_pi` for gamma in [0,1). Iterating the right-hand side converges geometrically (rate gamma) — iterative policy evaluation.
+
+### 2. Bellman optimality equation (what the best policy is worth)
+```
+v = f(v) := max_pi (r_pi + gamma * P_pi * v)
+```
+`f` is a gamma-contraction in the sup-norm, so (contraction mapping theorem) it has a unique fixed point v*, reached from any v_0 by iteration. v* is the optimal value; any policy greedy w.r.t. v* is optimal, and a deterministic optimal policy always exists (finite MDP). Optimal policies are invariant to reward rescaling `alpha*r + beta` with `alpha > 0`.
+
+### 3. Dynamic programming (model known)
+- **Value iteration**: iterate `f` directly.
+- **Policy iteration**: solve the Bellman equation exactly, improve greedily; improvement is monotone and terminates in finitely many policies.
+- **Truncated PI** interpolates between them (j evaluation sweeps).
+
+All three are instances of **generalized policy iteration (GPI)** — the evaluate/improve loop that is the skeleton of every control algorithm below.
+
+### 4. Monte Carlo (drop the model)
+Values are expectations of returns, so estimate them as sample means over episodes (law of large numbers: unbiased, estimator variance ~ 1/n, but high per-sample variance and episode-granularity updates). Exploration must be forced: exploring starts, or epsilon-soft policies (converging to the best epsilon-soft policy).
+
+### 5. Stochastic approximation (the bridge to incremental algorithms)
+Robbins-Monro solves `g(w) = 0` from noisy evaluations:
+```
+w_{k+1} = w_k - a_k * g_tilde(w_k)
+converges a.s. if: sum a_k = inf, sum a_k^2 < inf,
+noise is zero-mean (martingale-difference) with bounded variance
+```
+Dvoretzky's theorem handles the error recursion `Delta_{k+1} = (1-a_k)*Delta_k + b_k*eta_k`; its extended form tolerates *biased* noise with `||E[eta|H]||_inf <= gamma*||Delta||_inf` — precisely the bias a max operator introduces. These two theorems carry every tabular convergence proof below.
+
+### 6. Temporal-difference methods (incremental, model-free)
+Every TD method is Robbins-Monro applied to a Bellman-type equation; they differ only in the target:
+
+| Algorithm | TD target | Equation solved | Policy class |
+|-----------|-----------|-----------------|--------------|
+| TD(0) | `r + gamma*v(s')` | Bellman expectation eq. (v_pi) | on-policy evaluation |
+| Sarsa | `r + gamma*q(s',a')` | Bellman eq. for q_pi | on-policy control (via GPI) |
+| Expected Sarsa | `r + gamma*E_pi[q(s',.)]` | same, lower target variance | on-policy |
+| n-step Sarsa | n rewards + bootstrap | interpolates Sarsa <-> MC | on-policy |
+| Q-learning | `r + gamma*max_a q(s',a)` | Bellman OPTIMALITY equation | **off-policy** |
+
+Q-learning is off-policy because its target references no behavior-policy quantity; its convergence needs the extended Dvoretzky theorem (biased noise from the max).
+
+### 7. Function approximation (drop the table)
+Minimize `J(w) = E_{S~d_pi}[(v_pi(S) - v_hat(S,w))^2]` by semi-gradient TD. The linear case converges to `w* = A^{-1} b` with `A = Phi^T D (I - gamma*P_pi) Phi` positive definite — the fixed point of the projected Bellman equation. Tabular is the special case phi(s) = one-hot. **Deadly triad**: function approximation + bootstrapping + off-policy can diverge. DQN makes deep off-policy Q-learning work empirically via experience replay + a target network.
+
+### 8. Policy gradient (drop the value-derived policy)
+Metrics: average value `v_bar_pi` and average reward `r_bar_pi`, with `r_bar_pi = (1-gamma) * v_bar_pi`. The policy gradient theorem:
+```
+grad J = sum_s eta(s) sum_a grad pi(a|s,theta) * q_pi(s,a)
+       = E_{S~eta, A~pi}[ grad ln pi(A|S,theta) * q_pi(S,A) ]
+```
+The ln-form makes the gradient sampleable (requires pi > 0 everywhere — hence softmax parameterizations). REINFORCE = this expression with q_pi estimated by Monte Carlo returns.
+
+### 9. Actor-critic (recombine value and policy)
+Critic = TD value estimation; actor = policy gradient ascent — GPI reappearing at the function level.
+- **Baseline invariance**: `E[grad ln pi(A|S) * b(S)] = 0` for any b(S), so subtract `b(s) = v_pi(s)`: the advantage `A(s,a) = q(s,a) - v(s)`, estimated unbiasedly by the TD error `delta = r + gamma*v(s') - v(s)` → **A2C**.
+- **Off-policy AC**: importance weight `pi(a|s,theta) / beta(a|s)` corrects the sampling distribution.
+- **Deterministic policies**: `grad J = E[ grad_theta mu(S,theta) * grad_a q(S,a)|_{a=mu(S)} ]` (DPG) — no ln-trick, inherently off-policy → DDPG (replay + target networks) → TD3/SAC refinements.
+
+### The three transitions
+1. **Model-based → model-free**: sample means replace expectations (MC, then TD).
+2. **Tabular → function approximation**: parameters replace table entries; updates generalize across states.
+3. **Value-based → policy-based → actor-critic**: the GPI loop survives every representation change.
+
+## Deep-Dive Reference Layer
+
+The `knowledge-base/` directory is the source-anchored layer behind this skill: full derivations, proofs, and worked examples, preserving the source's internal numbering for verifiability (current source: Zhao 2025 — see `knowledge-base/INDEX.md`; further sources can be added). The skill body above is source-agnostic; open a reference file only when a proof or derivation detail is needed:
 
 | Topic | KB File | Key Content |
 |-------|---------|-------------|
@@ -83,7 +155,7 @@ where g_tilde(w, eta) = g(w) + eta, E[eta|history] = 0
 **Dvoretzky form:** `Delta_{k+1} = (1 - alpha_k) * Delta_k + beta_k * eta_k`
 where Delta_k = w_k - w* is the error
 
-For Q-learning specifically, use the **Extended Dvoretzky** (Theorem 6.3):
+For Q-learning specifically, use the **extended Dvoretzky theorem**:
 - The expectation condition allows bias: `||E[eta_k | H_k]||_inf <= gamma * ||Delta_k||_inf`
 - This is critical because Q-learning's target contains the max operator
 
@@ -197,9 +269,9 @@ Clearly state:
 
 **Theorem 1: Contraction Mapping** — Let T: X → X be a contraction with modulus gamma in [0,1). Then T has a unique fixed point x*, and x_{k+1} = T(x_k) converges with rate gamma^k.
 
-**Theorem 2: Dvoretzky's (Thm 6.2)** — For Delta_{k+1} = (1-alpha_k)*Delta_k + beta_k*eta_k, if SA learning rates hold, sum(beta_k^2) < inf, E[eta_k|H_k] = 0, and E[eta_k^2|H_k] <= C, then Delta_k → 0 a.s.
+**Theorem 2: Dvoretzky** — For Delta_{k+1} = (1-alpha_k)*Delta_k + beta_k*eta_k, if SA learning rates hold, sum(beta_k^2) < inf, E[eta_k|H_k] = 0, and E[eta_k^2|H_k] <= C, then Delta_k → 0 a.s.
 
-**Theorem 3: Extended Dvoretzky (Thm 6.3)** — Same as above but allows biased noise: ||E[eta_k|H_k]||_inf <= gamma*||Delta_k||_inf. Critical for Q-learning convergence.
+**Theorem 3: Extended Dvoretzky** — Same as above but allows biased noise: ||E[eta_k|H_k]||_inf <= gamma*||Delta_k||_inf. Critical for Q-learning convergence.
 
 **Theorem 4: Robbins-Monro** — For w_{k+1} = w_k - alpha_k*g_tilde(w_k, eta_k), if g is monotone, SA learning rates hold, and noise is zero-mean, then w_k → w* a.s.
 
@@ -313,7 +385,7 @@ Any environment that implements the appropriate interface works with the corresp
 
 ---
 
-### Model-Based: Value Iteration (Algorithm 4.1)
+### Model-Based: Value Iteration
 ```python
 import numpy as np
 
@@ -342,7 +414,7 @@ def value_iteration(P, R, n_states, n_actions, gamma=0.9, theta=1e-6,
     return V, policy
 ```
 
-### Model-Based: Policy Iteration (Algorithm 4.2)
+### Model-Based: Policy Iteration
 ```python
 def policy_iteration(P, R, n_states, n_actions, gamma=0.9, theta=1e-6,
                      max_iter=1000):
@@ -372,7 +444,7 @@ def policy_iteration(P, R, n_states, n_actions, gamma=0.9, theta=1e-6,
     return V, policy
 ```
 
-### Model-Free: MC Epsilon-Greedy (Algorithm 5.3)
+### Model-Free: MC Epsilon-Greedy
 ```python
 def mc_epsilon_greedy(env, n_episodes=5000, gamma=0.9, epsilon=0.1,
                       max_steps=200):
@@ -409,7 +481,7 @@ def mc_epsilon_greedy(env, n_episodes=5000, gamma=0.9, epsilon=0.1,
     return Q, np.argmax(Q, axis=1)
 ```
 
-### Model-Free: Sarsa (Algorithm 7.1)
+### Model-Free: Sarsa
 ```python
 def sarsa(env, n_episodes=5000, gamma=0.9, alpha_0=0.5, epsilon_0=0.1,
           max_steps=200):
@@ -443,7 +515,7 @@ def sarsa(env, n_episodes=5000, gamma=0.9, alpha_0=0.5, epsilon_0=0.1,
     return Q, np.argmax(Q, axis=1)
 ```
 
-### Model-Free: Q-Learning (Algorithm 7.x)
+### Model-Free: Q-Learning
 ```python
 def q_learning(env, n_episodes=5000, gamma=0.9, alpha_0=0.5, epsilon_0=0.1,
                max_steps=200):
@@ -473,7 +545,7 @@ def q_learning(env, n_episodes=5000, gamma=0.9, alpha_0=0.5, epsilon_0=0.1,
     return Q, np.argmax(Q, axis=1)
 ```
 
-### Policy Gradient: REINFORCE (Algorithm 9.1)
+### Policy Gradient: REINFORCE
 ```python
 def reinforce(env, n_episodes=5000, gamma=0.99, alpha=0.01, max_steps=200):
     """theta += alpha * gamma^t * G_t * grad ln pi(a|s,theta)
@@ -510,7 +582,7 @@ def reinforce(env, n_episodes=5000, gamma=0.99, alpha=0.01, max_steps=200):
     return theta, softmax_policy
 ```
 
-### Actor-Critic: A2C (Algorithm 10.2)
+### Actor-Critic: A2C
 ```python
 def a2c(env, n_episodes=5000, gamma=0.99, alpha_theta=0.01, alpha_w=0.05,
         max_steps=200):
@@ -545,7 +617,7 @@ def a2c(env, n_episodes=5000, gamma=0.99, alpha_theta=0.01, alpha_w=0.05,
     return theta, w, softmax_policy
 ```
 
-### Function Approximation: TD(0) with Linear FA (Ch 8)
+### Function Approximation: TD(0) with Linear FA
 ```python
 def td_linear(env, feature_fn, n_episodes=5000, gamma=0.9, alpha_0=0.01,
               max_steps=200):
@@ -572,7 +644,7 @@ def td_linear(env, feature_fn, n_episodes=5000, gamma=0.9, alpha_0=0.01,
     return w
 ```
 
-### Deep RL: DQN (Algorithm 8.3 extended)
+### Deep RL: DQN
 ```python
 import torch
 import torch.nn as nn
@@ -642,26 +714,22 @@ def train_dqn(env, obs_dim, n_actions, n_episodes=10000, gamma=0.99,
 
 ---
 
-### Reference Environment: Zhao's 3x3 Grid World
+### Reference Environment: 3x3 Grid World
 
-Concrete implementation of the tabular MDP interface, matching the book's examples:
+Concrete implementation of the tabular MDP interface — the canonical small MDP used by the templates above:
 
 ```python
 class GridWorld:
-    """3x3 grid world from Zhao's 'Mathematical Foundations of RL' (Ch 1).
+    """Canonical 3x3 grid world (after Zhao, 'Mathematical Foundations of RL').
 
-    Book-faithful semantics (Sections 1.3 and 1.5):
-    - Forbidden cells are ACCESSIBLE but punished — the book explicitly
-      adopts this scenario ("the forbidden cells are accessible, although
-      stepping into them may get punished").
+    Semantics match the source exactly:
+    - Forbidden cells are ACCESSIBLE but punished (not blocked).
     - Attempting to cross the boundary bounces back with r_boundary.
     - Rewards: r_boundary = r_forbidden = -1, r_target = +1, 0 otherwise.
-    - The task is CONTINUING: the target is not terminal (staying at the
-      target keeps earning +1). Pass terminal_states explicitly if an
-      episodic variant is needed for episode-based algorithms.
+    - CONTINUING task: the target is not terminal (staying there keeps
+      earning +1). Pass terminal_states explicitly for an episodic variant.
 
-    Defaults reproduce the book's canonical layout (Figure 1.3):
-    forbidden s6, s7 and target s9 — 0-indexed states 5, 6 and 8.
+    Default layout: forbidden states 5, 6 and target 8 (0-indexed).
     Implements the tabular MDP interface: n_states, n_actions,
     step(s, a), is_terminal(s), sample_start().
     """
