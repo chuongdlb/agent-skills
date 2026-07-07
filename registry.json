@@ -18,7 +18,7 @@
         "implementation",
         "stochastic-approximation"
       ],
-      "description": "Distilled RL methodology \u2014 mathematical analysis, convergence proofs, algorithm design patterns, and implementation templates covering the full arc from Bellman equations and Bellman optimality through dynamic programming, Monte Carlo, stochastic approximation, and temporal-difference learning to function approximation, policy gradient, and actor-critic methods.",
+      "description": "Distilled RL methodology — mathematical analysis, convergence proofs, algorithm design patterns, and implementation templates covering the full arc from Bellman equations and Bellman optimality through dynamic programming, Monte Carlo, stochastic approximation, and temporal-difference learning to function approximation, policy gradient, and actor-critic methods.",
       "reference-files": [
         "L0-theory/rl-methodology/knowledge-base/INDEX.md",
         "L0-theory/rl-methodology/knowledge-base/zhao-mathematical-foundations/00-overview.md",
@@ -61,7 +61,7 @@
         "curriculum",
         "checkpointing"
       ],
-      "description": "General-purpose training-protocol hygiene for deep RL with parameterized simulators \u2014 env-generator invariance, init/schedule pre-flight assertions, late-training drift handling, multi-seed gating, mechanism-attribution discipline, and PPO/data-pipeline hygiene. Project-agnostic.",
+      "description": "General-purpose training-protocol hygiene for deep RL with parameterized simulators — env-generator invariance, init/schedule pre-flight assertions, late-training drift handling, multi-seed gating, mechanism-attribution discipline, and PPO/data-pipeline hygiene. Project-agnostic.",
       "reference-files": []
     },
     {
@@ -237,9 +237,12 @@
         "query",
         "research",
         "sota-lookup",
-        "comparison"
+        "comparison",
+        "bm25",
+        "retrieval",
+        "ranked-search"
       ],
-      "description": "Answer research questions against the knowledge base using structured lookups across topic files, paper cards, and the index.",
+      "description": "Answer research questions against the knowledge base using ranked BM25 search, curated topic files, paper cards, and structured registry filters.",
       "reference-files": []
     },
     {
