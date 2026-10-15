@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "total_skills": 14,
+  "total_skills": 15,
   "skills": [
     {
       "name": "rl-methodology",
@@ -313,6 +313,29 @@
         "orchestration"
       ],
       "description": "Discover publishable research sweet spots at keyword intersections via deep research, verify gaps against real literature, and output exactly 3 ISI/Scopus Q1/Q2 publication approaches with 5-Gates critical review.",
+      "reference-files": []
+    },
+    {
+      "name": "kb-survey",
+      "path": "meta/kb-survey",
+      "layer": "meta",
+      "domain": [
+        "general"
+      ],
+      "source-project": "papers-kb",
+      "depends-on": [
+        "kb-query"
+      ],
+      "tags": [
+        "knowledge-base",
+        "survey",
+        "related-work",
+        "quantification",
+        "visualization",
+        "bibliography",
+        "strands"
+      ],
+      "description": "Produce a quantified survey of a research trend or topic from the knowledge base: scope a slice of cards (strand, query or id list), generate the tables, figures and bibliography deterministically, then write the survey prose from them with every number and claim traceable to a card.",
       "reference-files": []
     }
   ]
